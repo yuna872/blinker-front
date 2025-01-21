@@ -8,17 +8,21 @@ import {
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Monitoring from "./pages/Monitoring";
+import { GlobalStyles } from "@mui/material";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/monitoring" element={<Monitoring />} />
-      </Routes>
-    </Router>
+    <>
+      <GlobalStyles styles={{ body: { margin: 0 } }} />
+      <Router>
+        <Routes>
+          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/monitoring" element={<Monitoring />} />
+        </Routes>
+      </Router>
+    </>
   );
 }
 
