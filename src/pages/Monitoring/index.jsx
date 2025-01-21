@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Main.css";
+import Header from "../../components/Header";
 
 const Monitoring = () => {
   const [signalList, setSignalList] = useState([]);
@@ -131,23 +132,10 @@ const Monitoring = () => {
     setIsRoadviewActive((prev) => !prev);
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("Authorization");
-    alert("로그아웃 되었습니다. 로그인 페이지로 이동합니다.");
-    window.location.href = "/login";
-  };
-
   return (
     <div>
-      <header>
-        <div className="gnb">
-          <div className="logo">Osan 스마트 음향 신호기 모니터링</div>
-          <div className="logout">
-            <button onClick={handleLogout}>로그아웃</button>
-          </div>
-        </div>
-      </header>
-      <main>
+      <Header />
+      <div>
         <aside className="lnb">
           <div className="lnb-header">
             <h2>신호기 목록</h2>
@@ -208,7 +196,7 @@ const Monitoring = () => {
             </ul>
           </div>
         </section>
-      </main>
+      </div>
     </div>
   );
 };
