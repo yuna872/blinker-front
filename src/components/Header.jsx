@@ -1,9 +1,11 @@
 import { Stack, Typography } from "@mui/material";
 import React from "react";
 import { theme } from "../styles/theme";
+import { Link } from "react-router-dom";
 const GNB_HEIGHT = 50;
 
 const Header = () => {
+  const isAdmin = false;
   const isLogin = localStorage.getItem("Authorization");
 
   const handleClickLogout = () => {
@@ -21,18 +23,29 @@ const Header = () => {
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        "& p": {
+        "& p, a": {
           color: "white",
+          textDecoration: "none",
+          fontWeight: 600,
         },
       }}
     >
-      <Typography sx={{ color: "white", fontWeight: 600, fontSize: "18px" }}>
-        Osan 스마트 음향 신호기 모니터링
-      </Typography>
+      {isAdmin ? (
+        <Stack sx={{ flexDirection: "row", gap: "20px" }}>
+          <Link to="#">모니터링</Link>
+          <Link to="#">센서위치</Link>
+          <Link to="#">설정</Link>
+          <Link to="#">그룹관리</Link>
+        </Stack>
+      ) : (
+        <Typography sx={{ fontSize: "18px" }}>
+          Osan 스마트 음향 신호기 모니터링
+        </Typography>
+      )}
       {true && (
         <Typography
           onClick={handleClickLogout}
-          sx={{ cursor: "pointer", ":hover": { scale: 1.03 } }}
+          sx={{ cursor: "pointer", ":hover": { scale: 1.01 } }}
         >
           로그아웃
         </Typography>
