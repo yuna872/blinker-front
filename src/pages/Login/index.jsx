@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import '../styles/Login.css';
+import React, { useState } from "react";
+import "./Login.css";
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    username: '',
-    password: '',
+    username: "",
+    password: "",
   });
 
   const handleChange = (e) => {
@@ -18,22 +18,22 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:8080/auth/sign-in', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("http://localhost:8080/auth/sign-in", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
       const data = await response.json();
-      if (data.code === 'SUCCESS') {
-        localStorage.setItem('Authorization', `Bearer ${data.response}`);
-        alert('로그인 성공!');
-        window.location.href = '/main';
+      if (data.code === "SUCCESS") {
+        localStorage.setItem("Authorization", `Bearer ${data.response}`);
+        alert("로그인 성공!");
+        window.location.href = "/main";
       } else {
-        alert(data.message || '로그인 실패');
+        alert(data.message || "로그인 실패");
       }
     } catch (error) {
-      alert('로그인 중 오류가 발생했습니다.');
+      alert("로그인 중 오류가 발생했습니다.");
     }
   };
 

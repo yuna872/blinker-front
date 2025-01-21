@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import '../styles/Main.css';
+import React, { useEffect, useState } from "react";
+import "./Main.css";
 
-const Main = () => {
+const Monitoring = () => {
   const [signalList, setSignalList] = useState([]);
   const [map, setMap] = useState(null);
   const [clusterer, setClusterer] = useState(null);
@@ -11,16 +11,16 @@ const Main = () => {
   const [roadviewPosition, setRoadviewPosition] = useState(null);
 
   const statusColors = {
-    정상: 'green',
-    오류: 'red',
-    미접속: 'yellow',
+    정상: "green",
+    오류: "red",
+    미접속: "yellow",
   };
 
   // 지도 및 로드뷰 초기화
   useEffect(() => {
-    if (typeof window.kakao !== 'undefined') {
-      const mapContainer = document.getElementById('map');
-      const roadviewContainer = document.getElementById('roadview');
+    if (typeof window.kakao !== "undefined") {
+      const mapContainer = document.getElementById("map");
+      const roadviewContainer = document.getElementById("roadview");
       const mapOption = {
         center: new window.kakao.maps.LatLng(37.2803, 127.0181),
         level: 6,
@@ -37,35 +37,37 @@ const Main = () => {
         minLevel: 6,
         styles: [
           {
-            width: '53px',
-            height: '52px',
-            background: 'rgba(255, 153, 0, 0.7)',
-            color: '#fff',
-            textAlign: 'center',
-            lineHeight: '54px',
-            borderRadius: '50%',
+            width: "53px",
+            height: "52px",
+            background: "rgba(255, 153, 0, 0.7)",
+            color: "#fff",
+            textAlign: "center",
+            lineHeight: "54px",
+            borderRadius: "50%",
           },
         ],
       });
       setClusterer(clustererInstance);
 
       // 로드뷰 및 로드뷰 클라이언트 객체 초기화
-      const roadviewInstance = new window.kakao.maps.Roadview(roadviewContainer);
+      const roadviewInstance = new window.kakao.maps.Roadview(
+        roadviewContainer
+      );
       const roadviewClientInstance = new window.kakao.maps.RoadviewClient();
       setRoadview(roadviewInstance);
       setRoadviewClient(roadviewClientInstance);
     } else {
-      console.error('Kakao map library not loaded.');
+      console.error("Kakao map library not loaded.");
     }
   }, []);
 
   // API 호출 및 마커 추가
   useEffect(() => {
     if (map && clusterer) {
-      fetch('http://localhost:8080/api/sensors', {
-        method: 'GET',
+      fetch("http://localhost:8080/api/sensors", {
+        method: "GET",
         headers: {
-          Authorization: localStorage.getItem('Authorization'),
+          Authorization: localStorage.getItem("Authorization"),
         },
       })
         .then((response) => {
@@ -81,7 +83,10 @@ const Main = () => {
             const markers = data.response.map((signal) => {
               if (!signal.latitude || !signal.longitude) return null;
 
-              const position = new window.kakao.maps.LatLng(signal.latitude, signal.longitude);
+              const position = new window.kakao.maps.LatLng(
+                signal.latitude,
+                signal.longitude
+              );
               const markerImage = new window.kakao.maps.MarkerImage(
                 `/images/marker-${statusColors[signal.status]}-icon.png`,
                 new window.kakao.maps.Size(20, 35)
@@ -93,9 +98,11 @@ const Main = () => {
               });
 
               // 마커 클릭 이벤트 추가
-              window.kakao.maps.event.addListener(marker, 'click', function () {
+              window.kakao.maps.event.addListener(marker, "click", function () {
                 setRoadviewPosition(position); // 로드뷰 좌표 저장
-                alert(`센서 ID: ${signal.sensorId}\n상태: ${signal.status}\n주소: ${signal.address}`);
+                alert(
+                  `센서 ID: ${signal.sensorId}\n상태: ${signal.status}\n주소: ${signal.address}`
+                );
               });
 
               return marker;
@@ -104,10 +111,10 @@ const Main = () => {
             // 유효한 마커만 클러스터러에 추가
             clusterer.addMarkers(markers.filter(Boolean));
           } else {
-            console.error('Unexpected data format:', data);
+            console.error("Unexpected data format:", data);
           }
         })
-        .catch((error) => console.error('Error fetching sensor data:', error));
+        .catch((error) => console.error("Error fetching sensor data:", error));
     }
   }, [map, clusterer]);
 
@@ -115,7 +122,7 @@ const Main = () => {
   const toggleView = () => {
     if (roadviewClient && roadviewPosition) {
       // 로드뷰의 위치를 마커 클릭 위치로 설정
-      roadviewClient.getNearestPanoId(roadviewPosition, 50, function(panoId) {
+      roadviewClient.getNearestPanoId(roadviewPosition, 50, function (panoId) {
         if (panoId) {
           roadview.setPanoId(panoId, roadviewPosition); // 로드뷰 파노 ID와 위치 설정
         }
@@ -125,9 +132,9 @@ const Main = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('Authorization');
-    alert('로그아웃 되었습니다. 로그인 페이지로 이동합니다.');
-    window.location.href = '/login';
+    localStorage.removeItem("Authorization");
+    alert("로그아웃 되었습니다. 로그인 페이지로 이동합니다.");
+    window.location.href = "/login";
   };
 
   return (
@@ -164,17 +171,27 @@ const Main = () => {
                 <div>{signal.signalGuideCount}</div>
                 <div>{new Date(signal.createdAt).toLocaleString()}</div>
                 <div>
-                  <span className={`status-icon ${statusColors[signal.status]}`}></span>
+                  <span
+                    className={`status-icon ${statusColors[signal.status]}`}
+                  ></span>
                 </div>
               </div>
             ))}
           </div>
         </aside>
         <section className="map-container">
-          <div style={{ display: isRoadviewActive ? 'none' : 'block' }} id="map" className="map"></div>
-          <div style={{ display: isRoadviewActive ? 'block' : 'none' }} id="roadview" className="roadview"></div>
+          <div
+            style={{ display: isRoadviewActive ? "none" : "block" }}
+            id="map"
+            className="map"
+          ></div>
+          <div
+            style={{ display: isRoadviewActive ? "block" : "none" }}
+            id="roadview"
+            className="roadview"
+          ></div>
           <button onClick={toggleView} className="toggle-view">
-            {isRoadviewActive ? '지도 보기' : '로드뷰 보기'}
+            {isRoadviewActive ? "지도 보기" : "로드뷰 보기"}
           </button>
           <div className="legend">
             <h3>범례</h3>
@@ -196,4 +213,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default Monitoring;
