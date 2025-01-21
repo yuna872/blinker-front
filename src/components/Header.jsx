@@ -1,5 +1,6 @@
 import { Stack, Typography } from "@mui/material";
 import React from "react";
+import { theme } from "../styles/theme";
 const GNB_HEIGHT = 50;
 
 const Header = () => {
@@ -14,7 +15,7 @@ const Header = () => {
   return (
     <Stack
       sx={{
-        backgroundColor: "#6002ee",
+        backgroundColor: theme.palette.primary.main,
         minHeight: `${GNB_HEIGHT}px`,
         padding: "0 15px",
         flexDirection: "row",

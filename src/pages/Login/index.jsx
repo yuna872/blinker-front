@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "./Login.css";
+import { Button, Stack, Typography } from "@mui/material";
+import { TextField } from "../../components/TextField";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -16,6 +17,12 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const { username, password } = formData;
+    if (username === "" || password === "") {
+      alert("아이디, 비밀번호를 입력해주세요");
+      return;
+    }
 
     try {
       const response = await fetch("http://localhost:8080/auth/sign-in", {
@@ -38,32 +45,58 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
-      <form onSubmit={handleSubmit}>
-        <h2>로그인</h2>
-        <label>
-          아이디:
-          <input
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <label>
-          암호:
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <button type="submit">로그인</button>
-      </form>
-    </div>
+    <Stack
+      sx={{
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        backgroundColor: "#f9f9f9",
+      }}
+    >
+      <Stack
+        sx={{
+          width: "300px",
+          padding: "20px",
+          margin: "auto",
+          borderRadius: "8px",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+          alignItems: "center",
+          gap: "20px",
+          backgroundColor: "#fff",
+        }}
+      >
+        <Typography sx={{ fontSize: "24px", fontWeight: 600 }}>
+          로그인
+        </Typography>
+        <Stack sx={{ gap: "10px", width: "100%" }}>
+          <Stack>
+            <Typography>아이디</Typography>
+            <TextField
+              type="text"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+            />
+          </Stack>
+          <Stack>
+            <Typography>암호</Typography>
+            <TextField
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+            />
+          </Stack>
+        </Stack>
+        <Button
+          onClick={handleSubmit}
+          variant="contained"
+          sx={{ width: "100%" }}
+        >
+          로그인
+        </Button>
+      </Stack>
+    </Stack>
   );
 };
 
