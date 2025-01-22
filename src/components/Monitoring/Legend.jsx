@@ -15,9 +15,13 @@ const Legend = () => {
         gap: "10px",
         borderRadius: "5px",
         boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+        position: "absolute",
+        bottom: "30px",
+        left: "15px",
+        zIndex: 2,
       }}
     >
-      <Typography sx={{ fontSize: "16px" }}>범례</Typography>
+      <Typography sx={{ fontSize: "14px" }}>범례</Typography>
       <Stack sx={{ gap: "7px" }}>
         {Object.entries(STATUS).map(([key, color]) => {
           return (
@@ -34,7 +38,7 @@ const Legend = () => {
                   backgroundColor: `${color}`,
                 }}
               />
-              <Typography sx={{ fontSize: "14px" }}>{key}</Typography>
+              <Typography sx={{ fontSize: "16px" }}>{key}</Typography>
             </Stack>
           );
         })}

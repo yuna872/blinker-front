@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import Header from "../../components/Header";
+import Header, { GNB_HEIGHT } from "../../components/Header";
 import {
   Box,
   Stack,
@@ -11,6 +11,10 @@ import {
   Typography,
 } from "@mui/material";
 import Legend, { STATUS } from "../../components/Monitoring/Legend";
+import { Map, ZoomControl } from "react-kakao-maps-sdk";
+import Title from "../../components/Title";
+import { bottom } from "@popperjs/core";
+import zIndex from "@mui/material/styles/zIndex";
 
 const Monitoring = () => {
   const [signalList, setSignalList] = useState([]);
@@ -127,7 +131,7 @@ const Monitoring = () => {
       <Stack sx={{ flexDirection: "row" }}>
         {/* 신호기 목록 */}
         <Stack>
-          <Typography>신호기 목록</Typography>
+          <Title title="신호기 목록" />
           <Table>
             <TableHead>
               <TableRow>
@@ -162,6 +166,23 @@ const Monitoring = () => {
           </Table>
         </Stack>
         {/* 카카오맵 */}
+        <Stack
+          sx={{
+            flex: "1",
+            position: "relative",
+            maxHeight: `calc(100vh - ${GNB_HEIGHT}px)`,
+          }}
+        >
+          <Title title="지도보기" />
+          <Map
+            center={{ lat: 37.2803, lng: 127.0181 }}
+            level={6}
+            style={{ width: "100%", height: `calc(100vh - ${GNB_HEIGHT}px)` }}
+          >
+            <ZoomControl />
+          </Map>
+          <Legend />
+        </Stack>
       </Stack>
       {/* <div>
         <section className="map-container">
@@ -181,7 +202,6 @@ const Monitoring = () => {
           
         </section>
       </div> */}
-      <Legend />
     </Stack>
   );
 };
