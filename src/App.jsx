@@ -1,27 +1,15 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import Monitoring from "./pages/Monitoring";
+import { RouterProvider } from "react-router-dom";
 import { GlobalStyles } from "@mui/material";
+import router from "./layouts/router";
+import Header from "./components/Header";
 
 function App() {
   return (
     <>
       <GlobalStyles styles={{ body: { margin: 0 } }} />
-      <Router>
-        <Routes>
-          <Route path="/" element={<Navigate to="/login" />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/monitoring" element={<Monitoring />} />
-        </Routes>
-      </Router>
+      <Header />
+      <RouterProvider router={router} />
     </>
   );
 }
