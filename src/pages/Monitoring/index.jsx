@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Header, { GNB_HEIGHT } from "../../components/Header";
 import {
   Box,
+  Button,
   Stack,
   Table,
   TableBody,
@@ -11,7 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import Legend, { STATUS } from "../../components/Monitoring/Legend";
-import { Map, ZoomControl } from "react-kakao-maps-sdk";
+import { Map, Roadview, ZoomControl } from "react-kakao-maps-sdk";
 import Title from "../../components/Title";
 import { bottom } from "@popperjs/core";
 import zIndex from "@mui/material/styles/zIndex";
@@ -137,9 +138,9 @@ const Monitoring = () => {
               <TableRow>
                 <TableCell>ID</TableCell>
                 <TableCell>주소</TableCell>
-                <TableCell>버튼 클릭</TableCell>
-                <TableCell>위치 안내</TableCell>
-                <TableCell>신호 안내</TableCell>
+                <TableCell>버튼</TableCell>
+                <TableCell>위치안내</TableCell>
+                <TableCell>신호안내</TableCell>
                 <TableCell>생성일</TableCell>
                 <TableCell>상태</TableCell>
               </TableRow>
@@ -174,34 +175,40 @@ const Monitoring = () => {
           }}
         >
           <Title title="지도보기" />
-          <Map
-            center={{ lat: 37.2803, lng: 127.0181 }}
-            level={6}
-            style={{ width: "100%", height: `calc(100vh - ${GNB_HEIGHT}px)` }}
+          {isRoadviewActive ? (
+            <Roadview
+              position={{ lat: 37.2803, lng: 127.0181, radius: 50 }}
+              style={{ width: "100%", height: `calc(100vh - ${GNB_HEIGHT}px)` }}
+            />
+          ) : (
+            <>
+              <Map
+                center={{ lat: 37.2803, lng: 127.0181 }}
+                level={6}
+                style={{
+                  width: "100%",
+                  height: `calc(100vh - ${GNB_HEIGHT}px)`,
+                }}
+              >
+                <ZoomControl />
+              </Map>
+              <Legend />
+            </>
+          )}
+          <Button
+            onClick={toggleView}
+            variant="contained"
+            sx={{
+              position: "absolute",
+              top: "65px",
+              right: isRoadviewActive ? "10px" : "50px",
+              zIndex: 2,
+            }}
           >
-            <ZoomControl />
-          </Map>
-          <Legend />
+            {isRoadviewActive ? "지도 보기" : "로드뷰 보기"}
+          </Button>
         </Stack>
       </Stack>
-      {/* <div>
-        <section className="map-container">
-          <div
-            ref={mapContainerRef}
-            style={{ display: isRoadviewActive ? "none" : "block" }}
-            className="map"
-          ></div>
-          <div
-            ref={roadviewContainerRef}
-            style={{ display: isRoadviewActive ? "block" : "none" }}
-            className="roadview"
-          ></div>
-          <button onClick={toggleView} className="toggle-view">
-            {isRoadviewActive ? "지도 보기" : "로드뷰 보기"}
-          </button>
-          
-        </section>
-      </div> */}
     </Stack>
   );
 };
