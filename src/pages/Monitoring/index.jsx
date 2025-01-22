@@ -36,92 +36,85 @@ const Monitoring = () => {
   };
 
   return (
-    <Stack sx={{ margin: "0px" }}>
-      <Header />
-      <Stack sx={{ flexDirection: "row" }}>
-        {/* 신호기 목록 */}
-        <Stack>
-          <Title title="신호기 목록" />
-          <SignalLightTable signalLights={signalLights} />
-        </Stack>
-        {/* 카카오맵 */}
-        <Stack
+    <Stack sx={{ flexDirection: "row" }}>
+      {/* 신호기 목록 */}
+      <Stack>
+        <Title title="신호기 목록" />
+        <SignalLightTable signalLights={signalLights} />
+      </Stack>
+      {/* 카카오맵 */}
+      <Stack
+        sx={{
+          flex: "1",
+          position: "relative",
+          maxHeight: `calc(100vh - ${GNB_HEIGHT}px)`,
+        }}
+      >
+        <Title title="지도보기" />
+        {isRoadviewActive ? (
+          <Roadview
+            position={{
+              lat: selectedMarker.latitude,
+              lng: selectedMarker.longitude,
+              radius: 50,
+            }}
+            style={{ width: "100%", height: `calc(100vh - ${GNB_HEIGHT}px)` }}
+          />
+        ) : (
+          <>
+            <Map
+              center={{ lat: 37.2803, lng: 127.0181 }}
+              level={6}
+              style={{
+                width: "100%",
+                height: `calc(100vh - ${GNB_HEIGHT}px)`,
+              }}
+            >
+              <ZoomControl />
+              <MarkerClusterer averageCenter={true} minLevel={6} gridSize={35}>
+                {signalLights.map((marker) => {
+                  return (
+                    <MapMarker
+                      key={`${marker.latitude}-${marker.longitude}`}
+                      position={{
+                        lat: marker.latitude,
+                        lng: marker.longitude,
+                      }}
+                      image={{
+                        src:
+                          marker.status === "정상"
+                            ? greenMarker
+                            : marker.status === "오류"
+                            ? redMarker
+                            : yellowMarker,
+                        size: {
+                          width: 30,
+                          height: 30,
+                        },
+                      }}
+                      onClick={() => handleClickMarker(marker)}
+                      // title={`(${pos.lat}, ${pos.lng})`}
+                    />
+                  );
+                })}
+              </MarkerClusterer>
+            </Map>
+            <Legend />
+          </>
+        )}
+        <Button
+          onClick={toggleView}
+          variant="contained"
+          color="secondary"
           sx={{
-            flex: "1",
-            position: "relative",
-            maxHeight: `calc(100vh - ${GNB_HEIGHT}px)`,
+            position: "absolute",
+            top: "65px",
+            right: isRoadviewActive ? "10px" : "50px",
+            zIndex: 2,
           }}
         >
-          <Title title="지도보기" />
-          {isRoadviewActive ? (
-            <Roadview
-              position={{
-                lat: selectedMarker.latitude,
-                lng: selectedMarker.longitude,
-                radius: 50,
-              }}
-              style={{ width: "100%", height: `calc(100vh - ${GNB_HEIGHT}px)` }}
-            />
-          ) : (
-            <>
-              <Map
-                center={{ lat: 37.2803, lng: 127.0181 }}
-                level={6}
-                style={{
-                  width: "100%",
-                  height: `calc(100vh - ${GNB_HEIGHT}px)`,
-                }}
-              >
-                <ZoomControl />
-                <MarkerClusterer
-                  averageCenter={true}
-                  minLevel={6}
-                  gridSize={35}
-                >
-                  {signalLights.map((marker) => {
-                    return (
-                      <MapMarker
-                        key={`${marker.latitude}-${marker.longitude}`}
-                        position={{
-                          lat: marker.latitude,
-                          lng: marker.longitude,
-                        }}
-                        image={{
-                          src:
-                            marker.status === "정상"
-                              ? greenMarker
-                              : marker.status === "오류"
-                              ? redMarker
-                              : yellowMarker,
-                          size: {
-                            width: 30,
-                            height: 30,
-                          },
-                        }}
-                        onClick={() => handleClickMarker(marker)}
-                        // title={`(${pos.lat}, ${pos.lng})`}
-                      />
-                    );
-                  })}
-                </MarkerClusterer>
-              </Map>
-              <Legend />
-            </>
-          )}
-          <Button
-            onClick={toggleView}
-            variant="contained"
-            color="secondary"
-            sx={{
-              position: "absolute",
-              top: "65px",
-              right: isRoadviewActive ? "10px" : "50px",
-              zIndex: 2,
-            }}
-          >
-            {isRoadviewActive ? "지도 보기" : "로드뷰 보기"}
-          </Button>
-        </Stack>
+          {isRoadviewActive ? "지도 보기" : "로드뷰 보기"}
+        </Button>
       </Stack>
     </Stack>
   );
