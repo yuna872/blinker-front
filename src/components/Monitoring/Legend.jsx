@@ -1,9 +1,9 @@
 import { Box, Stack, Typography } from "@mui/material";
 
 export const STATUS = {
-  정상: "green",
-  오류: "red",
-  미접속: "yellow",
+  정상: "#00BB00",
+  오류: "#FF3C3C",
+  미접속: "#FCC419",
 };
 
 const Legend = () => {

@@ -1,125 +1,34 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import Header, { GNB_HEIGHT } from "../../components/Header";
+import { Button, Stack } from "@mui/material";
+import Legend from "../../components/Monitoring/Legend";
 import {
-  Box,
-  Button,
-  Stack,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Typography,
-} from "@mui/material";
-import Legend, { STATUS } from "../../components/Monitoring/Legend";
-import { Map, Roadview, ZoomControl } from "react-kakao-maps-sdk";
+  Map,
+  MapMarker,
+  MarkerClusterer,
+  Roadview,
+  ZoomControl,
+} from "react-kakao-maps-sdk";
 import Title from "../../components/Title";
-import { bottom } from "@popperjs/core";
-import zIndex from "@mui/material/styles/zIndex";
+import greenMarker from "../../assets/images/marker-green.png";
+import yellowMarker from "../../assets/images/marker-yellow.png";
+import redMarker from "../../assets/images/marker-red.png";
+import SignalLightTable from "../../components/Monitoring/SignalLightTable";
+import { dummySignalLights } from "./dummy";
 
 const Monitoring = () => {
-  const [signalList, setSignalList] = useState([]);
-  const [map, setMap] = useState(null);
-  const [clusterer, setClusterer] = useState(null);
+  const [signalLights, setSignalLights] = useState(dummySignalLights);
   const [isRoadviewActive, setIsRoadviewActive] = useState(false);
-  const [roadviewPosition, setRoadviewPosition] = useState(null);
+  const [selectedMarker, setSelectedMarker] = useState();
 
-  const mapContainerRef = useRef(null);
-  const roadviewContainerRef = useRef(null);
+  // 1. 센서 api 호출 -> 응답 값으로 signalList 받음
+  // 2. signalList의 정점들 마커로 표시 (position, image)
+  // 3. 마커 클릭 이벤트 -> 로드뷰 position setting
+  // 마커클릭 -> 로드뷰 보기 클릭 -> 클릭된 마커의 position에서 로드뷰 보기?
 
-  // 지도 및 로드뷰 초기화
-  // useEffect(() => {
-  //   if (typeof window.kakao !== "undefined") {
-  //     const mapOption = {
-  //       center: new window.kakao.maps.LatLng(37.2803, 127.0181),
-  //       level: 6,
-  //     };
-
-  //     const mapInstance = new window.kakao.maps.Map(
-  //       mapContainerRef.current,
-  //       mapOption
-  //     );
-  //     setMap(mapInstance);
-
-  //     const clustererInstance = new window.kakao.maps.MarkerClusterer({
-  //       map: mapInstance,
-  //       gridSize: 35,
-  //       averageCenter: true,
-  //       minLevel: 6,
-  //       styles: [
-  //         {
-  //           width: "53px",
-  //           height: "52px",
-  //           background: "rgba(255, 153, 0, 0.7)",
-  //           color: "#fff",
-  //           textAlign: "center",
-  //           lineHeight: "54px",
-  //           borderRadius: "50%",
-  //         },
-  //       ],
-  //     });
-  //     setClusterer(clustererInstance);
-  //   } else {
-  //     console.error("Kakao map library not loaded.");
-  //   }
-  // }, []);
-
-  // API 호출 및 마커 추가
-  // useEffect(() => {
-  //   if (map && clusterer) {
-  //     fetch("http://localhost:8080/api/sensors", {
-  //       method: "GET",
-  //       headers: {
-  //         Authorization: localStorage.getItem("Authorization"),
-  //       },
-  //     })
-  //       .then((response) => {
-  //         if (!response.ok) {
-  //           throw new Error(`HTTP error! status: ${response.status}`);
-  //         }
-  //         return response.json();
-  //       })
-  //       .then((data) => {
-  //         if (Array.isArray(data.response)) {
-  //           setSignalList(data.response);
-
-  //           const markers = data.response.map((signal) => {
-  //             if (!signal.latitude || !signal.longitude) return null;
-
-  //             const position = new window.kakao.maps.LatLng(
-  //               signal.latitude,
-  //               signal.longitude
-  //             );
-  //             const markerImage = new window.kakao.maps.MarkerImage(
-  //               `/images/marker-${STATUS[signal.status]}-icon.png`,
-  //               new window.kakao.maps.Size(20, 35)
-  //             );
-
-  //             const marker = new window.kakao.maps.Marker({
-  //               position,
-  //               image: markerImage,
-  //             });
-
-  //             // 마커 클릭 이벤트 추가
-  //             window.kakao.maps.event.addListener(marker, "click", function () {
-  //               setRoadviewPosition(position); // 로드뷰 좌표 저장
-  //               alert(
-  //                 `센서 ID: ${signal.sensorId}\n상태: ${signal.status}\n주소: ${signal.address}`
-  //               );
-  //             });
-
-  //             return marker;
-  //           });
-
-  //           // 유효한 마커만 클러스터러에 추가
-  //           clusterer.addMarkers(markers.filter(Boolean));
-  //         } else {
-  //           console.error("Unexpected data format:", data);
-  //         }
-  //       })
-  //       .catch((error) => console.error("Error fetching sensor data:", error));
-  //   }
-  // }, [map, clusterer]);
+  const handleClickMarker = (marker) => {
+    setSelectedMarker(marker);
+  };
 
   // 로드뷰 보기 버튼 클릭 시 위치 설정
   const toggleView = () => {
@@ -133,38 +42,7 @@ const Monitoring = () => {
         {/* 신호기 목록 */}
         <Stack>
           <Title title="신호기 목록" />
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>ID</TableCell>
-                <TableCell>주소</TableCell>
-                <TableCell>버튼</TableCell>
-                <TableCell>위치안내</TableCell>
-                <TableCell>신호안내</TableCell>
-                <TableCell>생성일</TableCell>
-                <TableCell>상태</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {signalList.map((signal) => (
-                <TableRow key={signal.sensorId} className="signal-card">
-                  <TableCell>{signal.sensorId}</TableCell>
-                  <TableCell>{signal.address}</TableCell>
-                  <TableCell>{signal.buttonClickCount}</TableCell>
-                  <TableCell>{signal.locationGuideCount}</TableCell>
-                  <TableCell>{signal.signalGuideCount}</TableCell>
-                  <TableCell>
-                    {new Date(signal.createdAt).toLocaleString()}
-                  </TableCell>
-                  <TableCell>
-                    <Typography
-                      className={`status-icon ${STATUS[signal.status]}`}
-                    ></Typography>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+          <SignalLightTable signalLights={signalLights} />
         </Stack>
         {/* 카카오맵 */}
         <Stack
@@ -177,7 +55,11 @@ const Monitoring = () => {
           <Title title="지도보기" />
           {isRoadviewActive ? (
             <Roadview
-              position={{ lat: 37.2803, lng: 127.0181, radius: 50 }}
+              position={{
+                lat: selectedMarker.latitude,
+                lng: selectedMarker.longitude,
+                radius: 50,
+              }}
               style={{ width: "100%", height: `calc(100vh - ${GNB_HEIGHT}px)` }}
             />
           ) : (
@@ -191,6 +73,37 @@ const Monitoring = () => {
                 }}
               >
                 <ZoomControl />
+                <MarkerClusterer
+                  averageCenter={true}
+                  minLevel={6}
+                  gridSize={35}
+                >
+                  {signalLights.map((marker) => {
+                    return (
+                      <MapMarker
+                        key={`${marker.latitude}-${marker.longitude}`}
+                        position={{
+                          lat: marker.latitude,
+                          lng: marker.longitude,
+                        }}
+                        image={{
+                          src:
+                            marker.status === "정상"
+                              ? greenMarker
+                              : marker.status === "오류"
+                              ? redMarker
+                              : yellowMarker,
+                          size: {
+                            width: 30,
+                            height: 30,
+                          },
+                        }}
+                        onClick={() => handleClickMarker(marker)}
+                        // title={`(${pos.lat}, ${pos.lng})`}
+                      />
+                    );
+                  })}
+                </MarkerClusterer>
               </Map>
               <Legend />
             </>
@@ -198,6 +111,7 @@ const Monitoring = () => {
           <Button
             onClick={toggleView}
             variant="contained"
+            color="secondary"
             sx={{
               position: "absolute",
               top: "65px",

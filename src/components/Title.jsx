@@ -3,7 +3,15 @@ import { grey } from "@mui/material/colors";
 
 const Title = ({ title }) => {
   return (
-    <Stack sx={{ padding: "15px 10px", alignItems: "center", flexDirection: "row", borderBottom:`1px solid ${grey[300]}` }}>
+    <Stack
+      sx={{
+        padding: "15px",
+        alignItems: "center",
+        flexDirection: "row",
+        borderBottom: `1px solid ${grey[300]}`,
+        borderRight: `1px solid ${grey[200]}`,
+      }}
+    >
       <Typography sx={{ fontSize: "16px", fontWeight: 600, color: grey[900] }}>
         {title}
       </Typography>
