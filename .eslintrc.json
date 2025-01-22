@@ -1,5 +1,10 @@
 {
-    "globals": {
-      "kakao": "readonly"
-    }
+  "globals": {
+    "kakao": "readonly"
+  },
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "extends": ["react-app"]
 }
