@@ -4,15 +4,21 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  Typography,
 } from "@mui/material";
-import { STATUS } from "./Legend";
+import { grey } from "@mui/material/colors";
 
 const SignalLightTable = ({ signalLights }) => {
   return (
     <Table>
       <TableHead>
-        <TableRow>
+        <TableRow
+          sx={{
+            "& > .MuiTableCell-root": {
+              backgroundColor: grey[50],
+              fontWeight: 600,
+            },
+          }}
+        >
           <TableCell>ID</TableCell>
           <TableCell>주소</TableCell>
           <TableCell>버튼</TableCell>
