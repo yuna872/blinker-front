@@ -1,11 +1,22 @@
 import { Stack, Typography } from "@mui/material";
 import React from "react";
 import { theme } from "../styles/theme";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { grey } from "@mui/material/colors";
 export const GNB_HEIGHT = 50;
 
-const Header = ({isAdmin}) => {
+const Header = ({ isAdmin }) => {
   const isLogin = localStorage.getItem("Authorization");
+
+  const links = [
+    { to: "/admin/monitoring", label: "모니터링" },
+    { to: "/admin/sensors", label: "센서위치" },
+    { to: "/admin/settings", label: "설정" },
+    { to: "/admin/group", label: "그룹관리" },
+  ];
+
+  const { pathname } = useLocation();
+  console.log(pathname);
 
   const handleClickLogout = () => {
     localStorage.removeItem("Authorization");
@@ -31,10 +42,20 @@ const Header = ({isAdmin}) => {
     >
       {isAdmin ? (
         <Stack sx={{ flexDirection: "row", gap: "20px" }}>
-          <Link to="/admin/monitoring">모니터링</Link>
-          <Link to="/admin/sensors">센서위치</Link>
-          <Link to="/admin/settings">설정</Link>
-          <Link to="/admin/group">그룹관리</Link>
+          {links.map((link) => {
+            return (
+              <Link
+                key={link.to}
+                to={link.to}
+                style={{
+                  fontWeight: pathname === link.to ? 600 : 400,
+                  color: pathname === link.to ? "white" : grey[400],
+                }}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </Stack>
       ) : (
         <Typography sx={{ fontSize: "18px" }}>
