@@ -3,6 +3,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
 } from "@mui/material";
@@ -21,31 +22,33 @@ const UserTable = () => {
   return (
     <Stack sx={{ gap: "10px" }}>
       <Title title="사용자 목록" />
-      <Table>
-        <TableHead>
-          <TableRow
-            sx={{
-              "& > .MuiTableCell-root": {
-                backgroundColor: grey[50],
-                fontWeight: 600,
-              },
-            }}
-          >
-            <TableCell>ID</TableCell>
-            <TableCell>Name</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {users.map((user) => {
-            return (
-              <TableRow key={user.id}>
-                <TableCell>{user.userId}</TableCell>
-                <TableCell>{user.userName}</TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
+      <Stack sx={{ padding: "0 10px", width: "300px" }}>
+        <Table>
+          <TableHead>
+            <TableRow
+              sx={{
+                "& > .MuiTableCell-root": {
+                  backgroundColor: grey[50],
+                  fontWeight: 600,
+                },
+              }}
+            >
+              <TableCell>ID</TableCell>
+              <TableCell>Name</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {users.map((user) => {
+              return (
+                <TableRow key={user.id}>
+                  <TableCell>{user.userId}</TableCell>
+                  <TableCell>{user.userName}</TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </Stack>
     </Stack>
   );
 };
