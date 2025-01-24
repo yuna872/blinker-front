@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import Title from "../../../components/Title";
+import Title, { TITLE_HEIGHT } from "../../../components/Title";
 import UserTable from "../../../components/AdminMonitoring/UserTable";
 import SensorInfo from "../../../components/AdminMonitoring/SensorInfo";
 import SensorList from "../../../components/AdminMonitoring/SensorList";
@@ -17,7 +17,7 @@ import redMarker from "../../../assets/images/marker-red.png";
 
 const AdminMonitoring = () => {
   return (
-    <Stack sx={{ flexDirection: "row", border: "1px solid red" }}>
+    <Stack sx={{ flexDirection: "row" }}>
       <UserTable />
       <Stack>
         <SensorInfo />
@@ -30,7 +30,7 @@ const AdminMonitoring = () => {
           level={6}
           style={{
             width: "100%",
-            height: `calc(100vh - ${GNB_HEIGHT}px)`,
+            height: `calc(100vh - ${GNB_HEIGHT + TITLE_HEIGHT}px)`,
           }}
         >
           <ZoomControl />

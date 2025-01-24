@@ -4,8 +4,7 @@ import { theme } from "../styles/theme";
 import { Link } from "react-router-dom";
 export const GNB_HEIGHT = 50;
 
-const Header = () => {
-  const isAdmin = false;
+const Header = ({isAdmin}) => {
   const isLogin = localStorage.getItem("Authorization");
 
   const handleClickLogout = () => {
@@ -32,10 +31,10 @@ const Header = () => {
     >
       {isAdmin ? (
         <Stack sx={{ flexDirection: "row", gap: "20px" }}>
-          <Link to="#">모니터링</Link>
-          <Link to="#">센서위치</Link>
-          <Link to="#">설정</Link>
-          <Link to="#">그룹관리</Link>
+          <Link to="/admin/monitoring">모니터링</Link>
+          <Link to="/admin/sensors">센서위치</Link>
+          <Link to="/admin/settings">설정</Link>
+          <Link to="/admin/group">그룹관리</Link>
         </Stack>
       ) : (
         <Typography sx={{ fontSize: "18px" }}>

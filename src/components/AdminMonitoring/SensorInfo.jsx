@@ -10,7 +10,7 @@ const SensorInfo = () => {
       <Stack
         sx={{
           padding: "15px",
-          gap: "5px",
+          gap: "15px",
           backgroundColor: grey[100],
           borderBottom: `1px solid ${grey[200]}`,
           "& > .MuiStack-root": {
@@ -30,7 +30,7 @@ const SensorInfo = () => {
         </Stack>
         <Stack>
           <Typography sx={{ width: "40px" }}>위치</Typography>
-          <TextField />
+          <TextField fullWidth />
         </Stack>
       </Stack>
     </Stack>

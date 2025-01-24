@@ -1,5 +1,5 @@
 import React from "react";
-import { RouterProvider } from "react-router-dom";
+import { Outlet, RouterProvider } from "react-router-dom";
 import { GlobalStyles } from "@mui/material";
 import router from "./layouts/router";
 import Header from "./layouts/Header";
@@ -8,8 +8,9 @@ function App() {
   return (
     <>
       <GlobalStyles styles={{ body: { margin: 0 } }} />
-      <Header />
-      <RouterProvider router={router} />
+      <RouterProvider router={router}>
+        <Header />
+      </RouterProvider>
     </>
   );
 }

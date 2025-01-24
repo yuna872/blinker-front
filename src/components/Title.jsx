@@ -1,11 +1,14 @@
 import { Stack, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
+export const TITLE_HEIGHT = 55;
+
 const Title = ({ title }) => {
   return (
     <Stack
       sx={{
-        padding: "15px",
+        height: `${TITLE_HEIGHT}px`,
+        padding: "0 15px",
         alignItems: "center",
         flexDirection: "row",
         borderBottom: `1px solid ${grey[300]}`,
