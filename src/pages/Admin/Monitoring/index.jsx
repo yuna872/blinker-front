@@ -1,8 +1,7 @@
 import { Stack } from "@mui/material";
-import Title, { TITLE_HEIGHT } from "../../../components/Title";
-import UserTable from "../../../components/AdminMonitoring/UserTable";
-import SensorInfo from "../../../components/AdminMonitoring/SensorInfo";
-import SensorList from "../../../components/AdminMonitoring/SensorList";
+import UserTable, {
+  USERTABLE_WIDTH,
+} from "../../../components/AdminMonitoring/UserTable";
 import {
   Map,
   MapMarker,
@@ -19,12 +18,22 @@ import SensorDrawer from "../../../components/AdminMonitoring/SensorDrawer";
 const AdminMonitoring = () => {
   return (
     <Stack
-      sx={{ flexDirection: "row", position: "relative", overflow: "hidden" }}
+      sx={{
+        flexDirection: "row",
+        position: "relative",
+        overflow: "hidden",
+        height: `calc(100vh - ${GNB_HEIGHT}px)`,
+      }}
     >
       <UserTable />
-      {/* <button onClick={() => setIsOpenDrawer(true)}>열기</button> */}
       <SensorDrawer />
-      <Stack sx={{ flex: "1" }}>
+      <Stack
+        sx={{
+          position: "absolute",
+          left: `${USERTABLE_WIDTH}px`,
+          width: "100%",
+        }}
+      >
         <Map
           center={{ lat: 37.2803, lng: 127.0181 }}
           level={6}
