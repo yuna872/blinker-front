@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Header, { GNB_HEIGHT } from "../../components/Header";
+import { GNB_HEIGHT } from "../../layouts/Header";
 import { Button, Stack } from "@mui/material";
 import Legend from "../../components/Monitoring/Legend";
 import {
