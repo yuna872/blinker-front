@@ -3,12 +3,13 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableContainer,
   TableHead,
   TableRow,
 } from "@mui/material";
 import Title from "../Title";
 import { grey } from "@mui/material/colors";
+
+export const USERTABLE_WIDTH = 320;
 
 const UserTable = () => {
   const users = [
@@ -20,9 +21,21 @@ const UserTable = () => {
     },
   ];
   return (
-    <Stack sx={{ gap: "10px" }}>
+    <Stack
+      sx={{
+        gap: "10px",
+        zIndex: "3",
+        backgroundColor: "white",
+        maxWidth: `${USERTABLE_WIDTH}px`,
+        width: `${USERTABLE_WIDTH}px`,
+      }}
+    >
       <Title title="사용자 목록" />
-      <Stack sx={{ padding: "0 10px", width: "300px" }}>
+      <Stack
+        sx={{
+          padding: "0 10px",
+        }}
+      >
         <Table>
           <TableHead>
             <TableRow

@@ -14,23 +14,23 @@ import { GNB_HEIGHT } from "../../../layouts/Header";
 import greenMarker from "../../../assets/images/marker-green.png";
 import yellowMarker from "../../../assets/images/marker-yellow.png";
 import redMarker from "../../../assets/images/marker-red.png";
+import SensorDrawer from "../../../components/AdminMonitoring/SensorDrawer";
 
 const AdminMonitoring = () => {
   return (
-    <Stack sx={{ flexDirection: "row" }}>
+    <Stack
+      sx={{ flexDirection: "row", position: "relative", overflow: "hidden" }}
+    >
       <UserTable />
-      <Stack>
-        <SensorInfo />
-        <SensorList />
-      </Stack>
+      {/* <button onClick={() => setIsOpenDrawer(true)}>열기</button> */}
+      <SensorDrawer />
       <Stack sx={{ flex: "1" }}>
-        <Title title="지도 보기" />
         <Map
           center={{ lat: 37.2803, lng: 127.0181 }}
           level={6}
           style={{
             width: "100%",
-            height: `calc(100vh - ${GNB_HEIGHT + TITLE_HEIGHT}px)`,
+            height: `calc(100vh - ${GNB_HEIGHT}px)`,
           }}
         >
           <ZoomControl />
