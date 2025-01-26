@@ -13,18 +13,13 @@ import Title from "../../components/Title";
 import greenMarker from "../../assets/images/marker-green.png";
 import yellowMarker from "../../assets/images/marker-yellow.png";
 import redMarker from "../../assets/images/marker-red.png";
-import SignalLightTable from "../../components/Monitoring/SignalLightTable";
 import { dummySignalLights } from "./dummy";
+import SensorList from "../../components/Monitoring/SensorList";
 
 const Monitoring = () => {
-  const [signalLights, setSignalLights] = useState(dummySignalLights);
+  const [sensors, setSensors] = useState(dummySignalLights);
   const [isRoadviewActive, setIsRoadviewActive] = useState(false);
   const [selectedMarker, setSelectedMarker] = useState();
-
-  // 1. 센서 api 호출 -> 응답 값으로 signalList 받음
-  // 2. signalList의 정점들 마커로 표시 (position, image)
-  // 3. 마커 클릭 이벤트 -> 로드뷰 position setting
-  // 마커클릭 -> 로드뷰 보기 클릭 -> 클릭된 마커의 position에서 로드뷰 보기?
 
   const handleClickMarker = (marker) => {
     setSelectedMarker(marker);
@@ -36,12 +31,11 @@ const Monitoring = () => {
   };
 
   return (
-    <Stack sx={{ flexDirection: "row" }}>
+    <Stack
+      sx={{ flexDirection: "row", height: `calc(100vh - ${GNB_HEIGHT}px)` }}
+    >
       {/* 신호기 목록 */}
-      <Stack>
-        <Title title="신호기 목록" />
-        <SignalLightTable signalLights={signalLights} />
-      </Stack>
+      <SensorList sensors={sensors} />
       {/* 카카오맵 */}
       <Stack
         sx={{
@@ -72,7 +66,7 @@ const Monitoring = () => {
             >
               <ZoomControl />
               <MarkerClusterer averageCenter={true} minLevel={6} gridSize={35}>
-                {signalLights.map((marker) => {
+                {sensors.map((marker) => {
                   return (
                     <MapMarker
                       key={`${marker.latitude}-${marker.longitude}`}
