@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import Title from "../Title";
 import { grey } from "@mui/material/colors";
+import { TableHeaderStyle, TableRowStyle } from "../Sensors/SensorList";
 
 export const USERTABLE_WIDTH = 320;
 
@@ -39,14 +40,7 @@ const UserTable = () => {
       >
         <Table>
           <TableHead>
-            <TableRow
-              sx={{
-                "& > .MuiTableCell-root": {
-                  backgroundColor: grey[50],
-                  fontWeight: 600,
-                },
-              }}
-            >
+            <TableRow sx={TableHeaderStyle}>
               <TableCell>ID</TableCell>
               <TableCell>Name</TableCell>
             </TableRow>
@@ -54,7 +48,7 @@ const UserTable = () => {
           <TableBody>
             {users.map((user) => {
               return (
-                <TableRow key={user.id}>
+                <TableRow key={user.id} sx={TableRowStyle}>
                   <TableCell>{user.userId}</TableCell>
                   <TableCell>{user.userName}</TableCell>
                 </TableRow>

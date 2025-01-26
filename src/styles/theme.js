@@ -1,3 +1,4 @@
+import { grey } from "@mui/material/colors";
 import { createTheme } from "@mui/material/styles";
 
 export const theme = createTheme({
@@ -10,6 +11,9 @@ export const theme = createTheme({
     secondary: {
       main: "#efe5fd",
       contrastText: "#6002ee",
+    },
+    action: {
+      hover: grey[200],
     },
   },
 });

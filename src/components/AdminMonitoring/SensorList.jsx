@@ -9,9 +9,9 @@ import {
   ToggleButtonGroup,
 } from "@mui/material";
 import Title from "../Title";
-import { grey } from "@mui/material/colors";
 import { dummySignalLights } from "../../pages/Monitoring/dummy";
 import { useState } from "react";
+import { TableHeaderStyle, TableRowStyle } from "../Sensors/SensorList";
 
 const SensorList = () => {
   const [filterOption, setFilterOption] = useState("");
@@ -36,37 +36,36 @@ const SensorList = () => {
           },
         }}
       >
-        <ToggleButton value="ALL">전체</ToggleButton>
-        <ToggleButton value="FAULT">장애</ToggleButton>
+        <ToggleButton value="ALL" size="small">
+          전체
+        </ToggleButton>
+        <ToggleButton value="FAULT" size="small">
+          장애
+        </ToggleButton>
       </ToggleButtonGroup>
-      <Table>
-        <TableHead>
-          <TableRow
-            sx={{
-              "& > .MuiTableCell-root": {
-                backgroundColor: grey[50],
-                fontWeight: 600,
-              },
-            }}
-          >
-            <TableCell>ID</TableCell>
-            <TableCell>위치</TableCell>
-            <TableCell>상태</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {dummySignalLights.map((item) => {
-            return (
-              <TableRow>
-                {/* TODO: Id 수정 필요 */}
-                <TableCell>00000741702c1ffffe54c0c3</TableCell>
-                <TableCell>{item.address}</TableCell>
-                <TableCell>{item.status}</TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
+      <Stack sx={{ padding: "10px" }}>
+        <Table>
+          <TableHead>
+            <TableRow sx={TableHeaderStyle}>
+              <TableCell>ID</TableCell>
+              <TableCell>위치</TableCell>
+              <TableCell>상태</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {dummySignalLights.map((item) => {
+              return (
+                <TableRow sx={TableRowStyle} key={item.sensorId}>
+                  {/* TODO: Id 수정 필요 */}
+                  <TableCell>00000741702c1ffffe54c0c3</TableCell>
+                  <TableCell>{item.address}</TableCell>
+                  <TableCell>{item.status}</TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </Stack>
     </Stack>
   );
 };
