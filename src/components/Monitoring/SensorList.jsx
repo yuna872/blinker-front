@@ -8,8 +8,13 @@ import {
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import Title from "../Title";
+import { TableRowStyle } from "../Sensors/SensorList";
 
-const SensorList = ({ sensors }) => {
+const SensorList = ({ sensors, setSelectedSensor, selectedSensor }) => {
+  const handleClickSensor = (sensor) => {
+    setSelectedSensor(sensor);
+  };
+
   return (
     <Stack sx={{ border: `1px solid ${grey[200]}`, overflow: "hidden" }}>
       <Title title="신호기 목록" />
@@ -34,19 +39,27 @@ const SensorList = ({ sensors }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {sensors.map((item) => (
-              <TableRow key={item.sensorId} className="item-card">
-                <TableCell>{item.sensorId}</TableCell>
-                <TableCell>{item.address}</TableCell>
-                <TableCell>{item.buttonClickCount}</TableCell>
-                <TableCell>{item.locationGuideCount}</TableCell>
-                <TableCell>{item.signalGuideCount}</TableCell>
-                <TableCell>
-                  {new Date(item.createdAt).toLocaleString()}
-                </TableCell>
-                <TableCell>{item.status}</TableCell>
-              </TableRow>
-            ))}
+            {sensors.map((sensor) => {
+              const selected = sensor.sensorId === selectedSensor?.sensorId;
+              return (
+                <TableRow
+                  key={sensor.sensorId}
+                  sx={TableRowStyle}
+                  onClick={() => handleClickSensor(sensor)}
+                  selected={selected}
+                >
+                  <TableCell>{sensor.sensorId}</TableCell>
+                  <TableCell>{sensor.address}</TableCell>
+                  <TableCell>{sensor.buttonClickCount}</TableCell>
+                  <TableCell>{sensor.locationGuideCount}</TableCell>
+                  <TableCell>{sensor.signalGuideCount}</TableCell>
+                  <TableCell>
+                    {new Date(sensor.createdAt).toLocaleString()}
+                  </TableCell>
+                  <TableCell>{sensor.status}</TableCell>
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
       </Stack>

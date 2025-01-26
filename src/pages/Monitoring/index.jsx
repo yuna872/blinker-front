@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { GNB_HEIGHT } from "../../layouts/Header";
 import { Button, Stack } from "@mui/material";
 import Legend from "../../components/Monitoring/Legend";
@@ -19,10 +19,14 @@ import SensorList from "../../components/Monitoring/SensorList";
 const Monitoring = () => {
   const [sensors, setSensors] = useState(dummySignalLights);
   const [isRoadviewActive, setIsRoadviewActive] = useState(false);
-  const [selectedMarker, setSelectedMarker] = useState();
+  const [selectedSensor, setSelectedSensorState] = useState();
+  const [position, setPosition] = useState({
+    center: { lat: 37.2803, lng: 127.0181 },
+    isPanto: true,
+  });
 
-  const handleClickMarker = (marker) => {
-    setSelectedMarker(marker);
+  const handleClickMarker = (sensor) => {
+    setSelectedSensor(sensor);
   };
 
   // 로드뷰 보기 버튼 클릭 시 위치 설정
@@ -30,12 +34,26 @@ const Monitoring = () => {
     setIsRoadviewActive((prev) => !prev);
   };
 
+  const setSelectedSensor = (sensor) => {
+    setSelectedSensorState(sensor);
+    if (sensor) {
+      setPosition({
+        center: { lat: sensor.latitude, lng: sensor.longitude },
+        isPanto: true,
+      });
+    }
+  };
+
   return (
     <Stack
       sx={{ flexDirection: "row", height: `calc(100vh - ${GNB_HEIGHT}px)` }}
     >
       {/* 신호기 목록 */}
-      <SensorList sensors={sensors} />
+      <SensorList
+        sensors={sensors}
+        selectedSensor={selectedSensor}
+        setSelectedSensor={setSelectedSensor}
+      />
       {/* 카카오맵 */}
       <Stack
         sx={{
@@ -48,8 +66,8 @@ const Monitoring = () => {
         {isRoadviewActive ? (
           <Roadview
             position={{
-              lat: selectedMarker.latitude,
-              lng: selectedMarker.longitude,
+              lat: selectedSensor.latitude,
+              lng: selectedSensor.longitude,
               radius: 50,
             }}
             style={{ width: "100%", height: `calc(100vh - ${GNB_HEIGHT}px)` }}
@@ -57,7 +75,7 @@ const Monitoring = () => {
         ) : (
           <>
             <Map
-              center={{ lat: 37.2803, lng: 127.0181 }}
+              center={position.center}
               level={6}
               style={{
                 width: "100%",
@@ -66,19 +84,19 @@ const Monitoring = () => {
             >
               <ZoomControl />
               <MarkerClusterer averageCenter={true} minLevel={6} gridSize={35}>
-                {sensors.map((marker) => {
+                {sensors.map((sensor) => {
                   return (
                     <MapMarker
-                      key={`${marker.latitude}-${marker.longitude}`}
+                      key={`${sensor.latitude}-${sensor.longitude}`}
                       position={{
-                        lat: marker.latitude,
-                        lng: marker.longitude,
+                        lat: sensor.latitude,
+                        lng: sensor.longitude,
                       }}
                       image={{
                         src:
-                          marker.status === "정상"
+                          sensor.status === "정상"
                             ? greenMarker
-                            : marker.status === "오류"
+                            : sensor.status === "오류"
                             ? redMarker
                             : yellowMarker,
                         size: {
@@ -86,7 +104,7 @@ const Monitoring = () => {
                           height: 30,
                         },
                       }}
-                      onClick={() => handleClickMarker(marker)}
+                      onClick={() => handleClickMarker(sensor)}
                       // title={`(${pos.lat}, ${pos.lng})`}
                     />
                   );
