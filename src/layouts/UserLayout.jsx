@@ -1,11 +1,10 @@
-import { Outlet } from "react-router-dom";
 import Header from "./Header";
 
-const UserLayout = () => {
+const UserLayout = ({ children }) => {
   return (
     <>
       <Header />
-      <Outlet />
+      {children}
     </>
   );
 };
