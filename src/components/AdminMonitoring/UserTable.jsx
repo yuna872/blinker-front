@@ -20,6 +20,61 @@ const UserTable = () => {
       userId: "test",
       userName: "test",
     },
+    {
+      id: 2,
+      userId: "test",
+      userName: "test",
+    },
+    {
+      id: 3,
+      userId: "test",
+      userName: "test",
+    },
+    {
+      id: 4,
+      userId: "test",
+      userName: "test",
+    },
+    {
+      id: 5,
+      userId: "test",
+      userName: "test",
+    },
+    {
+      id: 6,
+      userId: "test",
+      userName: "test",
+    },
+    {
+      id: 1,
+      userId: "test",
+      userName: "test",
+    },
+    {
+      id: 2,
+      userId: "test",
+      userName: "test",
+    },
+    {
+      id: 3,
+      userId: "test",
+      userName: "test",
+    },
+    {
+      id: 4,
+      userId: "test",
+      userName: "test",
+    },
+    {
+      id: 5,
+      userId: "test",
+      userName: "test",
+    },
+    {
+      id: 6,
+      userId: "test",
+      userName: "test",
+    },
   ];
   return (
     <Stack
@@ -36,6 +91,7 @@ const UserTable = () => {
       <Stack
         sx={{
           padding: "0 10px",
+          overflowY: "auto",
         }}
       >
         <Table>
