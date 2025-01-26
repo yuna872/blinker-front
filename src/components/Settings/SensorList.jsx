@@ -8,33 +8,19 @@ import {
 } from "@mui/material";
 import Title from "../Title";
 import { grey } from "@mui/material/colors";
+import { dummySignalLights } from "../../pages/Monitoring/dummy";
 
-export const USERTABLE_WIDTH = 320;
-
-const UserTable = () => {
-  const users = [
-    { id: 0, userId: "admin", userName: "admin" },
-    {
-      id: 1,
-      userId: "test",
-      userName: "test",
-    },
-  ];
+const SensorList = () => {
   return (
     <Stack
       sx={{
-        gap: "10px",
-        zIndex: "3",
-        backgroundColor: "white",
-        maxWidth: `${USERTABLE_WIDTH}px`,
-        width: `${USERTABLE_WIDTH}px`,
         borderRight: `1px solid ${grey[200]}`,
       }}
     >
-      <Title title="사용자 목록" />
+      <Title title="센서 목록" />
       <Stack
         sx={{
-          padding: "0 10px",
+          padding: "10px",
         }}
       >
         <Table>
@@ -48,15 +34,16 @@ const UserTable = () => {
               }}
             >
               <TableCell>ID</TableCell>
-              <TableCell>Name</TableCell>
+              <TableCell>위치</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.map((user) => {
+            {dummySignalLights.map((item) => {
               return (
-                <TableRow key={user.id}>
-                  <TableCell>{user.userId}</TableCell>
-                  <TableCell>{user.userName}</TableCell>
+                <TableRow>
+                  {/* TODO: Id 수정 필요 */}
+                  <TableCell>00000741702c1ffffe54c0c3</TableCell>
+                  <TableCell>{item.address}</TableCell>
                 </TableRow>
               );
             })}
@@ -67,4 +54,4 @@ const UserTable = () => {
   );
 };
 
-export default UserTable;
+export default SensorList;
