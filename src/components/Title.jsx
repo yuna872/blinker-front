@@ -12,7 +12,7 @@ const Title = ({ title }) => {
         alignItems: "center",
         flexDirection: "row",
         borderBottom: `1px solid ${grey[300]}`,
-        borderRight: `1px solid ${grey[200]}`,
+        flexShrink: "0",
       }}
     >
       <Typography sx={{ fontSize: "16px", fontWeight: 600, color: grey[900] }}>
