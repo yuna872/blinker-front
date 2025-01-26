@@ -18,7 +18,6 @@ const SensorList = () => {
 
   const handleChangeFilterOption = (e, newOption) => {
     setFilterOption(newOption);
-    console.log(newOption);
   };
 
   return (

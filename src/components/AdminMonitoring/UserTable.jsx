@@ -9,13 +9,8 @@ import {
 import Title from "../Title";
 import { grey } from "@mui/material/colors";
 import { TableHeaderStyle, TableRowStyle } from "../Sensors/SensorList";
-import { theme } from "../../styles/theme";
 
 export const USERTABLE_WIDTH = 320;
-export const selectStyle = {
-  backgroundColor: theme.palette.secondary.main,
-  color: theme.palette.primary.main,
-};
 
 const UserTable = ({ setSelectedUser, selectedUser }) => {
   const handleClickUser = (user) => {

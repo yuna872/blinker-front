@@ -20,7 +20,7 @@ const SSIDSettingsForm = () => {
         }}
       >
         <Typography sx={{ minWidth: "50px", width: "50px", fontSize: "14px" }}>
-          위치
+          SSID
         </Typography>
         <TextField fullWidth />
         <Button variant="outlined">저장</Button>
