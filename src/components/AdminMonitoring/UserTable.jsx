@@ -9,11 +9,15 @@ import {
 import Title from "../Title";
 import { grey } from "@mui/material/colors";
 import { TableHeaderStyle, TableRowStyle } from "../Sensors/SensorList";
+import { theme } from "../../styles/theme";
 
 export const USERTABLE_WIDTH = 320;
+export const selectStyle = {
+  backgroundColor: theme.palette.secondary.main,
+  color: theme.palette.primary.main,
+};
 
-const UserTable = ({ setSelectedUser }) => {
-  
+const UserTable = ({ setSelectedUser, selectedUser }) => {
   const handleClickUser = (user) => {
     setSelectedUser(user);
   };
@@ -78,10 +82,14 @@ const UserTable = ({ setSelectedUser }) => {
           </TableHead>
           <TableBody>
             {users.map((user) => {
+              const selected = user.id === selectedUser?.id;
               return (
                 <TableRow
                   key={user.id}
-                  sx={TableRowStyle}
+                  selected={selected}
+                  sx={{
+                    ...TableRowStyle,
+                  }}
                   onClick={() => handleClickUser(user)}
                 >
                   <TableCell>{user.userId}</TableCell>

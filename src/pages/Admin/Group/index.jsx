@@ -15,7 +15,10 @@ const Group = () => {
     <Stack
       sx={{ flexDirection: "row", height: `calc(100vh - ${GNB_HEIGHT}px)` }}
     >
-      <UserTable setSelectedUser={setSelectedUser} />
+      <UserTable
+        setSelectedUser={setSelectedUser}
+        selectedUser={selectedUser}
+      />
       <Stack sx={{ overflow: "hidden" }}>
         <UserInfo user={selectedUser} />
         <SensorList />
