@@ -12,39 +12,14 @@ import { TableHeaderStyle, TableRowStyle } from "../Sensors/SensorList";
 
 export const USERTABLE_WIDTH = 320;
 
-const UserTable = () => {
+const UserTable = ({ setSelectedUser }) => {
+  
+  const handleClickUser = (user) => {
+    setSelectedUser(user);
+  };
+
   const users = [
     { id: 0, userId: "admin", userName: "admin" },
-    {
-      id: 1,
-      userId: "test",
-      userName: "test",
-    },
-    {
-      id: 2,
-      userId: "test",
-      userName: "test",
-    },
-    {
-      id: 3,
-      userId: "test",
-      userName: "test",
-    },
-    {
-      id: 4,
-      userId: "test",
-      userName: "test",
-    },
-    {
-      id: 5,
-      userId: "test",
-      userName: "test",
-    },
-    {
-      id: 6,
-      userId: "test",
-      userName: "test",
-    },
     {
       id: 1,
       userId: "test",
@@ -104,7 +79,11 @@ const UserTable = () => {
           <TableBody>
             {users.map((user) => {
               return (
-                <TableRow key={user.id} sx={TableRowStyle}>
+                <TableRow
+                  key={user.id}
+                  sx={TableRowStyle}
+                  onClick={() => handleClickUser(user)}
+                >
                   <TableCell>{user.userId}</TableCell>
                   <TableCell>{user.userName}</TableCell>
                 </TableRow>
