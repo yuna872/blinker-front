@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { GNB_HEIGHT } from "../../layouts/Header";
-import { Button, Stack } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import Legend from "../../components/Monitoring/Legend";
 import {
   Map,
@@ -85,6 +85,7 @@ const Monitoring = () => {
               <ZoomControl />
               <MarkerClusterer averageCenter={true} minLevel={6} gridSize={35}>
                 {sensors.map((sensor) => {
+                  const selected = sensor.sensorId === selectedSensor?.sensorId;
                   return (
                     <MapMarker
                       key={`${sensor.latitude}-${sensor.longitude}`}
@@ -100,13 +101,18 @@ const Monitoring = () => {
                             ? redMarker
                             : yellowMarker,
                         size: {
-                          width: 30,
-                          height: 30,
+                          width: selected ? 35 : 30,
+                          height: selected ? 35 : 30,
                         },
                       }}
                       onClick={() => handleClickMarker(sensor)}
-                      // title={`(${pos.lat}, ${pos.lng})`}
-                    />
+                    >
+                      {selected && (
+                        <span sx={{ fontSize: "14px", textAlign: "center" }}>
+                          {sensor.address}
+                        </span>
+                      )}
+                    </MapMarker>
                   );
                 })}
               </MarkerClusterer>
