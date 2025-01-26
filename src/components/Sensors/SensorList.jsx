@@ -9,21 +9,31 @@ import {
 import Title from "../Title";
 import { grey } from "@mui/material/colors";
 import { dummySignalLights } from "../../pages/Monitoring/dummy";
-import { TableHeaderStyle, TableRowStyle } from "../Sensors/SensorList";
+import { theme } from "../../styles/theme";
 
-const SensorList = () => {
+export const TableHeaderStyle = {
+  "& > .MuiTableCell-root": {
+    backgroundColor: grey[50],
+    fontWeight: 600,
+    padding: "8px 16px",
+  },
+};
+
+export const TableRowStyle = {
+  cursor: "pointer",
+  "&:hover": {
+    backgroundColor: theme.palette.action.hover,
+  },
+};
+
+const SensorList = ({ sensors, setSelectedSensor }) => {
+  const handleClickSensor = (v) => {
+    setSelectedSensor(v);
+  };
   return (
-    <Stack
-      sx={{
-        borderRight: `1px solid ${grey[200]}`,
-      }}
-    >
+    <Stack>
       <Title title="센서 목록" />
-      <Stack
-        sx={{
-          padding: "10px",
-        }}
-      >
+      <Stack sx={{ padding: "10px" }}>
         <Table>
           <TableHead>
             <TableRow sx={TableHeaderStyle}>
@@ -32,9 +42,13 @@ const SensorList = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {dummySignalLights.map((item) => {
+            {sensors.map((item) => {
               return (
-                <TableRow sx={TableRowStyle} key={item.sensorId}>
+                <TableRow
+                  sx={TableRowStyle}
+                  key={item.sensorId}
+                  onClick={() => handleClickSensor(item)}
+                >
                   {/* TODO: Id 수정 필요 */}
                   <TableCell>00000741702c1ffffe54c0c3</TableCell>
                   <TableCell>{item.address}</TableCell>
