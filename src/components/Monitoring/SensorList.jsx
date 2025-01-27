@@ -1,4 +1,5 @@
 import {
+  IconButton,
   Stack,
   Table,
   TableBody,
@@ -9,15 +10,24 @@ import {
 import { grey } from "@mui/material/colors";
 import Title from "../Title";
 import { TableRowStyle } from "../Sensors/SensorList";
+import { Refresh } from "@mui/icons-material";
 
 const SensorList = ({ sensors, setSelectedSensor, selectedSensor }) => {
   const handleClickSensor = (sensor) => {
     setSelectedSensor(sensor);
   };
 
+  const handleClickRefresh = () => {
+    console.log("refresh");
+  };
+
   return (
     <Stack sx={{ border: `1px solid ${grey[200]}`, overflow: "hidden" }}>
-      <Title title="신호기 목록" />
+      <Title title="신호기 목록">
+        <IconButton color="primary" onClick={handleClickRefresh}>
+          <Refresh />
+        </IconButton>
+      </Title>
       <Stack sx={{ margin: "10px", flex: "1", overflowY: "auto" }}>
         <Table stickyHeader>
           <TableHead>
