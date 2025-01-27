@@ -11,7 +11,7 @@ import {
 } from "react-kakao-maps-sdk";
 import Title from "../../components/Title";
 import greenMarker from "../../assets/images/marker-green.png";
-import yellowMarker from "../../assets/images/marker-yellow.png";
+import greyMarker from "../../assets/images/marker-grey.png";
 import redMarker from "../../assets/images/marker-red.png";
 import { dummySignalLights } from "./dummy";
 import SensorList from "../../components/Monitoring/SensorList";
@@ -99,7 +99,7 @@ const Monitoring = () => {
                             ? greenMarker
                             : sensor.status === "오류"
                             ? redMarker
-                            : yellowMarker,
+                            : greyMarker,
                         size: {
                           width: selected ? 35 : 30,
                           height: selected ? 35 : 30,

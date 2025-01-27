@@ -3,7 +3,7 @@ import { Box, Stack, Typography } from "@mui/material";
 export const STATUS = {
   정상: "#00BB00",
   오류: "#FF3C3C",
-  미접속: "#FCC419",
+  미접속: "#757575",
 };
 
 const Legend = () => {
@@ -38,7 +38,7 @@ const Legend = () => {
                   backgroundColor: `${color}`,
                 }}
               />
-              <Typography sx={{ fontSize: "16px" }}>{key}</Typography>
+              <Typography sx={{ fontSize: "14px" }}>{key}</Typography>
             </Stack>
           );
         })}
