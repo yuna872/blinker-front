@@ -11,6 +11,7 @@ import { grey } from "@mui/material/colors";
 import Title from "../Title";
 import { TableRowStyle } from "../Sensors/SensorList";
 import { Refresh } from "@mui/icons-material";
+import dayjs from "dayjs";
 
 const SensorList = ({ sensors, setSelectedSensor, selectedSensor }) => {
   const handleClickSensor = (sensor) => {
@@ -64,7 +65,7 @@ const SensorList = ({ sensors, setSelectedSensor, selectedSensor }) => {
                   <TableCell>{sensor.locationGuideCount}</TableCell>
                   <TableCell>{sensor.signalGuideCount}</TableCell>
                   <TableCell>
-                    {new Date(sensor.createdAt).toLocaleString()}
+                    {dayjs(sensor.createdAt).format("YYYY-MM-DD HH:mm:ss")}
                   </TableCell>
                   <TableCell>{sensor.status}</TableCell>
                 </TableRow>
