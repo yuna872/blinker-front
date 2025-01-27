@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { GNB_HEIGHT } from "../../layouts/Header";
-import { Button, Stack } from "@mui/material";
+import { Button, InputAdornment, Stack } from "@mui/material";
 import Legend from "../../components/Monitoring/Legend";
 import {
   Map,
@@ -15,6 +15,8 @@ import greyMarker from "../../assets/images/marker-grey.png";
 import redMarker from "../../assets/images/marker-red.png";
 import { dummySignalLights } from "./dummy";
 import SensorList from "../../components/Monitoring/SensorList";
+import { TextField } from "../../components/TextField";
+import { Search } from "@mui/icons-material";
 
 const Monitoring = () => {
   const [sensors, setSensors] = useState(dummySignalLights);
@@ -62,7 +64,20 @@ const Monitoring = () => {
           maxHeight: `calc(100vh - ${GNB_HEIGHT}px)`,
         }}
       >
-        <Title title="지도보기" />
+        <Title title="지도보기">
+          <TextField
+            fullWidth
+            slotProps={{
+              input: {
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Search sx={{ width: "18px", height: "18px" }} />
+                  </InputAdornment>
+                ),
+              },
+            }}
+          />
+        </Title>
         {isRoadviewActive ? (
           <Roadview
             position={{

@@ -19,7 +19,7 @@ const Title = ({ title, children }) => {
       <Typography sx={{ fontSize: "16px", fontWeight: 600, color: grey[900] }}>
         {title}
       </Typography>
-      <Stack>{children}</Stack>
+      <Stack sx={{ width: "50%" }}>{children}</Stack>
     </Stack>
   );
 };
