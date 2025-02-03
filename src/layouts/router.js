@@ -6,6 +6,7 @@ import AdminMonitoring from "../pages/Admin/Monitoring";
 import Sensors from "../pages/Admin/Sensors";
 import Settings from "../pages/Admin/Settings";
 import Group from "../pages/Admin/Group";
+import AdminLayout from "./AdminLayout";
 
 const router = createBrowserRouter(
   [
@@ -22,11 +23,7 @@ const router = createBrowserRouter(
         },
         {
           path: "monitoring",
-          element: (
-            <UserLayout>
-              <Monitoring />
-            </UserLayout>
-          ),
+          element: <Monitoring />,
         },
         {
           path: "admin",
