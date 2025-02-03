@@ -1,47 +1,66 @@
 import React, { useState } from "react";
 import { GNB_HEIGHT } from "../../layouts/Header";
-import { Button, Stack } from "@mui/material";
+import {
+  Button,
+  IconButton,
+  InputAdornment,
+  Stack,
+  Typography,
+} from "@mui/material";
 import Legend from "../../components/Monitoring/Legend";
 import {
   Map,
   MapMarker,
+  MapTypeId,
   MarkerClusterer,
   Roadview,
   ZoomControl,
 } from "react-kakao-maps-sdk";
 import Title from "../../components/Title";
 import greenMarker from "../../assets/images/marker-green.png";
-import yellowMarker from "../../assets/images/marker-yellow.png";
+import greyMarker from "../../assets/images/marker-grey.png";
 import redMarker from "../../assets/images/marker-red.png";
-import SignalLightTable from "../../components/Monitoring/SignalLightTable";
 import { dummySignalLights } from "./dummy";
+import SensorList from "../../components/Monitoring/SensorList";
+import { TextField } from "../../components/TextField";
+import { ChevronRight, Close, Search } from "@mui/icons-material";
 
 const Monitoring = () => {
-  const [signalLights, setSignalLights] = useState(dummySignalLights);
-  const [isRoadviewActive, setIsRoadviewActive] = useState(false);
-  const [selectedMarker, setSelectedMarker] = useState();
+  const [sensors, setSensors] = useState(dummySignalLights);
+  const [isActive, setIsActive] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const [selectedSensor, setSelectedSensorState] = useState();
+  const [center, setCenter] = useState({ lat: 37.2803, lng: 127.0181 });
 
-  // 1. 센서 api 호출 -> 응답 값으로 signalList 받음
-  // 2. signalList의 정점들 마커로 표시 (position, image)
-  // 3. 마커 클릭 이벤트 -> 로드뷰 position setting
-  // 마커클릭 -> 로드뷰 보기 클릭 -> 클릭된 마커의 position에서 로드뷰 보기?
-
-  const handleClickMarker = (marker) => {
-    setSelectedMarker(marker);
+  const handleClickMarker = (sensor) => {
+    setSelectedSensor(sensor);
   };
 
-  // 로드뷰 보기 버튼 클릭 시 위치 설정
-  const toggleView = () => {
-    setIsRoadviewActive((prev) => !prev);
+  const setSelectedSensor = (sensor) => {
+    setSelectedSensorState(sensor);
+    if (sensor) {
+      setCenter({
+        lat: sensor.latitude,
+        lng: sensor.longitude,
+      });
+    }
+  };
+
+  const handleClickCloseInfoWindow = () => {
+    setIsActive(false);
+    setIsVisible(false);
   };
 
   return (
-    <Stack sx={{ flexDirection: "row" }}>
+    <Stack
+      sx={{ flexDirection: "row", height: `calc(100vh - ${GNB_HEIGHT}px)` }}
+    >
       {/* 신호기 목록 */}
-      <Stack>
-        <Title title="신호기 목록" />
-        <SignalLightTable signalLights={signalLights} />
-      </Stack>
+      <SensorList
+        sensors={sensors}
+        selectedSensor={selectedSensor}
+        setSelectedSensor={setSelectedSensor}
+      />
       {/* 카카오맵 */}
       <Stack
         sx={{
@@ -50,12 +69,25 @@ const Monitoring = () => {
           maxHeight: `calc(100vh - ${GNB_HEIGHT}px)`,
         }}
       >
-        <Title title="지도보기" />
-        {isRoadviewActive ? (
+        <Title title="지도보기">
+          <TextField
+            fullWidth
+            slotProps={{
+              input: {
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Search sx={{ width: "18px", height: "18px" }} />
+                  </InputAdornment>
+                ),
+              },
+            }}
+          />
+        </Title>
+        {isVisible ? (
           <Roadview
             position={{
-              lat: selectedMarker.latitude,
-              lng: selectedMarker.longitude,
+              lat: center.lat,
+              lng: center.lng,
               radius: 50,
             }}
             style={{ width: "100%", height: `calc(100vh - ${GNB_HEIGHT}px)` }}
@@ -63,7 +95,7 @@ const Monitoring = () => {
         ) : (
           <>
             <Map
-              center={{ lat: 37.2803, lng: 127.0181 }}
+              center={center}
               level={6}
               style={{
                 width: "100%",
@@ -71,50 +103,122 @@ const Monitoring = () => {
               }}
             >
               <ZoomControl />
-              <MarkerClusterer averageCenter={true} minLevel={6} gridSize={35}>
-                {signalLights.map((marker) => {
-                  return (
-                    <MapMarker
-                      key={`${marker.latitude}-${marker.longitude}`}
-                      position={{
-                        lat: marker.latitude,
-                        lng: marker.longitude,
-                      }}
-                      image={{
-                        src:
-                          marker.status === "정상"
-                            ? greenMarker
-                            : marker.status === "오류"
-                            ? redMarker
-                            : yellowMarker,
-                        size: {
-                          width: 30,
-                          height: 30,
-                        },
-                      }}
-                      onClick={() => handleClickMarker(marker)}
-                      // title={`(${pos.lat}, ${pos.lng})`}
-                    />
-                  );
-                })}
-              </MarkerClusterer>
+              {/* 동동이 */}
+              {isActive ? (
+                <>
+                  <MapTypeId type={kakao.maps.MapTypeId.ROADVIEW} />
+                  <MapMarker
+                    position={center}
+                    draggable={true}
+                    onDragEnd={(marker) => {
+                      setCenter({
+                        lat: marker.getPosition().getLat(),
+                        lng: marker.getPosition().getLng(),
+                      });
+                    }}
+                    image={{
+                      src: "https://t1.daumcdn.net/localimg/localimages/07/2018/pc/roadview_minimap_wk_2018.png",
+                      size: { width: 26, height: 46 },
+                      options: {
+                        spriteSize: { width: 1666, height: 168 },
+                        spriteOrigin: { x: 705, y: 114 },
+                        offset: { x: 13, y: 46 },
+                      },
+                    }}
+                  >
+                    <Stack
+                      flexDirection="row"
+                      sx={{ width: "152px", cursor: "pointer" }}
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
+                      <Stack
+                        flexDirection="row"
+                        sx={{
+                          paddingLeft: "5px",
+                          ":hover": {
+                            borderBottom: "1px solid black",
+                          },
+                        }}
+                        onClick={() => {
+                          setIsVisible(true);
+                        }}
+                      >
+                        <Typography>로드뷰 보기</Typography>
+                        <ChevronRight />
+                      </Stack>
+
+                      <IconButton
+                        onClick={handleClickCloseInfoWindow}
+                        size="small"
+                      >
+                        <Close />
+                      </IconButton>
+                    </Stack>
+                  </MapMarker>
+                </>
+              ) : (
+                <MarkerClusterer
+                  averageCenter={true}
+                  minLevel={6}
+                  gridSize={35}
+                >
+                  {sensors.map((sensor) => {
+                    const selected =
+                      sensor.sensorId === selectedSensor?.sensorId;
+                    return (
+                      <MapMarker
+                        key={`${sensor.latitude}-${sensor.longitude}`}
+                        position={{
+                          lat: sensor.latitude,
+                          lng: sensor.longitude,
+                        }}
+                        image={{
+                          src:
+                            sensor.status === "정상"
+                              ? greenMarker
+                              : sensor.status === "오류"
+                              ? redMarker
+                              : greyMarker,
+                          size: {
+                            width: selected ? 35 : 30,
+                            height: selected ? 35 : 30,
+                          },
+                        }}
+                        onClick={() => handleClickMarker(sensor)}
+                      >
+                        {selected && (
+                          <span sx={{ fontSize: "14px", textAlign: "center" }}>
+                            {sensor.address}
+                          </span>
+                        )}
+                      </MapMarker>
+                    );
+                  })}
+                </MarkerClusterer>
+              )}
             </Map>
             <Legend />
           </>
         )}
-        <Button
-          onClick={toggleView}
-          variant="contained"
-          color="secondary"
-          sx={{
-            position: "absolute",
-            top: "65px",
-            right: isRoadviewActive ? "10px" : "50px",
-            zIndex: 2,
-          }}
-        >
-          {isRoadviewActive ? "지도 보기" : "로드뷰 보기"}
-        </Button>
+        {(!isActive || isVisible) && (
+          <Button
+            onClick={() => {
+              if (!isActive) setIsActive(true);
+              if (isVisible) setIsVisible(false);
+            }}
+            variant="contained"
+            color="secondary"
+            sx={{
+              position: "absolute",
+              top: "65px",
+              right: isVisible ? "10px" : "50px",
+              zIndex: 2,
+            }}
+          >
+            {isActive ? "지도 보기" : "로드뷰 보기"}
+          </Button>
+        )}
       </Stack>
     </Stack>
   );

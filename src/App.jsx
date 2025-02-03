@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <GlobalStyles styles={{ body: { margin: 0 } }} />
-      <RouterProvider router={router} />
+      <RouterProvider router={router} future={{ v7_startTransition: true }} />
     </>
   );
 }

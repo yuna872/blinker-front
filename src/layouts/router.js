@@ -9,50 +9,57 @@ import Group from "../pages/Admin/Group";
 import UserLayout from "./UserLayout";
 import AdminLayout from "./AdminLayout";
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      children: [
+        {
+          path: "login",
+          element: <Login />,
+        },
+        {
+          path: "signup",
+          element: <Signup />,
+        },
+        {
+          path: "monitoring",
+          element: (
+            <UserLayout>
+              <Monitoring />
+            </UserLayout>
+          ),
+        },
+        {
+          path: "admin",
+          element: <AdminLayout />,
+          children: [
+            {
+              path: "monitoring",
+              element: <AdminMonitoring />,
+            },
+            {
+              path: "sensors",
+              element: <Sensors />,
+            },
+            {
+              path: "settings",
+              element: <Settings />,
+            },
+            {
+              path: "group",
+              element: <Group />,
+            },
+          ],
+        },
+      ],
+    },
+  ],
   {
-    path: "/",
-    children: [
-      {
-        path: "login",
-        element: <Login />,
-      },
-      {
-        path: "signup",
-        element: <Signup />,
-      },
-      {
-        path: "monitoring",
-        element: (
-          <UserLayout>
-            <Monitoring />
-          </UserLayout>
-        ),
-      },
-      {
-        path: "admin",
-        element: <AdminLayout />,
-        children: [
-          {
-            path: "monitoring",
-            element: <AdminMonitoring />,
-          },
-          {
-            path: "sensors",
-            element: <Sensors />,
-          },
-          {
-            path: "settings",
-            element: <Settings />,
-          },
-          {
-            path: "group",
-            element: <Group />,
-          },
-        ],
-      },
-    ],
-  },
-]);
+    future: {
+      v7_relativeSplatPath: true,
+    },
+  }
+);
 
 export default router;
