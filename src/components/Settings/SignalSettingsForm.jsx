@@ -3,20 +3,20 @@ import { TextField } from "../TextField";
 import FormTitle from "../FormTitle";
 import { grey } from "@mui/material/colors";
 
+export const fieldStyle = {
+  flexDirection: "row",
+  gap: "10px",
+  alignItems: "center",
+  padding: "0 15px",
+};
+
+export const labelStyle = {
+  minWidth: "120px",
+  width: "120px",
+  fontSize: "14px",
+};
+
 const SignalSettingsForm = () => {
-  const fieldStyle = {
-    flexDirection: "row",
-    gap: "10px",
-    alignItems: "center",
-    padding: "0 15px",
-  };
-
-  const labelStyle = {
-    minWidth: "120px",
-    width: "120px",
-    fontSize: "14px",
-  };
-
   return (
     <Stack
       sx={{
@@ -27,7 +27,7 @@ const SignalSettingsForm = () => {
       <Stack sx={{ gap: "10px" }}>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>장비번호</Typography>
-          <TextField fullWidth disabled/>
+          <TextField fullWidth disabled />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>장비 ID</Typography>
@@ -111,23 +111,23 @@ const SignalSettingsForm = () => {
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>SW 버전</Typography>
-          <TextField fullWidth disabled/>
+          <TextField fullWidth disabled />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>HW 버전</Typography>
-          <TextField fullWidth disabled/>
+          <TextField fullWidth disabled />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>버튼 횟수</Typography>
-          <TextField fullWidth disabled/>
+          <TextField fullWidth disabled />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>위치안내 횟수</Typography>
-          <TextField fullWidth disabled/>
+          <TextField fullWidth disabled />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>신호안내 횟수</Typography>
-          <TextField fullWidth disabled/>
+          <TextField fullWidth disabled />
         </Stack>
       </Stack>
     </Stack>
