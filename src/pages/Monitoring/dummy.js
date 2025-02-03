@@ -32,4 +32,15 @@ export const dummySignalLights = [
     signalGuideCount: 0,
     createdAt: "2025-01-02T19:43:36.594791",
   },
+  {
+    sensorId: 4,
+    address: "경기도 성남 백현동 카페거리",
+    latitude: 37.385331,
+    longitude: 127.111264,
+    status: "미접속",
+    buttonClickCount: 3,
+    locationGuideCount: 1,
+    signalGuideCount: 0,
+    createdAt: "2025-01-02T19:43:36.594791",
+  },
 ];
