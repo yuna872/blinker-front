@@ -1,5 +1,9 @@
-import { TableHeaderStyle, TableRowStyle } from "@components/Sensors/SensorList";
+import {
+  TableHeaderStyle,
+  TableRowStyle,
+} from "@components/Sensors/SensorList";
 import Title from "@components/Title";
+import { Traffic } from "@mui/icons-material";
 import {
   Stack,
   Table,
@@ -11,6 +15,7 @@ import {
   ToggleButtonGroup,
 } from "@mui/material";
 import { dummySignalLights } from "@pages/Monitoring/dummy";
+import { theme } from "@styles/theme";
 import { useState } from "react";
 
 const SensorList = () => {
@@ -58,7 +63,11 @@ const SensorList = () => {
                   {/* TODO: Id 수정 필요 */}
                   <TableCell>00000741702c1ffffe54c0c3</TableCell>
                   <TableCell>{item.address}</TableCell>
-                  <TableCell>{item.status}</TableCell>
+                  <TableCell>
+                    <Traffic
+                      sx={{ color: `${theme.palette.status[item.status]}` }}
+                    />
+                  </TableCell>
                 </TableRow>
               );
             })}

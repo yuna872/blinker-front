@@ -10,7 +10,7 @@ import {
 } from "react-kakao-maps-sdk";
 import { GNB_HEIGHT } from "@layouts/Header";
 import greenMarker from "@assets/images/marker-green.png";
-import yellowMarker from "@assets/images/marker-yellow.png";
+import greyMarker from "@assets/images/marker-grey.png";
 import redMarker from "@assets/images/marker-red.png";
 import SensorDrawer from "@components/Sensors/SensorDrawer";
 import { useState } from "react";
@@ -66,7 +66,7 @@ const Sensors = () => {
                         ? greenMarker
                         : marker.status === "오류"
                         ? redMarker
-                        : yellowMarker,
+                        : greyMarker,
                     size: {
                       width: 30,
                       height: 30,

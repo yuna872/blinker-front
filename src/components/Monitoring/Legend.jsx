@@ -1,10 +1,7 @@
 import { Box, Stack, Typography } from "@mui/material";
+import { theme } from "@styles/theme";
 
-export const STATUS = {
-  정상: "#00BB00",
-  오류: "#FF3C3C",
-  미접속: "#757575",
-};
+export const STATUS = ['정상', '오류', '미접속'];
 
 const Legend = () => {
   return (
@@ -23,11 +20,11 @@ const Legend = () => {
     >
       <Typography sx={{ fontSize: "14px" }}>범례</Typography>
       <Stack sx={{ gap: "7px" }}>
-        {Object.entries(STATUS).map(([key, color]) => {
+        {Object.entries(STATUS).map((status) => {
           return (
             <Stack
               sx={{ flexDirection: "row", gap: "5px", alignItems: "center" }}
-              key={key}
+              key={status}
             >
               <Box
                 sx={{
@@ -35,10 +32,10 @@ const Legend = () => {
                   width: "15px",
                   height: "15px",
                   borderRadius: "100%",
-                  backgroundColor: `${color}`,
+                  backgroundColor: `${theme.palette.status[status]}`,
                 }}
               />
-              <Typography sx={{ fontSize: "14px" }}>{key}</Typography>
+              <Typography sx={{ fontSize: "14px" }}>{status}</Typography>
             </Stack>
           );
         })}

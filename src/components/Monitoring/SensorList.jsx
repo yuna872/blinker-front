@@ -8,10 +8,11 @@ import {
   TableRow,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import { Refresh } from "@mui/icons-material";
+import { Refresh, Traffic } from "@mui/icons-material";
 import dayjs from "dayjs";
 import Title from "@components/Title";
 import { TableRowStyle } from "@components/Sensors/SensorList";
+import { theme } from "@styles/theme";
 
 const SensorList = ({ sensors, setSelectedSensor, selectedSensor }) => {
   const handleClickSensor = (sensor) => {
@@ -67,7 +68,13 @@ const SensorList = ({ sensors, setSelectedSensor, selectedSensor }) => {
                   <TableCell>
                     {dayjs(sensor.createdAt).format("YYYY-MM-DD HH:mm:ss")}
                   </TableCell>
-                  <TableCell>{sensor.status}</TableCell>
+                  <TableCell>
+                    <Traffic
+                      sx={{
+                        color: `${theme.palette.status[sensor.status]}`,
+                      }}
+                    />
+                  </TableCell>
                 </TableRow>
               );
             })}

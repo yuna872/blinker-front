@@ -17,6 +17,11 @@ export const theme = createTheme({
     action: {
       hover: grey[200],
     },
+    status: {
+      정상: "#00BB00",
+      오류: "#FF3C3C",
+      미접속: "#757575",
+    },
   },
   components: {
     MuiOutlinedInput: {
