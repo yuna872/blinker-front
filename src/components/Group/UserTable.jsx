@@ -1,3 +1,6 @@
+import { USERTABLE_WIDTH } from "@components/AdminMonitoring/UserTable";
+import { TableHeaderStyle, TableRowStyle } from "@components/Sensors/SensorList";
+import Title from "@components/Title";
 import {
   Button,
   Stack,
@@ -7,11 +10,8 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import Title from "../Title";
 import { grey } from "@mui/material/colors";
-import { TableHeaderStyle, TableRowStyle } from "../Sensors/SensorList";
-import { USERTABLE_WIDTH } from "../AdminMonitoring/UserTable";
-import { dummyUsers } from "../../constants";
+import { dummyUsers } from "constants";
 
 const UserTable = ({ setSelectedUser, selectedUser, handleOpenDialog }) => {
   const handleClickUser = (user) => {
@@ -82,7 +82,7 @@ const UserTable = ({ setSelectedUser, selectedUser, handleOpenDialog }) => {
         }}
       >
         <Button variant="contained">유저 생성</Button>
-        <Button variant="outlined" onClick={handleOpenDialog}>
+        <Button variant="outlined" onClick={handleOpenDialog} disabled={!selectedUser}>
           유저 삭제
         </Button>
       </Stack>
