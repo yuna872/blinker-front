@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Stack, Typography } from "@mui/material";
-import { TextField } from "../../components/TextField";
+import { TextField } from "@components/TextField";
 
 const Login = () => {
   const [formData, setFormData] = useState({

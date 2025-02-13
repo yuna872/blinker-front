@@ -6,10 +6,9 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import Title from "../Title";
 import { grey } from "@mui/material/colors";
-import { dummySignalLights } from "../../pages/Monitoring/dummy";
-import { theme } from "../../styles/theme";
+import { theme } from "@styles/theme";
+import Title from "@components/Title";
 
 export const TableHeaderStyle = {
   "& > .MuiTableCell-root": {

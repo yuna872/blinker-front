@@ -16,15 +16,15 @@ import {
   Roadview,
   ZoomControl,
 } from "react-kakao-maps-sdk";
-import Title from "../../components/Title";
-import greenMarker from "../../assets/images/marker-green.png";
-import greyMarker from "../../assets/images/marker-grey.png";
-import redMarker from "../../assets/images/marker-red.png";
-import { dummySignalLights } from "./dummy";
-import SensorList from "../../components/Monitoring/SensorList";
-import { TextField } from "../../components/TextField";
+import Title from "@components/Title";
+import greenMarker from "@assets/images/marker-green.png";
+import greyMarker from "@assets/images/marker-grey.png";
+import redMarker from "@assets/images/marker-red.png";
+import SensorList from "@components/Monitoring/SensorList";
+import { TextField } from "@components/TextField";
 import { ChevronRight, Close, Search } from "@mui/icons-material";
-import UserLayout from "../../layouts/UserLayout";
+import UserLayout from "@layouts/UserLayout";
+import { dummySignalLights } from "./dummy";
 
 const Monitoring = () => {
   const [sensors, setSensors] = useState(dummySignalLights);

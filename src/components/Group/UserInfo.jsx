@@ -1,7 +1,7 @@
+import { TextField } from "@components/TextField";
+import Title from "@components/Title";
 import { Button, Stack, Typography } from "@mui/material";
-import Title from "../Title";
 import { grey } from "@mui/material/colors";
-import { TextField } from "../TextField";
 import { useForm } from "react-hook-form";
 
 const UserInfo = ({ user }) => {

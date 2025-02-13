@@ -1,12 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
-import Login from "../pages/Login";
-import Signup from "../pages/Signup";
-import Monitoring from "../pages/Monitoring";
-import AdminMonitoring from "../pages/Admin/Monitoring";
-import Sensors from "../pages/Admin/Sensors";
-import Settings from "../pages/Admin/Settings";
-import Group from "../pages/Admin/Group";
-import AdminLayout from "./AdminLayout";
+import Login from "@pages/Login";
+import Signup from "@pages/Signup";
+import Monitoring from "@pages/Monitoring";
+import AdminMonitoring from "@pages/Admin/Monitoring";
+import Sensors from "@pages/Admin/Sensors";
+import Settings from "@pages/Admin/Settings";
+import Group from "@pages/Admin/Group";
+import AdminLayout from "@layouts/AdminLayout";
 
 const router = createBrowserRouter(
   [

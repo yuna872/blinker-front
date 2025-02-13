@@ -1,3 +1,5 @@
+import { TableHeaderStyle, TableRowStyle } from "@components/Sensors/SensorList";
+import Title from "@components/Title";
 import {
   Stack,
   Table,
@@ -7,9 +9,7 @@ import {
   TableRow,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import Title from "../Title";
-import { TableHeaderStyle, TableRowStyle } from "../Sensors/SensorList";
-import { dummySignalLights } from "../../pages/Monitoring/dummy";
+import { dummySignalLights } from "@pages/Monitoring/dummy";
 
 const UnregisteredSensorList = () => {
   return (

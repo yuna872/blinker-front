@@ -1,6 +1,6 @@
+import { TextField } from "@components/TextField";
+import Title from "@components/Title";
 import { Stack, Typography } from "@mui/material";
-import Title from "../Title";
-import { TextField } from "../TextField";
 import { grey } from "@mui/material/colors";
 
 const SensorInfo = () => {

@@ -1,3 +1,5 @@
+import { TableHeaderStyle, TableRowStyle } from "@components/Sensors/SensorList";
+import Title from "@components/Title";
 import {
   Stack,
   Table,
@@ -8,10 +10,8 @@ import {
   ToggleButton,
   ToggleButtonGroup,
 } from "@mui/material";
-import Title from "../Title";
-import { dummySignalLights } from "../../pages/Monitoring/dummy";
+import { dummySignalLights } from "@pages/Monitoring/dummy";
 import { useState } from "react";
-import { TableHeaderStyle, TableRowStyle } from "../Sensors/SensorList";
 
 const SensorList = () => {
   const [filterOption, setFilterOption] = useState("");

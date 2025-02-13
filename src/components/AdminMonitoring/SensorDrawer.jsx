@@ -1,7 +1,7 @@
 import { Stack } from "@mui/material";
-import SensorInfo from "./SensorInfo";
-import SensorList from "./SensorList";
-import { USERTABLE_WIDTH } from "./UserTable";
+import SensorInfo from "@components/AdminMonitoring/SensorInfo";
+import SensorList from "@components/AdminMonitoring/SensorList";
+import { USERTABLE_WIDTH } from "@components/AdminMonitoring/UserTable";
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 import { grey } from "@mui/material/colors";
