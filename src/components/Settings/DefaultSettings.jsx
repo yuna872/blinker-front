@@ -1,5 +1,5 @@
+import FormTitle from "@components/FormTitle";
 import { FormControlLabel, Radio, RadioGroup, Stack } from "@mui/material";
-import FormTitle from "../FormTitle";
 import { grey } from "@mui/material/colors";
 
 const DefaultSettings = () => {

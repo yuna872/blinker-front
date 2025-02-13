@@ -1,10 +1,10 @@
 import { Stack } from "@mui/material";
-import { USERTABLE_WIDTH } from "../AdminMonitoring/UserTable";
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 import { grey } from "@mui/material/colors";
-import SensorInfo from "./SensorInfo";
-import SensorList from "./SensorList";
+import SensorInfo from "@components/Sensors/SensorInfo";
+import SensorList from "@components/Sensors/SensorList";
+import { USERTABLE_WIDTH } from "@components/AdminMonitoring/UserTable";
 
 const SensorDrawer = ({ sensors, selectedSensor, setSelectedSensor }) => {
   const [isOpen, setIsOpen] = useState(true);

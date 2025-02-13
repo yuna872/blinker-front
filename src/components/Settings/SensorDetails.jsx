@@ -1,10 +1,10 @@
 import { Button, Stack, Typography } from "@mui/material";
-import Title from "../Title";
-import { TextField } from "../TextField";
-import SignalSettingsForm from "./SignalSettingsForm";
-import SSIDSettingsForm from "./SSIDSettingsForm";
-import DefaultSettings from "./DefaultSettings";
+import SignalSettingsForm from "@components/Settings/SignalSettingsForm";
+import SSIDSettingsForm from "@components/Settings/SSIDSettingsForm";
+import DefaultSettings from "@components/Settings/DefaultSettings";
 import { grey } from "@mui/material/colors";
+import Title from "@components/Title";
+import { TextField } from "@components/TextField";
 
 const SensorDetails = () => {
   return (
