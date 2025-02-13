@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, MenuItem, Stack, Typography } from "@mui/material";
-import { TextField } from "../../components/TextField";
-import { Select } from "../../components/Select";
+import { TextField } from "@components/TextField";
+import { Select } from "@components/Select";
 
 const Signup = () => {
   const [formData, setFormData] = useState({

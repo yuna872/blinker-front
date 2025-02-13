@@ -1,6 +1,6 @@
+import FormTitle from "@components/FormTitle";
+import { TextField } from "@components/TextField";
 import { Button, Stack, Typography } from "@mui/material";
-import { TextField } from "../TextField";
-import FormTitle from "../FormTitle";
 import { grey } from "@mui/material/colors";
 
 const SSIDSettingsForm = () => {

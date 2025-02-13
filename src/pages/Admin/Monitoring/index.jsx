@@ -1,19 +1,19 @@
 import { Stack } from "@mui/material";
 import UserTable, {
   USERTABLE_WIDTH,
-} from "../../../components/AdminMonitoring/UserTable";
+} from "@components/AdminMonitoring/UserTable";
 import {
   Map,
   MapMarker,
   MarkerClusterer,
   ZoomControl,
 } from "react-kakao-maps-sdk";
-import { dummySignalLights } from "../../Monitoring/dummy";
-import { GNB_HEIGHT } from "../../../layouts/Header";
-import greenMarker from "../../../assets/images/marker-green.png";
-import yellowMarker from "../../../assets/images/marker-yellow.png";
-import redMarker from "../../../assets/images/marker-red.png";
-import SensorDrawer from "../../../components/AdminMonitoring/SensorDrawer";
+import { GNB_HEIGHT } from "@layouts/Header";
+import greenMarker from "@assets/images/marker-green.png";
+import yellowMarker from "@assets/images/marker-yellow.png";
+import redMarker from "@assets/images/marker-red.png";
+import SensorDrawer from "@components/AdminMonitoring/SensorDrawer";
+import { dummySignalLights } from "@pages/Monitoring/dummy";
 
 const AdminMonitoring = () => {
   return (

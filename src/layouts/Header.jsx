@@ -1,6 +1,6 @@
 import { Stack, Typography } from "@mui/material";
 import React from "react";
-import { theme } from "../styles/theme";
+import { theme } from "@styles/theme";
 import { Link, useLocation } from "react-router-dom";
 import { grey } from "@mui/material/colors";
 export const GNB_HEIGHT = 50;

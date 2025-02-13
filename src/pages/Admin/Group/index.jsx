@@ -1,11 +1,11 @@
 import { Stack, IconButton } from "@mui/material";
 import { ArrowForward, ArrowBack } from "@mui/icons-material";
-import UserTable from "../../../components/AdminMonitoring/UserTable";
-import { GNB_HEIGHT } from "../../../layouts/Header";
-import UserInfo from "../../../components/Group/UserInfo";
-import SensorList from "../../../components/Group/SensorList";
-import UnregisteredSensorList from "../../../components/Group/UnregisteredSensorList";
-import { theme } from "../../../styles/theme";
+import UserTable from "@components/AdminMonitoring/UserTable";
+import { GNB_HEIGHT } from "@layouts/Header";
+import UserInfo from "@components/Group/UserInfo";
+import SensorList from "@components/Group/SensorList";
+import UnregisteredSensorList from "@components/Group/UnregisteredSensorList";
+import { theme } from "@styles/theme";
 import { useState } from "react";
 
 const Group = () => {

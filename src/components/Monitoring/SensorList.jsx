@@ -8,10 +8,10 @@ import {
   TableRow,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import Title from "../Title";
-import { TableRowStyle } from "../Sensors/SensorList";
 import { Refresh } from "@mui/icons-material";
 import dayjs from "dayjs";
+import Title from "@components/Title";
+import { TableRowStyle } from "@components/Sensors/SensorList";
 
 const SensorList = ({ sensors, setSelectedSensor, selectedSensor }) => {
   const handleClickSensor = (sensor) => {
