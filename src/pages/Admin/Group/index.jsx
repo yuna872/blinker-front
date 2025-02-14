@@ -8,14 +8,20 @@ import UnregisteredSensorList from "@components/Group/UnregisteredSensorList";
 import { theme } from "@styles/theme";
 import { useState } from "react";
 import AlertDialog from "../../../components/Group/AlertDialog";
+import CreateUserDialog from "@components/Group/CreateUserDialog";
 
 const Group = () => {
   const [selectedUser, setSelectedUser] = useState();
 
-  const [openDialog, setOpenDialog] = useState(false);
+  const [openAlertDialog, setOpenAlertDialog] = useState(false);
 
-  const handleOpenDialog = () => setOpenDialog(true);
-  const handleCloseDialog = () => setOpenDialog(false);
+  const handleOpenAlertDialog = () => setOpenAlertDialog(true);
+  const handleCloseAlertDialog = () => setOpenAlertDialog(false);
+
+  const [openCreateUserDialog, setOpenCreateUserDialog] = useState(false);
+
+  const handleOpenCreateUserDialog = () => setOpenCreateUserDialog(true);
+  const handleCloseCreateUserDialog = () => setOpenCreateUserDialog(false);
 
   console.log(selectedUser);
 
@@ -26,7 +32,8 @@ const Group = () => {
       <UserTable
         setSelectedUser={setSelectedUser}
         selectedUser={selectedUser}
-        handleOpenDialog={handleOpenDialog}
+        handleOpenAlertDialog={handleOpenAlertDialog}
+        handleOpenCreateUserDialog={handleOpenCreateUserDialog}
       />
       <Stack sx={{ overflow: "hidden" }}>
         <UserInfo user={selectedUser} />
@@ -55,9 +62,13 @@ const Group = () => {
       </Stack>
       <UnregisteredSensorList />
       <AlertDialog
-        open={openDialog}
-        handleClose={handleCloseDialog}
+        open={openAlertDialog}
+        handleClose={handleCloseAlertDialog}
         selectedUser={selectedUser}
+      />
+      <CreateUserDialog
+        open={openCreateUserDialog}
+        handleClose={handleCloseCreateUserDialog}
       />
     </Stack>
   );
