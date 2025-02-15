@@ -19,6 +19,7 @@ import { ChevronRight, Close } from "@mui/icons-material";
 import UserLayout from "@layouts/UserLayout";
 import { dummySignalLights } from "./dummy";
 import AddressSearchBar from "@components/Monitoring/AddressSearchBar";
+import InfoWindow from "@components/Monitoring/InfoWindow";
 
 const Monitoring = () => {
   const [map, setMap] = useState();
@@ -37,7 +38,7 @@ const Monitoring = () => {
   const handleSubmitAddress = () => {
     setIsActive(false);
     setIsVisible(false);
-    
+
     const geocoder = new kakao.maps.services.Geocoder();
 
     let callback = (result, status) => {
@@ -213,49 +214,7 @@ const Monitoring = () => {
                           }}
                           onClick={() => handleClickMarker(sensor)}
                         >
-                          {selected && (
-                            <Stack
-                              sx={{
-                                width: "100%",
-                                "& > p": { fontSize: "11px" },
-                              }}
-                            >
-                              <Typography>
-                                해당 기기 번호 (마스터 xX번)
-                              </Typography>
-                              <Stack
-                                sx={{
-                                  "& > p": { fontSize: "11px" },
-                                }}
-                              >
-                                <Typography>
-                                  기기 위치: {sensor.address}
-                                </Typography>
-                                <Typography>
-                                  마지막 작동시간: {"마지막 작동시간"}
-                                </Typography>
-                                <Typography>
-                                  동작 상태: {sensor.status}
-                                </Typography>
-                              </Stack>
-                              <Typography sx={{ fontSize: "10px" }}>
-                                -----------
-                              </Typography>
-                              <Typography sx={{ fontSize: "10px" }}>
-                                메모
-                              </Typography>
-                              <input
-                                type="text"
-                                id="info-window-memo"
-                                style={{
-                                  border: "none",
-                                  outline: "none",
-                                  fontSize: "10px",
-                                }}
-                                placeholder="간단한 메모 작성"
-                              />
-                            </Stack>
-                          )}
+                          {selected && <InfoWindow sensor={sensor} />}
                         </MapMarker>
                       );
                     })}
