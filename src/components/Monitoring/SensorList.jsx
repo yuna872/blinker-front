@@ -11,7 +11,7 @@ import { grey } from "@mui/material/colors";
 import { Refresh, Traffic } from "@mui/icons-material";
 import dayjs from "dayjs";
 import Title from "@components/Title";
-import { TableRowStyle } from "@components/Sensors/SensorList";
+import { TableHeaderStyle, TableRowStyle } from "@components/Sensors/SensorList";
 import { theme } from "@styles/theme";
 
 const SensorList = ({ sensors, setSelectedSensor, selectedSensor }) => {
@@ -34,12 +34,7 @@ const SensorList = ({ sensors, setSelectedSensor, selectedSensor }) => {
         <Table stickyHeader>
           <TableHead>
             <TableRow
-              sx={{
-                "& > .MuiTableCell-root": {
-                  backgroundColor: grey[50],
-                  fontWeight: 600,
-                },
-              }}
+              sx={TableHeaderStyle}
             >
               <TableCell>ID</TableCell>
               <TableCell>주소</TableCell>

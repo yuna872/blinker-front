@@ -1,12 +1,6 @@
 import React, { useState } from "react";
 import { GNB_HEIGHT } from "../../layouts/Header";
-import {
-  Button,
-  IconButton,
-  InputAdornment,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Button, IconButton, Stack, Typography } from "@mui/material";
 import Legend from "../../components/Monitoring/Legend";
 import {
   Map,
@@ -21,10 +15,10 @@ import greenMarker from "@assets/images/marker-green.png";
 import greyMarker from "@assets/images/marker-grey.png";
 import redMarker from "@assets/images/marker-red.png";
 import SensorList from "@components/Monitoring/SensorList";
-import { TextField } from "@components/TextField";
-import { ChevronRight, Close, Search } from "@mui/icons-material";
+import { ChevronRight, Close } from "@mui/icons-material";
 import UserLayout from "@layouts/UserLayout";
 import { dummySignalLights } from "./dummy";
+import AddressSearchBar from "@components/Monitoring/AddressSearchBar";
 
 const Monitoring = () => {
   const [sensors, setSensors] = useState(dummySignalLights);
@@ -32,6 +26,15 @@ const Monitoring = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [selectedSensor, setSelectedSensorState] = useState();
   const [center, setCenter] = useState({ lat: 37.2803, lng: 127.0181 });
+  const [address, setAddress] = useState("");
+
+  const handleChangeAddress = (e) => {
+    setAddress(e.target.value);
+  };
+
+  const handleSubmitAddress = () => {
+    console.log(address);
+  };
 
   const handleClickMarker = (sensor) => {
     setSelectedSensor(sensor);
@@ -72,17 +75,10 @@ const Monitoring = () => {
           }}
         >
           <Title title="지도보기">
-            <TextField
-              fullWidth
-              slotProps={{
-                input: {
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Search sx={{ width: "18px", height: "18px" }} />
-                    </InputAdornment>
-                  ),
-                },
-              }}
+            <AddressSearchBar
+              address={address}
+              handleChangeAddress={handleChangeAddress}
+              handleSubmitAddress={handleSubmitAddress}
             />
           </Title>
           {isVisible ? (
@@ -103,6 +99,7 @@ const Monitoring = () => {
                   width: "100%",
                   height: `calc(100vh - ${GNB_HEIGHT}px)`,
                 }}
+                isPanto={true}
               >
                 <ZoomControl />
                 {/* 동동이 */}
