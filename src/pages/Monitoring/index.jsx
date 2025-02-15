@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { GNB_HEIGHT } from "../../layouts/Header";
 import { Button, IconButton, Stack, Typography } from "@mui/material";
 import Legend from "../../components/Monitoring/Legend";
@@ -21,19 +21,45 @@ import { dummySignalLights } from "./dummy";
 import AddressSearchBar from "@components/Monitoring/AddressSearchBar";
 
 const Monitoring = () => {
+  const [map, setMap] = useState();
   const [sensors, setSensors] = useState(dummySignalLights);
   const [isActive, setIsActive] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [selectedSensor, setSelectedSensorState] = useState();
   const [center, setCenter] = useState({ lat: 37.2803, lng: 127.0181 });
   const [address, setAddress] = useState("");
+  const mapRef = useRef();
 
   const handleChangeAddress = (e) => {
     setAddress(e.target.value);
   };
 
   const handleSubmitAddress = () => {
-    console.log(address);
+    setIsActive(false);
+    setIsVisible(false);
+    
+    const geocoder = new kakao.maps.services.Geocoder();
+
+    let callback = (result, status) => {
+      // 정상적으로 검색이 완료됐으면
+      if (status === kakao.maps.services.Status.OK) {
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        setCenter({ lat: result[0].y, lng: result[0].x });
+      }
+
+      // 마커가 표시될 위치입니다
+      var markerPosition = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+      // 마커를 생성합니다
+      var marker = new kakao.maps.Marker({
+        position: markerPosition,
+      });
+
+      // 마커가 지도 위에 표시되도록 설정합니다
+      marker.setMap(map);
+    };
+
+    geocoder.addressSearch(`${address}`, callback);
   };
 
   const handleClickMarker = (sensor) => {
@@ -100,6 +126,7 @@ const Monitoring = () => {
                   height: `calc(100vh - ${GNB_HEIGHT}px)`,
                 }}
                 isPanto={true}
+                onCreate={setMap}
               >
                 <ZoomControl />
                 {/* 동동이 */}
