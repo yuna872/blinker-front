@@ -18,4 +18,15 @@ export const theme = createTheme({
       hover: grey[200],
     },
   },
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          "&.Mui-error .MuiOutlinedInput-notchedOutline": {
+            borderColor: "#FF3C3C", // TextField 테두리 색상 변경
+          },
+        },
+      },
+    },
+  },
 });

@@ -1,15 +1,29 @@
 import { Stack, IconButton } from "@mui/material";
 import { ArrowForward, ArrowBack } from "@mui/icons-material";
-import UserTable from "@components/AdminMonitoring/UserTable";
+import UserTable from "@components/Group/UserTable";
 import { GNB_HEIGHT } from "@layouts/Header";
 import UserInfo from "@components/Group/UserInfo";
 import SensorList from "@components/Group/SensorList";
 import UnregisteredSensorList from "@components/Group/UnregisteredSensorList";
 import { theme } from "@styles/theme";
 import { useState } from "react";
+import AlertDialog from "../../../components/Group/AlertDialog";
+import CreateUserDialog from "@components/Group/CreateUserDialog";
 
 const Group = () => {
   const [selectedUser, setSelectedUser] = useState();
+
+  const [openAlertDialog, setOpenAlertDialog] = useState(false);
+
+  const handleOpenAlertDialog = () => setOpenAlertDialog(true);
+  const handleCloseAlertDialog = () => setOpenAlertDialog(false);
+
+  const [openCreateUserDialog, setOpenCreateUserDialog] = useState(false);
+
+  const handleOpenCreateUserDialog = () => setOpenCreateUserDialog(true);
+  const handleCloseCreateUserDialog = () => setOpenCreateUserDialog(false);
+
+  console.log(selectedUser);
 
   return (
     <Stack
@@ -18,6 +32,8 @@ const Group = () => {
       <UserTable
         setSelectedUser={setSelectedUser}
         selectedUser={selectedUser}
+        handleOpenAlertDialog={handleOpenAlertDialog}
+        handleOpenCreateUserDialog={handleOpenCreateUserDialog}
       />
       <Stack sx={{ overflow: "hidden" }}>
         <UserInfo user={selectedUser} />
@@ -45,6 +61,15 @@ const Group = () => {
         </IconButton>
       </Stack>
       <UnregisteredSensorList />
+      <AlertDialog
+        open={openAlertDialog}
+        handleClose={handleCloseAlertDialog}
+        selectedUser={selectedUser}
+      />
+      <CreateUserDialog
+        open={openCreateUserDialog}
+        handleClose={handleCloseCreateUserDialog}
+      />
     </Stack>
   );
 };

@@ -21,8 +21,6 @@ const UserInfo = ({ user }) => {
   const { handleSubmit, register, setValue } = useForm({
     defaultValues: {
       ID: user?.userId,
-      password: "",
-      passwordCheck: "",
       userName: user?.userName,
     },
   });
@@ -49,14 +47,6 @@ const UserInfo = ({ user }) => {
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>ID</Typography>
           <TextField fullWidth {...register("ID")} />
-        </Stack>
-        <Stack sx={fieldStyle}>
-          <Typography sx={labelStyle}>암호</Typography>
-          <TextField fullWidth {...register("password")} />
-        </Stack>
-        <Stack sx={fieldStyle}>
-          <Typography sx={labelStyle}>암호 확인</Typography>
-          <TextField fullWidth {...register("passwordCheck")} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>이름</Typography>
