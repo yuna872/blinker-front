@@ -1,10 +1,13 @@
 import TextFieldErrorMessage from "@components/Group/TextFieldErrorMessage";
 import { TextField } from "@components/TextField";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 const { Stack, Typography, Button } = require("@mui/material");
 
 const PasswordChange = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     formState: { errors },
@@ -92,7 +95,7 @@ const PasswordChange = () => {
             gap: "10px",
           }}
         >
-          <Button variant="outlined" fullWidth>
+          <Button variant="outlined" fullWidth onClick={() => navigate(-1)}>
             취소
           </Button>
           <Button type="submit" variant="contained" fullWidth>
