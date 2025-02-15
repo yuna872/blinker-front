@@ -14,7 +14,7 @@ import {
   ToggleButton,
   ToggleButtonGroup,
 } from "@mui/material";
-import { dummySignalLights } from "@pages/Monitoring/dummy";
+import { dummySignalLights } from "@pages/User/Monitoring/dummy";
 import { theme } from "@styles/theme";
 import { useState } from "react";
 

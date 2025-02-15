@@ -14,7 +14,7 @@ import greyMarker from "@assets/images/marker-grey.png";
 import redMarker from "@assets/images/marker-red.png";
 import SensorDrawer from "@components/Sensors/SensorDrawer";
 import { useState } from "react";
-import { dummySignalLights } from "@pages/Monitoring/dummy";
+import { dummySignalLights } from "@pages/User/Monitoring/dummy";
 
 const Sensors = () => {
   const [sensors, setSensors] = useState(dummySignalLights);

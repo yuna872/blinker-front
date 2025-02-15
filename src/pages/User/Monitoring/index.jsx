@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { GNB_HEIGHT } from "../../layouts/Header";
+import { GNB_HEIGHT } from "../../../layouts/Header";
 import { Button, IconButton, Stack, Typography } from "@mui/material";
-import Legend from "../../components/Monitoring/Legend";
+import Legend from "../../../components/Monitoring/Legend";
 import {
   Map,
   MapMarker,
