@@ -20,7 +20,7 @@ const Legend = () => {
     >
       <Typography sx={{ fontSize: "14px" }}>범례</Typography>
       <Stack sx={{ gap: "7px" }}>
-        {Object.entries(STATUS).map((status) => {
+        {STATUS.map((status) => {
           return (
             <Stack
               sx={{ flexDirection: "row", gap: "5px", alignItems: "center" }}
