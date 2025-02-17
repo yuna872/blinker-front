@@ -185,11 +185,7 @@ const Monitoring = () => {
                     </MapMarker>
                   </>
                 ) : (
-                  <MarkerClusterer
-                    averageCenter={true}
-                    minLevel={6}
-                    gridSize={35}
-                  >
+                  <MarkerClusterer averageCenter={true} minLevel={10}>
                     {sensors.map((sensor) => {
                       const selected =
                         sensor.sensorId === selectedSensor?.sensorId;
