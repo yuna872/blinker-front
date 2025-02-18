@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { GNB_HEIGHT } from "../../layouts/Header";
 import { Button, IconButton, Stack, Typography } from "@mui/material";
 import Legend from "../../components/Monitoring/Legend";
@@ -29,7 +29,6 @@ const Monitoring = () => {
   const [selectedSensor, setSelectedSensorState] = useState();
   const [center, setCenter] = useState({ lat: 37.2803, lng: 127.0181 });
   const [address, setAddress] = useState("");
-  const mapRef = useRef();
 
   const handleChangeAddress = (e) => {
     setAddress(e.target.value);

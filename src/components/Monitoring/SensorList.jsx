@@ -11,10 +11,25 @@ import { grey } from "@mui/material/colors";
 import { Refresh, Traffic } from "@mui/icons-material";
 import dayjs from "dayjs";
 import Title from "@components/Title";
-import { TableHeaderStyle, TableRowStyle } from "@components/Sensors/SensorList";
+import {
+  TableHeaderStyle,
+  TableRowStyle,
+} from "@components/Sensors/SensorList";
 import { theme } from "@styles/theme";
+import { useState } from "react";
+import SensorDetailsDialog from "./SensorDetailsDialog";
 
 const SensorList = ({ sensors, setSelectedSensor, selectedSensor }) => {
+  const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
+
+  const handleOpenDetailsDialog = () => {
+    setOpenDetailsDialog(true);
+  };
+
+  const handleCloseDetailsDialog = () => {
+    setOpenDetailsDialog(false);
+  };
+
   const handleClickSensor = (sensor) => {
     setSelectedSensor(sensor);
   };
@@ -33,9 +48,7 @@ const SensorList = ({ sensors, setSelectedSensor, selectedSensor }) => {
       <Stack sx={{ margin: "10px", flex: "1", overflowY: "auto" }}>
         <Table stickyHeader>
           <TableHead>
-            <TableRow
-              sx={TableHeaderStyle}
-            >
+            <TableRow sx={TableHeaderStyle}>
               <TableCell>ID</TableCell>
               <TableCell>주소</TableCell>
               <TableCell>버튼</TableCell>
@@ -68,6 +81,10 @@ const SensorList = ({ sensors, setSelectedSensor, selectedSensor }) => {
                       sx={{
                         color: `${theme.palette.status[sensor.status]}`,
                       }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleOpenDetailsDialog();
+                      }}
                     />
                   </TableCell>
                 </TableRow>
@@ -76,6 +93,10 @@ const SensorList = ({ sensors, setSelectedSensor, selectedSensor }) => {
           </TableBody>
         </Table>
       </Stack>
+      <SensorDetailsDialog
+        open={openDetailsDialog}
+        handleClose={handleCloseDetailsDialog}
+      />
     </Stack>
   );
 };
