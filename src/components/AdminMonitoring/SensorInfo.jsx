@@ -17,20 +17,32 @@ const SensorInfo = () => {
             flexDirection: "row",
             gap: "10px",
             alignItems: "center",
+            "& > p": {
+              fontSize: "14px",
+            },
           },
         }}
       >
         <Stack>
           <Typography sx={{ width: "40px" }}>ID</Typography>
-          <Typography>더헉</Typography>
+          <Typography>0000102140ca63fffe1def20</Typography>
         </Stack>
         <Stack>
           <Typography sx={{ width: "40px" }}>LT</Typography>
-          <Typography>더헉F</Typography>
+          <Typography>2025-02-17T12:37:14+09:00</Typography>
         </Stack>
         <Stack>
           <Typography sx={{ width: "40px" }}>위치</Typography>
-          <TextField fullWidth />
+          <TextField
+            fullWidth
+            slotProps={{
+              htmlInput: {
+                readOnly: true,
+                style: { fontSize: "14px" },
+              },
+            }}
+            value="경기도 수원시 권선구"
+          />
         </Stack>
       </Stack>
     </Stack>
