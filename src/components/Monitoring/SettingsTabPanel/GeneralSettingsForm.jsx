@@ -1,31 +1,51 @@
-import FormTitle from "@components/FormTitle";
-import { FormControlLabel, Radio, RadioGroup, Stack } from "@mui/material";
+import {
+  FormControlLabelStyle,
+  RadioGroupStyle,
+} from "@components/Settings/DefaultSettings";
+import Title from "@components/Title";
+import {
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { grey } from "@mui/material/colors";
+import { theme } from "@styles/theme";
 
-export const FormControlLabelStyle = {
-  "& > .MuiFormControlLabel-label": {
-    fontSize: "14px",
-  },
-};
-
-export const RadioGroupStyle = {
-  flexDirection: "row",
-};
-
-const DefaultSettings = () => {
+export const FormTitle = ({ title }) => {
   return (
-    <Stack
+    <Typography
       sx={{
-        borderTop: `1px solid ${grey[300]}`,
+        padding: "10px",
+        fontSize: "14px",
+        fontWeight: 600,
+        color: grey[900],
       }}
     >
+      {title}
+    </Typography>
+  );
+};
+
+const GeneralSettingsForm = () => {
+  return (
+    <Stack sx={{ border: `1px solid ${grey[300]}`, height: "fit-content" }}>
       <FormTitle title="기본 설정" />
-      <Stack sx={{ gap: "10px", padding: "0 15px" }}>
-        <RadioGroup
-          // value={value}
-          // onChange={handleChange}
-          sx={RadioGroupStyle}
-        >
+      <Stack
+        sx={{
+          "& .MuiFormGroup-root": {
+            "& .MuiFormControlLabel-root": {
+              marginLeft: "0",
+              paddingY: "5px",
+            },
+            "&:nth-of-type(odd)": {
+              backgroundColor: theme.palette.action.hover,
+            },
+          },
+        }}
+      >
+        <RadioGroup sx={RadioGroupStyle}>
           <FormControlLabel
             value="여자"
             control={<Radio size="small" />}
@@ -39,11 +59,7 @@ const DefaultSettings = () => {
             sx={FormControlLabelStyle}
           />
         </RadioGroup>
-        <RadioGroup
-          // value={value}
-          // onChange={handleChange}
-          sx={RadioGroupStyle}
-        >
+        <RadioGroup sx={RadioGroupStyle}>
           <FormControlLabel
             value="새"
             control={<Radio size="small" />}
@@ -57,11 +73,7 @@ const DefaultSettings = () => {
             sx={FormControlLabelStyle}
           />
         </RadioGroup>
-        <RadioGroup
-          // value={value}
-          // onChange={handleChange}
-          sx={RadioGroupStyle}
-        >
+        <RadioGroup sx={RadioGroupStyle}>
           <FormControlLabel
             value="교차로"
             control={<Radio size="small" />}
@@ -75,11 +87,7 @@ const DefaultSettings = () => {
             sx={FormControlLabelStyle}
           />
         </RadioGroup>
-        <RadioGroup
-          // value={value}
-          // onChange={handleChange}
-          sx={RadioGroupStyle}
-        >
+        <RadioGroup sx={RadioGroupStyle}>
           <FormControlLabel
             value="동일지주"
             control={<Radio size="small" />}
@@ -99,11 +107,7 @@ const DefaultSettings = () => {
             sx={FormControlLabelStyle}
           />
         </RadioGroup>
-        <RadioGroup
-          // value={value}
-          // onChange={handleChange}
-          sx={RadioGroupStyle}
-        >
+        <RadioGroup sx={RadioGroupStyle}>
           <FormControlLabel
             value="설정"
             control={<Radio size="small" />}
@@ -117,21 +121,17 @@ const DefaultSettings = () => {
             sx={FormControlLabelStyle}
           />
         </RadioGroup>
-        <RadioGroup
-          // value={value}
-          // onChange={handleChange}
-          sx={RadioGroupStyle}
-        >
+        <RadioGroup sx={RadioGroupStyle}>
           <FormControlLabel
-            value="선"
+            value="여자 우선 방송"
             control={<Radio size="small" />}
-            label="선"
+            label="여자 우선 방송"
             sx={FormControlLabelStyle}
           />
           <FormControlLabel
-            value="후"
+            value="남자 우선 방송"
             control={<Radio size="small" />}
-            label="후"
+            label="남자 우선 방송"
             sx={FormControlLabelStyle}
           />
         </RadioGroup>
@@ -140,4 +140,4 @@ const DefaultSettings = () => {
   );
 };
 
-export default DefaultSettings;
+export default GeneralSettingsForm;

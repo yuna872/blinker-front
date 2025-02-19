@@ -1,12 +1,6 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { GNB_HEIGHT } from "../../layouts/Header";
-import {
-  Button,
-  IconButton,
-  InputAdornment,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Button, IconButton, Stack, Typography } from "@mui/material";
 import Legend from "../../components/Monitoring/Legend";
 import {
   Map,
@@ -21,17 +15,52 @@ import greenMarker from "@assets/images/marker-green.png";
 import greyMarker from "@assets/images/marker-grey.png";
 import redMarker from "@assets/images/marker-red.png";
 import SensorList from "@components/Monitoring/SensorList";
-import { TextField } from "@components/TextField";
-import { ChevronRight, Close, Search } from "@mui/icons-material";
+import { ChevronRight, Close } from "@mui/icons-material";
 import UserLayout from "@layouts/UserLayout";
 import { dummySignalLights } from "./dummy";
+import AddressSearchBar from "@components/Monitoring/AddressSearchBar";
+import InfoWindow from "@components/Monitoring/InfoWindow";
 
 const Monitoring = () => {
+  const [map, setMap] = useState();
   const [sensors, setSensors] = useState(dummySignalLights);
   const [isActive, setIsActive] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [selectedSensor, setSelectedSensorState] = useState();
   const [center, setCenter] = useState({ lat: 37.2803, lng: 127.0181 });
+  const [address, setAddress] = useState("");
+
+  const handleChangeAddress = (e) => {
+    setAddress(e.target.value);
+  };
+
+  const handleSubmitAddress = () => {
+    setIsActive(false);
+    setIsVisible(false);
+
+    const geocoder = new kakao.maps.services.Geocoder();
+
+    let callback = (result, status) => {
+      // 정상적으로 검색이 완료됐으면
+      if (status === kakao.maps.services.Status.OK) {
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        setCenter({ lat: result[0].y, lng: result[0].x });
+      }
+
+      // 마커가 표시될 위치입니다
+      var markerPosition = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+      // 마커를 생성합니다
+      var marker = new kakao.maps.Marker({
+        position: markerPosition,
+      });
+
+      // 마커가 지도 위에 표시되도록 설정합니다
+      marker.setMap(map);
+    };
+
+    geocoder.addressSearch(`${address}`, callback);
+  };
 
   const handleClickMarker = (sensor) => {
     setSelectedSensor(sensor);
@@ -72,17 +101,10 @@ const Monitoring = () => {
           }}
         >
           <Title title="지도보기">
-            <TextField
-              fullWidth
-              slotProps={{
-                input: {
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Search sx={{ width: "18px", height: "18px" }} />
-                    </InputAdornment>
-                  ),
-                },
-              }}
+            <AddressSearchBar
+              address={address}
+              handleChangeAddress={handleChangeAddress}
+              handleSubmitAddress={handleSubmitAddress}
             />
           </Title>
           {isVisible ? (
@@ -103,6 +125,8 @@ const Monitoring = () => {
                   width: "100%",
                   height: `calc(100vh - ${GNB_HEIGHT}px)`,
                 }}
+                isPanto={true}
+                onCreate={setMap}
               >
                 <ZoomControl />
                 {/* 동동이 */}
@@ -160,11 +184,7 @@ const Monitoring = () => {
                     </MapMarker>
                   </>
                 ) : (
-                  <MarkerClusterer
-                    averageCenter={true}
-                    minLevel={6}
-                    gridSize={35}
-                  >
+                  <MarkerClusterer averageCenter={true} minLevel={10}>
                     {sensors.map((sensor) => {
                       const selected =
                         sensor.sensorId === selectedSensor?.sensorId;
@@ -189,13 +209,7 @@ const Monitoring = () => {
                           }}
                           onClick={() => handleClickMarker(sensor)}
                         >
-                          {selected && (
-                            <span
-                              sx={{ fontSize: "14px", textAlign: "center" }}
-                            >
-                              {sensor.address}
-                            </span>
-                          )}
+                          {selected && <InfoWindow sensor={sensor} />}
                         </MapMarker>
                       );
                     })}

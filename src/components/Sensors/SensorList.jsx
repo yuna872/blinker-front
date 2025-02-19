@@ -15,6 +15,7 @@ export const TableHeaderStyle = {
     backgroundColor: grey[50],
     fontWeight: 600,
     padding: "8px 16px",
+    whiteSpace: "nowrap",
   },
 };
 
