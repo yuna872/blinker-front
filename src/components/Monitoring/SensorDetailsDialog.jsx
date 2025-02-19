@@ -12,6 +12,7 @@ import { useState } from "react";
 import { theme } from "@styles/theme";
 import FaultInfoTabPanel from "./FaultInfoTabPanel";
 import SettingsTabPanel from "./SettingsTabPanel";
+import StatusHistoryTabPanel from "./StatusHistoryTabPanel";
 
 const SensorDetailsDialog = ({ open, handleClose }) => {
   const [tabValue, setTabValue] = useState("FAULT_INFO");
@@ -36,22 +37,22 @@ const SensorDetailsDialog = ({ open, handleClose }) => {
       >
         <Close />
       </IconButton>
-      <DialogContent sx={{padding : '15px'}}>
+      <DialogContent sx={{ padding: "15px" }}>
         <Tabs
           value={tabValue}
           onChange={handleChangeTabValue}
           aria-label="basic tabs example"
           sx={{ "& .MuiTab-root": { fontSize: "16px" } }}
-          variant='fullWidth'
+          variant="fullWidth"
         >
           <Tab label="장애 정보" value="FAULT_INFO" />
           <Tab label="설정" value="SETTINGS" />
           <Tab label="상태 이력" value="STATUS_LOG" />
         </Tabs>
-        <Stack sx={{ padding: "15px", maxHeight: "400px"}}>
+        <Stack sx={{ padding: "15px", maxHeight: "500px", height: "500px" }}>
           {tabValue === "FAULT_INFO" && <FaultInfoTabPanel />}
-          {tabValue === "SETTINGS" && <SettingsTabPanel/>}
-          {tabValue === "STATUS_LOG" && <Stack>상태 이력</Stack>}
+          {tabValue === "SETTINGS" && <SettingsTabPanel />}
+          {tabValue === "STATUS_LOG" && <StatusHistoryTabPanel />}
         </Stack>
       </DialogContent>
     </Dialog>
