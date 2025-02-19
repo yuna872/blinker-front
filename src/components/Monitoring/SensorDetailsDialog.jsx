@@ -11,6 +11,7 @@ import { Close } from "@mui/icons-material";
 import { useState } from "react";
 import { theme } from "@styles/theme";
 import FaultInfoTabPanel from "./FaultInfoTabPanel";
+import SettingsTabPanel from "./SettingsTabPanel";
 
 const SensorDetailsDialog = ({ open, handleClose }) => {
   const [tabValue, setTabValue] = useState("FAULT_INFO");
@@ -18,7 +19,7 @@ const SensorDetailsDialog = ({ open, handleClose }) => {
     setTabValue(newValue);
   };
   return (
-    <Dialog onClose={handleClose} open={open} maxWidth="md" fullWidth>
+    <Dialog onClose={handleClose} open={open} maxWidth="lg" fullWidth>
       <Stack sx={{ backgroundColor: theme.palette.primary.main }}>
         <DialogTitle sx={{ m: 0, p: 2, color: "white", fontSize: "18px" }}>
           신호기 + 아이디 + 마스터 or 슬레이브(번호) - 위치
@@ -47,9 +48,9 @@ const SensorDetailsDialog = ({ open, handleClose }) => {
           <Tab label="설정" value="SETTINGS" />
           <Tab label="상태 이력" value="STATUS_LOG" />
         </Tabs>
-        <Stack sx={{ paddingY: "15px", height: "400px", overflow: "hidden" }}>
+        <Stack sx={{ padding: "15px", maxHeight: "400px"}}>
           {tabValue === "FAULT_INFO" && <FaultInfoTabPanel />}
-          {tabValue === "SETTINGS" && <Stack>설정</Stack>}
+          {tabValue === "SETTINGS" && <SettingsTabPanel/>}
           {tabValue === "STATUS_LOG" && <Stack>상태 이력</Stack>}
         </Stack>
       </DialogContent>
