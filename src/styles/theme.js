@@ -22,6 +22,9 @@ export const theme = createTheme({
       오류: "#FF3C3C",
       미접속: "#757575",
     },
+    error: {
+      main: "#FF3C3C",
+    },
   },
   components: {
     MuiOutlinedInput: {

@@ -4,12 +4,15 @@ import { TextField } from "@components/TextField";
 import { useLogin } from "@apis/useLogin";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
+import { useNavigate } from "react-router-dom";
+import { theme } from "@styles/theme";
 
 const Login = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     defaultValues: {
       username: "",
@@ -17,15 +20,16 @@ const Login = () => {
     },
   });
   const { mutateAsync: login } = useLogin();
+  const navigate = useNavigate();
 
   const onSubmit = async (formData) => {
-    console.log(formData);
-
     await login(formData).then((data) => {
       if (data.code === "SUCCESS") {
-        alert(`어서오세요 ${data.response?.roles[0]}`);
+        if (data.response.roles[0] === "ADMIN") navigate("/admin/monitoring");
+        else if (data.response.roles[0] === "USER") navigate("/monitoring");
       } else if (data.code === "U002") {
         alert(data.message);
+        reset();
       }
     });
   };
@@ -71,7 +75,9 @@ const Login = () => {
               errors={errors}
               name="username"
               render={({ message }) => (
-                <Typography sx={{ fontSize: "11px", color: "#FF3C3C" }}>
+                <Typography
+                  sx={{ fontSize: "11px", color: theme.palette.error.main }}
+                >
                   {message}
                 </Typography>
               )}
@@ -92,7 +98,9 @@ const Login = () => {
             errors={errors}
             name="password"
             render={({ message }) => (
-              <Typography sx={{ fontSize: "11px", color: "#FF3C3C" }}>
+              <Typography
+                sx={{ fontSize: "11px", color: theme.palette.error.main }}
+              >
                 {message}
               </Typography>
             )}

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getCookies } from "./cookie";
 
 export const axiosInstance = axios.create({
   baseURL: "https://blinker-backend-155354731251.asia-northeast3.run.app/",
@@ -10,8 +11,7 @@ export const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     // 토큰 가져오기
-    const token =
-      "eyJhbGciOiJIUzUxMiJ9.eyJhcHBVc2VySWQiOiIyIiwiaWF0IjoxNzQwMDUyOTIxLCJleHAiOjE3NDAxMzkzMjF9.ClnRo_P6i-Ve9TiETr1WGjV68sOZfBV9KUSqNPlUKZlPrw9X5Ewh1D_3Kzo6BNFevSI1QoA31In7YQ_bRHvWyA";
+    const token = getCookies("accessToken");
     if (token) config.headers.Authorization = `access-token ${token}`;
     return config;
   },
