@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Button, Stack, Typography } from "@mui/material";
 import { TextField } from "@components/TextField";
-import axios from "axios";
+import { useLogin } from "@apis/useLogin";
 
 const Login = () => {
+  const login = useLogin();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -24,6 +25,10 @@ const Login = () => {
       alert("아이디, 비밀번호를 입력해주세요");
       return;
     }
+
+    login.mutate({ username, password });
+
+    console.log(username, password);
   };
 
   return (
