@@ -1,44 +1,45 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, Stack, Typography } from "@mui/material";
 import { TextField } from "@components/TextField";
 import { useLogin } from "@apis/useLogin";
+import { useForm } from "react-hook-form";
+import { ErrorMessage } from "@hookform/error-message";
 
 const Login = () => {
-  const login = useLogin();
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      username: "",
+      password: "",
+    },
   });
+  const { mutateAsync: login } = useLogin();
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
+  const onSubmit = async (formData) => {
+    console.log(formData);
+
+    await login(formData).then((data) => {
+      if (data.code === "SUCCESS") {
+        alert(`어서오세요 ${data.response?.roles[0]}`);
+      } else if (data.code === "U002") {
+        alert(data.message);
+      }
     });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const { username, password } = formData;
-    if (username === "" || password === "") {
-      alert("아이디, 비밀번호를 입력해주세요");
-      return;
-    }
-
-    login.mutate({ username, password });
-
-    console.log(username, password);
   };
 
   return (
     <Stack
+      component="form"
       sx={{
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
         backgroundColor: "#f9f9f9",
       }}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <Stack
         sx={{
@@ -61,8 +62,19 @@ const Login = () => {
             <TextField
               type="text"
               name="username"
-              value={formData.username}
-              onChange={handleChange}
+              {...register("username", {
+                required: "아이디를 입력해주세요.",
+              })}
+              error={errors.username}
+            />
+            <ErrorMessage
+              errors={errors}
+              name="username"
+              render={({ message }) => (
+                <Typography sx={{ fontSize: "11px", color: "#FF3C3C" }}>
+                  {message}
+                </Typography>
+              )}
             />
           </Stack>
           <Stack>
@@ -70,16 +82,23 @@ const Login = () => {
             <TextField
               type="password"
               name="password"
-              value={formData.password}
-              onChange={handleChange}
+              {...register("password", {
+                required: "비밀번호를 입력해주세요.",
+              })}
+              error={errors.password}
             />
           </Stack>
+          <ErrorMessage
+            errors={errors}
+            name="password"
+            render={({ message }) => (
+              <Typography sx={{ fontSize: "11px", color: "#FF3C3C" }}>
+                {message}
+              </Typography>
+            )}
+          />
         </Stack>
-        <Button
-          onClick={handleSubmit}
-          variant="contained"
-          sx={{ width: "100%" }}
-        >
+        <Button type="submit" variant="contained" sx={{ width: "100%" }}>
           로그인
         </Button>
       </Stack>

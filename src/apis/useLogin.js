@@ -3,7 +3,7 @@ import { axiosInstance } from "./axiosInstance";
 
 const login = async (credentials) => {
   const response = await axiosInstance.post("/auth/sign-in", credentials);
-  return response;
+  return response.data;
 };
 
 export const useLogin = () => {
