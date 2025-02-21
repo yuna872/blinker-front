@@ -15,7 +15,7 @@ const Login = () => {
     reset,
   } = useForm({
     defaultValues: {
-      username: "",
+      userId: "",
       password: "",
     },
   });
@@ -27,8 +27,8 @@ const Login = () => {
       if (data.code === "SUCCESS") {
         if (data.response.roles[0] === "ADMIN") navigate("/admin/monitoring");
         else if (data.response.roles[0] === "USER") navigate("/monitoring");
-      } else if (data.code === "U002") {
-        alert(data.message);
+      } else {
+        alert(data?.message);
         reset();
       }
     });
@@ -65,15 +65,15 @@ const Login = () => {
             <Typography>아이디</Typography>
             <TextField
               type="text"
-              name="username"
-              {...register("username", {
+              name="userId"
+              {...register("userId", {
                 required: "아이디를 입력해주세요.",
               })}
-              error={errors.username}
+              error={!!errors.userId}
             />
             <ErrorMessage
               errors={errors}
-              name="username"
+              name="userId"
               render={({ message }) => (
                 <Typography
                   sx={{ fontSize: "11px", color: theme.palette.error.main }}
@@ -84,14 +84,14 @@ const Login = () => {
             />
           </Stack>
           <Stack>
-            <Typography>암호</Typography>
+            <Typography>비밀번호</Typography>
             <TextField
               type="password"
               name="password"
               {...register("password", {
                 required: "비밀번호를 입력해주세요.",
               })}
-              error={errors.password}
+              error={!!errors.password}
             />
           </Stack>
           <ErrorMessage

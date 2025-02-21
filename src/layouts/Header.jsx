@@ -1,7 +1,7 @@
 import { Stack, Typography } from "@mui/material";
 import React from "react";
 import { theme } from "@styles/theme";
-import { Link, redirect, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { grey } from "@mui/material/colors";
 import { getCookies, removeCookies } from "@apis/cookie";
 export const GNB_HEIGHT = 50;
@@ -10,7 +10,7 @@ const Header = ({ isAdmin }) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const accessToken = getCookies("accessToken");
-  if (!accessToken) navigate("/login");
+  // if (!accessToken) navigate("/login");
 
   const links = [
     { to: "/admin/monitoring", label: "모니터링" },
