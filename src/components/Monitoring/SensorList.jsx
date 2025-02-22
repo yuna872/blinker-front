@@ -48,7 +48,9 @@ const SensorList = ({ sensors, setSelectedSensor, selectedSensor }) => {
       <Stack sx={{ margin: "10px", flex: "1", overflowY: "auto" }}>
         <Table stickyHeader>
           <TableHead>
-            <TableRow sx={TableHeaderStyle}>
+            <TableRow
+              sx={TableHeaderStyle}
+            >
               <TableCell>ID</TableCell>
               <TableCell>주소</TableCell>
               <TableCell>버튼</TableCell>

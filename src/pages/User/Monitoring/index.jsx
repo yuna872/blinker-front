@@ -1,7 +1,7 @@
-import React, { useRef, useState } from "react";
-import { GNB_HEIGHT } from "../../layouts/Header";
+import React, { useState } from "react";
+import { GNB_HEIGHT } from "../../../layouts/Header";
 import { Button, IconButton, Stack, Typography } from "@mui/material";
-import Legend from "../../components/Monitoring/Legend";
+import Legend from "../../../components/Monitoring/Legend";
 import {
   Map,
   MapMarker,
@@ -19,7 +19,6 @@ import { ChevronRight, Close } from "@mui/icons-material";
 import UserLayout from "@layouts/UserLayout";
 import { dummySignalLights } from "./dummy";
 import AddressSearchBar from "@components/Monitoring/AddressSearchBar";
-import InfoWindow from "@components/Monitoring/InfoWindow";
 
 const Monitoring = () => {
   const [map, setMap] = useState();
@@ -35,31 +34,7 @@ const Monitoring = () => {
   };
 
   const handleSubmitAddress = () => {
-    setIsActive(false);
-    setIsVisible(false);
-
-    const geocoder = new kakao.maps.services.Geocoder();
-
-    let callback = (result, status) => {
-      // 정상적으로 검색이 완료됐으면
-      if (status === kakao.maps.services.Status.OK) {
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        setCenter({ lat: result[0].y, lng: result[0].x });
-      }
-
-      // 마커가 표시될 위치입니다
-      var markerPosition = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-      // 마커를 생성합니다
-      var marker = new kakao.maps.Marker({
-        position: markerPosition,
-      });
-
-      // 마커가 지도 위에 표시되도록 설정합니다
-      marker.setMap(map);
-    };
-
-    geocoder.addressSearch(`${address}`, callback);
+    console.log(address);
   };
 
   const handleClickMarker = (sensor) => {
@@ -126,7 +101,6 @@ const Monitoring = () => {
                   height: `calc(100vh - ${GNB_HEIGHT}px)`,
                 }}
                 isPanto={true}
-                onCreate={setMap}
               >
                 <ZoomControl />
                 {/* 동동이 */}
@@ -209,7 +183,49 @@ const Monitoring = () => {
                           }}
                           onClick={() => handleClickMarker(sensor)}
                         >
-                          {selected && <InfoWindow sensor={sensor} />}
+                          {selected && (
+                            <Stack
+                              sx={{
+                                width: "100%",
+                                "& > p": { fontSize: "11px" },
+                              }}
+                            >
+                              <Typography>
+                                해당 기기 번호 (마스터 xX번)
+                              </Typography>
+                              <Stack
+                                sx={{
+                                  "& > p": { fontSize: "11px" },
+                                }}
+                              >
+                                <Typography>
+                                  기기 위치: {sensor.address}
+                                </Typography>
+                                <Typography>
+                                  마지막 작동시간: {"마지막 작동시간"}
+                                </Typography>
+                                <Typography>
+                                  동작 상태: {sensor.status}
+                                </Typography>
+                              </Stack>
+                              <Typography sx={{ fontSize: "10px" }}>
+                                -----------
+                              </Typography>
+                              <Typography sx={{ fontSize: "10px" }}>
+                                메모
+                              </Typography>
+                              <input
+                                type="text"
+                                id="info-window-memo"
+                                style={{
+                                  border: "none",
+                                  outline: "none",
+                                  fontSize: "10px",
+                                }}
+                                placeholder="간단한 메모 작성"
+                              />
+                            </Stack>
+                          )}
                         </MapMarker>
                       );
                     })}

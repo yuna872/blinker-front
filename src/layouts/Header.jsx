@@ -1,12 +1,12 @@
 import { Stack, Typography } from "@mui/material";
 import React from "react";
 import { theme } from "@styles/theme";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { grey } from "@mui/material/colors";
 export const GNB_HEIGHT = 50;
 
 const Header = ({ isAdmin }) => {
-  const isLogin = localStorage.getItem("Authorization");
+  const isLogin = true;
 
   const links = [
     { to: "/admin/monitoring", label: "모니터링" },
@@ -16,7 +16,7 @@ const Header = ({ isAdmin }) => {
   ];
 
   const { pathname } = useLocation();
-  console.log(pathname);
+  const navigate = useNavigate();
 
   const handleClickLogout = () => {
     localStorage.removeItem("Authorization");
@@ -62,13 +62,23 @@ const Header = ({ isAdmin }) => {
           Osan 스마트 음향 신호기 모니터링
         </Typography>
       )}
-      {true && (
-        <Typography
-          onClick={handleClickLogout}
-          sx={{ cursor: "pointer", ":hover": { scale: 1.01 } }}
+      {isLogin && (
+        <Stack
+          sx={{
+            flexDirection: "row",
+            gap: "15px",
+            "& .MuiTypography-root": {
+              cursor: "pointer",
+              fontSize: "14px",
+              ":hover": { scale: 1.01 },
+            },
+          }}
         >
-          로그아웃
-        </Typography>
+          <Typography onClick={() => navigate("/password-change")}>
+            비밀번호 변경
+          </Typography>
+          <Typography onClick={handleClickLogout}>로그아웃</Typography>
+        </Stack>
       )}
     </Stack>
   );
