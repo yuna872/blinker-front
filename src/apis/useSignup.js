@@ -12,6 +12,5 @@ export const useSignup = () => {
     onSuccess: (data) => {
       console.log("회원가입 성공");
     },
-    // TODO: 실패할 경우 500 에러 예외처리
   });
 };

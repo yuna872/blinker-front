@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { useNavigate } from "react-router-dom";
 import { theme } from "@styles/theme";
+import { grey } from "@mui/material/colors";
 
 const Login = () => {
   const {
@@ -36,20 +37,20 @@ const Login = () => {
 
   return (
     <Stack
-      component="form"
       sx={{
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
         backgroundColor: "#f9f9f9",
+        gap: "30px",
       }}
-      onSubmit={handleSubmit(onSubmit)}
     >
       <Stack
+        component="form"
+        onSubmit={handleSubmit(onSubmit)}
         sx={{
           width: "300px",
           padding: "20px",
-          margin: "auto",
           borderRadius: "8px",
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
           alignItems: "center",
@@ -110,6 +111,17 @@ const Login = () => {
           로그인
         </Button>
       </Stack>
+      <Typography
+        sx={{
+          cursor: "pointer",
+          textDecoration: "underline",
+          fontSize: "14px",
+          color: grey[800],
+        }}
+        onClick={() => navigate("/signup")}
+      >
+        회원가입
+      </Typography>
     </Stack>
   );
 };
