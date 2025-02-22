@@ -12,7 +12,9 @@ axiosInstance.interceptors.request.use(
   (config) => {
     // 토큰 가져오기
     const token = getCookies("accessToken");
-    if (token) config.headers.Authorization = `access-token ${token}`;
+    if (token) {
+      config.headers["access-token"] = `${token}`;
+    }
     return config;
   },
   function (error) {
