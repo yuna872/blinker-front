@@ -32,6 +32,7 @@ const UserTable = ({
         flexDirection: "column",
         justifyContent: "space-between",
         borderRight: `1px solid ${grey[200]}`,
+        width: `${USERTABLE_WIDTH}px`,
       }}
     >
       <Stack

@@ -13,7 +13,9 @@ import greenMarker from "@assets/images/marker-green.png";
 import greyMarker from "@assets/images/marker-grey.png";
 import redMarker from "@assets/images/marker-red.png";
 import SensorDrawer from "@components/AdminMonitoring/SensorDrawer";
-import { dummySignalLights } from "@pages/User/Monitoring/dummy";
+import { dummySignalLights } from "@pages/Monitoring/dummy";
+import FailureInfo from "@components/AdminMonitoring/FailureInfo";
+import { grey } from "@mui/material/colors";
 
 const AdminMonitoring = () => {
   return (
@@ -25,7 +27,15 @@ const AdminMonitoring = () => {
         height: `calc(100vh - ${GNB_HEIGHT}px)`,
       }}
     >
-      <UserTable />
+      <Stack
+        sx={{
+          zIndex: "3",
+          backgroundColor: "white",
+        }}
+      >
+        <UserTable />
+        <FailureInfo />
+      </Stack>
       <SensorDrawer />
       <Stack
         sx={{

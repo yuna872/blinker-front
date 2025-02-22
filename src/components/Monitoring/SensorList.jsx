@@ -11,10 +11,25 @@ import { grey } from "@mui/material/colors";
 import { Refresh, Traffic } from "@mui/icons-material";
 import dayjs from "dayjs";
 import Title from "@components/Title";
-import { TableHeaderStyle, TableRowStyle } from "@components/Sensors/SensorList";
+import {
+  TableHeaderStyle,
+  TableRowStyle,
+} from "@components/Sensors/SensorList";
 import { theme } from "@styles/theme";
+import { useState } from "react";
+import SensorDetailsDialog from "./SensorDetailsDialog";
 
 const SensorList = ({ sensors, setSelectedSensor, selectedSensor }) => {
+  const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
+
+  const handleOpenDetailsDialog = () => {
+    setOpenDetailsDialog(true);
+  };
+
+  const handleCloseDetailsDialog = () => {
+    setOpenDetailsDialog(false);
+  };
+
   const handleClickSensor = (sensor) => {
     setSelectedSensor(sensor);
   };
@@ -68,6 +83,10 @@ const SensorList = ({ sensors, setSelectedSensor, selectedSensor }) => {
                       sx={{
                         color: `${theme.palette.status[sensor.status]}`,
                       }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleOpenDetailsDialog();
+                      }}
                     />
                   </TableCell>
                 </TableRow>
@@ -76,6 +95,10 @@ const SensorList = ({ sensors, setSelectedSensor, selectedSensor }) => {
           </TableBody>
         </Table>
       </Stack>
+      <SensorDetailsDialog
+        open={openDetailsDialog}
+        handleClose={handleCloseDetailsDialog}
+      />
     </Stack>
   );
 };

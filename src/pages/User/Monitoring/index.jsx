@@ -21,6 +21,7 @@ import { dummySignalLights } from "./dummy";
 import AddressSearchBar from "@components/Monitoring/AddressSearchBar";
 
 const Monitoring = () => {
+  const [map, setMap] = useState();
   const [sensors, setSensors] = useState(dummySignalLights);
   const [isActive, setIsActive] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -157,11 +158,7 @@ const Monitoring = () => {
                     </MapMarker>
                   </>
                 ) : (
-                  <MarkerClusterer
-                    averageCenter={true}
-                    minLevel={6}
-                    gridSize={35}
-                  >
+                  <MarkerClusterer averageCenter={true} minLevel={10}>
                     {sensors.map((sensor) => {
                       const selected =
                         sensor.sensorId === selectedSensor?.sensorId;

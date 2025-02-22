@@ -1,4 +1,7 @@
-import { TableHeaderStyle, TableRowStyle } from "@components/Sensors/SensorList";
+import {
+  TableHeaderStyle,
+  TableRowStyle,
+} from "@components/Sensors/SensorList";
 import Title from "@components/Title";
 import {
   Stack,
@@ -10,7 +13,7 @@ import {
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-export const USERTABLE_WIDTH = 320;
+export const USERTABLE_WIDTH = 300;
 
 const UserTable = ({ setSelectedUser, selectedUser }) => {
   const handleClickUser = (user) => {
@@ -53,9 +56,6 @@ const UserTable = ({ setSelectedUser, selectedUser }) => {
   return (
     <Stack
       sx={{
-        gap: "10px",
-        zIndex: "3",
-        backgroundColor: "white",
         maxWidth: `${USERTABLE_WIDTH}px`,
         width: `${USERTABLE_WIDTH}px`,
         borderRight: `1px solid ${grey[200]}`,
@@ -64,8 +64,7 @@ const UserTable = ({ setSelectedUser, selectedUser }) => {
       <Title title="사용자 목록" />
       <Stack
         sx={{
-          padding: "0 10px",
-          overflowY: "auto",
+          padding: "10px",
         }}
       >
         <Table>
