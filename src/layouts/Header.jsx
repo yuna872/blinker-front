@@ -3,7 +3,7 @@ import React from "react";
 import { theme } from "@styles/theme";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { grey } from "@mui/material/colors";
-import { getCookies, removeCookies } from "@apis/cookie";
+import { getCookies, removeCookies } from "@apis/auth/cookie";
 export const GNB_HEIGHT = 50;
 
 const Header = ({ isAdmin }) => {

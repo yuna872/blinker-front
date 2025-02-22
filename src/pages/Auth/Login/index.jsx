@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Stack, Typography } from "@mui/material";
 import { TextField } from "@components/TextField";
-import { useLogin } from "@apis/useLogin";
+import { useLogin } from "@apis/auth/useLogin";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { useNavigate } from "react-router-dom";

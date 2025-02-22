@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getCookies } from "./cookie";
+import { getCookies } from "./auth/cookie";
 
 export const axiosInstance = axios.create({
   baseURL: "https://blinker-backend-155354731251.asia-northeast3.run.app/",

@@ -5,7 +5,7 @@ import { Select } from "@components/Select";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { theme } from "@styles/theme";
-import { useSignup } from "@apis/useSignup";
+import { useSignup } from "@apis/auth/useSignup";
 import { useNavigate } from "react-router-dom";
 import { showToast } from "@utils/toast";
 
