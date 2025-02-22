@@ -32,19 +32,21 @@ const Signup = () => {
     const { passwordCheck, ...signupData } = formData;
     console.log(signupData);
 
-    await signup(signupData).then((data) => {
-      // {message: '성공', code: 'SUCCESS', response: 13}
-      if (data.code === "SUCCESS") {
-        if (
-          window.confirm(
-            "회원가입이 완료되었습니다. 로그인 페이지로 이동합니다."
+    try {
+      await signup(signupData).then((data) => {
+        // {message: '성공', code: 'SUCCESS', response: 13}
+        if (data.code === "SUCCESS") {
+          if (
+            window.confirm(
+              "회원가입이 완료되었습니다. 로그인 페이지로 이동합니다."
+            )
           )
-        )
-          navigate("/login");
-      } else {
-        alert(data?.message);
-      }
-    });
+            navigate("/login");
+        }
+      });
+    } catch (error) {
+      console.error("회원가입 중 에러 발생:", error?.response?.data?.message);
+    }
   };
 
   return (
