@@ -7,6 +7,7 @@ import { ErrorMessage } from "@hookform/error-message";
 import { theme } from "@styles/theme";
 import { useSignup } from "@apis/useSignup";
 import { useNavigate } from "react-router-dom";
+import { showToast } from "@utils/toast";
 
 const Signup = () => {
   const {
@@ -45,7 +46,7 @@ const Signup = () => {
         }
       });
     } catch (error) {
-      console.error("회원가입 중 에러 발생:", error?.response?.data?.message);
+      showToast.error(error?.response?.data?.message);
     }
   };
 
