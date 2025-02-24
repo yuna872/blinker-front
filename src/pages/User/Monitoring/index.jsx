@@ -19,6 +19,7 @@ import { ChevronRight, Close } from "@mui/icons-material";
 import UserLayout from "@layouts/UserLayout";
 import { dummySignalLights } from "./dummy";
 import AddressSearchBar from "@components/Monitoring/AddressSearchBar";
+import { useGetSensorGroups } from "@apis/useGetSensorGroups";
 
 const Monitoring = () => {
   const [map, setMap] = useState();
@@ -28,6 +29,10 @@ const Monitoring = () => {
   const [selectedSensor, setSelectedSensorState] = useState();
   const [center, setCenter] = useState({ lat: 37.2803, lng: 127.0181 });
   const [address, setAddress] = useState("");
+
+  const { data : sensorGroups, isLoading } = useGetSensorGroups();
+
+  console.log(sensorGroups)
 
   const handleChangeAddress = (e) => {
     setAddress(e.target.value);
@@ -56,6 +61,7 @@ const Monitoring = () => {
     setIsVisible(false);
   };
 
+  if(isLoading) return <>...is loading</>
   return (
     <UserLayout>
       <Stack
@@ -63,7 +69,7 @@ const Monitoring = () => {
       >
         {/* 신호기 목록 */}
         <SensorList
-          sensors={sensors}
+          sensorGroups={sensorGroups}
           selectedSensor={selectedSensor}
           setSelectedSensor={setSelectedSensor}
         />
