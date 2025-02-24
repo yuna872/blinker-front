@@ -3,10 +3,14 @@ import React from "react";
 import { theme } from "@styles/theme";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { grey } from "@mui/material/colors";
+import { getCookies, removeCookies } from "@apis/auth/cookie";
 export const GNB_HEIGHT = 50;
 
 const Header = ({ isAdmin }) => {
-  const isLogin = true;
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const accessToken = getCookies("accessToken");
+  // if (!accessToken) navigate("/login");
 
   const links = [
     { to: "/admin/monitoring", label: "모니터링" },
@@ -15,13 +19,9 @@ const Header = ({ isAdmin }) => {
     { to: "/admin/group", label: "그룹관리" },
   ];
 
-  const { pathname } = useLocation();
-  const navigate = useNavigate();
-
   const handleClickLogout = () => {
-    localStorage.removeItem("Authorization");
-    alert("로그아웃 되었습니다. 로그인 페이지로 이동합니다.");
-    window.location.href = "/login";
+    removeCookies("accessToken");
+    if (!getCookies("accessToken")) navigate("/login");
   };
 
   return (
@@ -62,7 +62,8 @@ const Header = ({ isAdmin }) => {
           Osan 스마트 음향 신호기 모니터링
         </Typography>
       )}
-      {isLogin && (
+
+      {accessToken && (
         <Stack
           sx={{
             flexDirection: "row",

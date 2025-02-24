@@ -1,52 +1,59 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, MenuItem, Stack, Typography } from "@mui/material";
 import { TextField } from "@components/TextField";
 import { Select } from "@components/Select";
+import { useForm } from "react-hook-form";
+import { ErrorMessage } from "@hookform/error-message";
+import { theme } from "@styles/theme";
+import { useSignup } from "@apis/auth/useSignup";
+import { useNavigate } from "react-router-dom";
+import { showToast } from "@utils/toast";
 
 const Signup = () => {
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-    role: "USER",
+  const {
+    register,
+    watch,
+    formState: { errors },
+    handleSubmit,
+    setValue,
+  } = useForm({
+    defaultValues: {
+      userId: "",
+      username: "",
+      password: "",
+      passwordCheck: "",
+      role: "USER",
+    },
   });
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const { mutateAsync: signup } = useSignup();
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const { username, password } = formData;
-    if (username === "" || password === "") {
-      alert("아이디, 비밀번호를 입력해주세요");
-      return;
-    }
+  const onSubmit = async (formData) => {
+    const { passwordCheck, ...signupData } = formData;
+    console.log(signupData);
 
     try {
-      const response = await fetch("http://localhost:8080/auth/sign-up", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+      await signup(signupData).then((data) => {
+        // {message: '성공', code: 'SUCCESS', response: 13}
+        if (data.code === "SUCCESS") {
+          if (
+            window.confirm(
+              "회원가입이 완료되었습니다. 로그인 페이지로 이동합니다."
+            )
+          )
+            navigate("/login");
+        }
       });
-
-      const data = await response.json();
-      if (data.code === "SUCCESS") {
-        alert("회원가입 성공!");
-        window.location.href = "/login";
-      } else {
-        alert(data.message || "회원가입 실패");
-      }
     } catch (error) {
-      alert("회원가입 중 오류가 발생했습니다.");
+      showToast.error(error?.response?.data?.message);
     }
   };
 
   return (
     <Stack
+      component="form"
+      onSubmit={handleSubmit(onSubmit)}
       sx={{
         justifyContent: "center",
         alignItems: "center",
@@ -74,33 +81,105 @@ const Signup = () => {
             <Typography>아이디</Typography>
             <TextField
               type="text"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
+              name="userId"
+              {...register("userId", {
+                required: "아이디를 입력해주세요.",
+              })}
+              error={!!errors.userId}
+            />
+            <ErrorMessage
+              errors={errors}
+              name="userId"
+              render={({ message }) => (
+                <Typography
+                  sx={{ fontSize: "11px", color: theme.palette.error.main }}
+                >
+                  {message}
+                </Typography>
+              )}
             />
           </Stack>
           <Stack>
-            <Typography>암호</Typography>
+            <Typography>사용자명</Typography>
+            <TextField
+              type="text"
+              name="username"
+              {...register("username", {
+                required: "사용자명을 입력해주세요.",
+              })}
+              error={!!errors.username}
+            />
+            <ErrorMessage
+              errors={errors}
+              name="username"
+              render={({ message }) => (
+                <Typography
+                  sx={{ fontSize: "11px", color: theme.palette.error.main }}
+                >
+                  {message}
+                </Typography>
+              )}
+            />
+          </Stack>
+          <Stack>
+            <Typography>비밀번호</Typography>
             <TextField
               type="password"
               name="password"
-              value={formData.password}
-              onChange={handleChange}
+              {...register("password", {
+                required: "비밀번호를 입력해주세요.",
+              })}
+              error={!!errors.password}
+            />
+            <ErrorMessage
+              errors={errors}
+              name="password"
+              render={({ message }) => (
+                <Typography
+                  sx={{ fontSize: "11px", color: theme.palette.error.main }}
+                >
+                  {message}
+                </Typography>
+              )}
+            />
+          </Stack>
+          <Stack>
+            <Typography>비밀번호 확인</Typography>
+            <TextField
+              type="password"
+              name="passwordCheck"
+              {...register("passwordCheck", {
+                validate: (value) =>
+                  value === watch("password") ||
+                  "비밀번호가 일치하지 않습니다.",
+              })}
+              error={!!errors.passwordCheck}
+            />
+            <ErrorMessage
+              errors={errors}
+              name="passwordCheck"
+              render={({ message }) => (
+                <Typography
+                  sx={{ fontSize: "11px", color: theme.palette.error.main }}
+                >
+                  {message}
+                </Typography>
+              )}
             />
           </Stack>
           <Stack>
             <Typography>관리등급</Typography>
-            <Select name="role" value={formData.role} onChange={handleChange}>
+            <Select
+              name="role"
+              value={watch("role")}
+              onChange={(e) => setValue("role", e.target.value)}
+            >
               <MenuItem value="USER">USER</MenuItem>
               <MenuItem value="ADMIN">ADMIN</MenuItem>
             </Select>
           </Stack>
         </Stack>
-        <Button
-          onClick={handleSubmit}
-          variant="contained"
-          sx={{ width: "100%" }}
-        >
+        <Button type="submit" variant="contained" sx={{ width: "100%" }}>
           회원가입
         </Button>
       </Stack>
