@@ -25,7 +25,6 @@ const SensorDetailsDialog = ({ open, handleClose}) => {
 
   console.log(selectedSensor, 'dialog')
 
-
   if(!selectedSensor) return null
   return (
     <Dialog onClose={handleClose} open={open} maxWidth="lg" fullWidth>

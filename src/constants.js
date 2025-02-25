@@ -62,11 +62,12 @@ export const dummyUsers = [
   },
 ];
 
-export const FAULT = {
+export const FAULTS = {
   "Front Cover Open": "전면 커버 감지",
   "235.3MHz Receiver Fault": "235 채널 신호",
-  " 358.5MHz Receiver Fault": "358 채널 신호",
+  "358.5MHz Receiver Fault": "358 채널 신호",
   "User Button Fault": "버튼 장애",
   "Speaker Fault": "스피커 단락/단선",
   "Signal Light Residual Fault": "신호등 전원 오류",
+ 
 };

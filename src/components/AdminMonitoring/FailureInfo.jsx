@@ -13,7 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import { FAULT } from "constants";
+import { FAULTS } from "constants";
 
 const FailureInfo = () => {
   const data = {
@@ -59,7 +59,7 @@ const FailureInfo = () => {
                     },
                   }}
                 >
-                  <TableCell>{FAULT[key]}</TableCell>
+                  <TableCell>{FAULTS[key]}</TableCell>
                   <TableCell>{value ? "오류" : "정상"}</TableCell>
                 </TableRow>
               );
