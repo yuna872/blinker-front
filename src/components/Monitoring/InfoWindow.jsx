@@ -34,7 +34,7 @@ const InfoWindow = ({ sensor }) => {
           "& > p": { fontSize: "11px" },
         }}
       >
-        <Typography>기기 위치: {"종원씨가 만들어"}</Typography>
+        <Typography>기기 위치: {sensor.address}</Typography>
         <Typography sx={{ whiteSpace: "nowrap" }}>
           {`최근수정일: ${dayjs(sensor.updatedAt).format(
             "YYYY/MM/DD HH:mm:ss"
