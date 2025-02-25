@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { GNB_HEIGHT } from "@layouts/Header";
 import { Button, IconButton, Stack, Typography } from "@mui/material";
 import Legend from "@components/Monitoring/Legend";
@@ -27,20 +27,13 @@ import { setMapPosition } from "@store/mapPosition";
 const Monitoring = () => {
   const [isActive, setIsActive] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const [address, setAddress] = useState("");
   const dispatch = useDispatch();
   const selectedSensor = useSelector((state) => state.selectedSensor);
   const mapPosition = useSelector((state) => state.mapPosition);
+  const [map, setMap] = useState();
+  const mapRef = useRef();
 
   const { data: sensorGroups, isLoading, refetch } = useGetSensorGroups();
-
-  const handleChangeAddress = (e) => {
-    setAddress(e.target.value);
-  };
-
-  const handleSubmitAddress = () => {
-    console.log(address);
-  };
 
   const handleClickMarker = (sensor) => {
     setSelectedSensor(sensor);
@@ -75,7 +68,7 @@ const Monitoring = () => {
           sx={{ flexDirection: "row", height: `calc(100vh - ${GNB_HEIGHT}px)` }}
         >
           {/* 신호기 목록 */}
-          <SensorList sensorGroups={sensorGroups} refetch={refetch}/>
+          <SensorList sensorGroups={sensorGroups} refetch={refetch} />
           {/* 카카오맵 */}
           <Stack
             sx={{
@@ -85,11 +78,7 @@ const Monitoring = () => {
             }}
           >
             <Title title="지도보기">
-              <AddressSearchBar
-                address={address}
-                handleChangeAddress={handleChangeAddress}
-                handleSubmitAddress={handleSubmitAddress}
-              />
+              <AddressSearchBar map={map} setMap={setMap}/>
             </Title>
             {isVisible ? (
               <Roadview
@@ -112,6 +101,7 @@ const Monitoring = () => {
                     height: `calc(100vh - ${GNB_HEIGHT}px)`,
                   }}
                   isPanto={true}
+                  onCreate={setMap}
                 >
                   <ZoomControl />
                   {/* 동동이 */}
