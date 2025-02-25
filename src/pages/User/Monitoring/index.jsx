@@ -78,7 +78,7 @@ const Monitoring = () => {
             }}
           >
             <Title title="지도보기">
-              <AddressSearchBar map={map} setMap={setMap}/>
+              <AddressSearchBar map={map}/>
             </Title>
             {isVisible ? (
               <Roadview

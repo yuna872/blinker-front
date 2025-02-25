@@ -5,7 +5,7 @@ import { setMapPosition } from "@store/mapPosition";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
-const AddressSearchBar = ({setMap, map}) => {
+const AddressSearchBar = ({ map }) => {
   const [address, setAddress] = useState("");
   const dispatch = useDispatch();
 
