@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { GNB_HEIGHT } from "../../../layouts/Header";
+import { GNB_HEIGHT } from "@layouts/Header";
 import { Button, IconButton, Stack, Typography } from "@mui/material";
-import Legend from "../../../components/Monitoring/Legend";
+import Legend from "@components/Monitoring/Legend";
 import {
   Map,
   MapMarker,
@@ -27,13 +27,12 @@ import { setMapPosition } from "@store/mapPosition";
 const Monitoring = () => {
   const [isActive, setIsActive] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  // const [center, setCenter] = useState({ lat: 37.2803, lng: 127.0181 });
   const [address, setAddress] = useState("");
   const dispatch = useDispatch();
   const selectedSensor = useSelector((state) => state.selectedSensor);
   const mapPosition = useSelector((state) => state.mapPosition);
 
-  const { data: sensorGroups, isLoading } = useGetSensorGroups();
+  const { data: sensorGroups, isLoading, refetch } = useGetSensorGroups();
 
   const handleChangeAddress = (e) => {
     setAddress(e.target.value);
@@ -76,7 +75,7 @@ const Monitoring = () => {
           sx={{ flexDirection: "row", height: `calc(100vh - ${GNB_HEIGHT}px)` }}
         >
           {/* 신호기 목록 */}
-          <SensorList sensorGroups={sensorGroups} />
+          <SensorList sensorGroups={sensorGroups} refetch={refetch}/>
           {/* 카카오맵 */}
           <Stack
             sx={{

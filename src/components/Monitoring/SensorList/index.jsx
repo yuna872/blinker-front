@@ -42,7 +42,7 @@ const TableRowStyle = {
   },
 };
 
-const SensorList = ({ sensorGroups }) => {
+const SensorList = ({ sensorGroups, refetch }) => {
   const dispatch = useDispatch();
   const selectedSensor = useSelector((state) => state.selectedSensor);
   const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
@@ -68,7 +68,7 @@ const SensorList = ({ sensorGroups }) => {
   };
 
   const handleClickRefresh = () => {
-    console.log("refresh");
+    refetch()
   };
 
   return (
