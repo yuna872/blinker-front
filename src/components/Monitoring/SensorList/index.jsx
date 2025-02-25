@@ -7,6 +7,9 @@ import { theme } from "@styles/theme";
 import { useState } from "react";
 import SensorDetailsDialog from "../SensorDetailsDialog";
 import Legend from "./Legend";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedSensorState } from "@store/selectedSensorSlice";
+import { setMapPosition } from "@store/mapPosition";
 
 const TableHeaderStyle = {
   backgroundColor: grey[50],
@@ -39,7 +42,9 @@ const TableRowStyle = {
   },
 };
 
-const SensorList = ({ sensorGroups, setSelectedSensor, selectedSensor }) => {
+const SensorList = ({ sensorGroups }) => {
+  const dispatch = useDispatch();
+  const selectedSensor = useSelector((state) => state.selectedSensor);
   const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
 
   const handleOpenDetailsDialog = () => {
@@ -51,14 +56,20 @@ const SensorList = ({ sensorGroups, setSelectedSensor, selectedSensor }) => {
   };
 
   const handleClickSensor = (sensor) => {
-    setSelectedSensor(sensor);
+    if (sensor) {
+      dispatch(setSelectedSensorState(sensor));
+      dispatch(
+        setMapPosition({
+          lat: sensor.latitude,
+          lng: sensor.longitude,
+        })
+      );
+    }
   };
 
   const handleClickRefresh = () => {
     console.log("refresh");
   };
-
-  console.log(sensorGroups, "groups");
 
   return (
     <Stack
@@ -99,7 +110,6 @@ const SensorList = ({ sensorGroups, setSelectedSensor, selectedSensor }) => {
           }}
         >
           {sensorGroups?.map((group) => {
-            console.log(group);
             return (
               <Stack key={group.sensorGroupId}>
                 <Stack
@@ -169,8 +179,7 @@ const SensorList = ({ sensorGroups, setSelectedSensor, selectedSensor }) => {
                           sx={{
                             color: `${theme.palette.status[sensor.status]}`,
                           }}
-                          onClick={(e) => {
-                            e.stopPropagation();
+                          onClick={() => {
                             handleOpenDetailsDialog();
                           }}
                         />
@@ -184,6 +193,7 @@ const SensorList = ({ sensorGroups, setSelectedSensor, selectedSensor }) => {
         </Stack>
       </Stack>
       <SensorDetailsDialog
+        sensor={selectedSensor}
         open={openDetailsDialog}
         handleClose={handleCloseDetailsDialog}
       />

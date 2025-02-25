@@ -13,17 +13,29 @@ import { theme } from "@styles/theme";
 import FaultInfoTabPanel from "./FaultInfoTabPanel";
 import SettingsTabPanel from "./SettingsTabPanel";
 import StatusHistoryTabPanel from "./StatusHistoryTabPanel";
+import { useSelector } from "react-redux";
 
-const SensorDetailsDialog = ({ open, handleClose }) => {
+const SensorDetailsDialog = ({ open, handleClose}) => {
+  const selectedSensor = useSelector((state) => state.selectedSensor);
+
   const [tabValue, setTabValue] = useState("FAULT_INFO");
   const handleChangeTabValue = (_, newValue) => {
     setTabValue(newValue);
   };
+
+  console.log(selectedSensor, 'dialog')
+
+
+  if(!selectedSensor) return null
   return (
     <Dialog onClose={handleClose} open={open} maxWidth="lg" fullWidth>
       <Stack sx={{ backgroundColor: theme.palette.primary.main }}>
         <DialogTitle sx={{ m: 0, p: 2, color: "white", fontSize: "18px" }}>
-          신호기 + 아이디 + 마스터 or 슬레이브(번호) - 위치
+          {`신호기 ${"그룹아이디"}  ${
+            selectedSensor.groupPositionNumber > 0
+              ? `슬레이브 ${selectedSensor.groupPositionNumber}번`
+              : "마스터"
+          } - ${selectedSensor.address}`}
         </DialogTitle>
       </Stack>
       <IconButton

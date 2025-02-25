@@ -20,13 +20,18 @@ import UserLayout from "@layouts/UserLayout";
 import AddressSearchBar from "@components/Monitoring/AddressSearchBar";
 import { useGetSensorGroups } from "@apis/useGetSensorGroups";
 import InfoWindow from "@components/Monitoring/InfoWindow";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedSensorState } from "@store/selectedSensorSlice";
+import { setMapPosition } from "@store/mapPosition";
 
 const Monitoring = () => {
   const [isActive, setIsActive] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const [selectedSensor, setSelectedSensorState] = useState();
-  const [center, setCenter] = useState({ lat: 37.2803, lng: 127.0181 });
+  // const [center, setCenter] = useState({ lat: 37.2803, lng: 127.0181 });
   const [address, setAddress] = useState("");
+  const dispatch = useDispatch();
+  const selectedSensor = useSelector((state) => state.selectedSensor);
+  const mapPosition = useSelector((state) => state.mapPosition);
 
   const { data: sensorGroups, isLoading } = useGetSensorGroups();
 
@@ -43,15 +48,16 @@ const Monitoring = () => {
   };
 
   const setSelectedSensor = (sensor) => {
-    setSelectedSensorState(sensor);
     if (sensor) {
-      setCenter({
-        lat: sensor.latitude,
-        lng: sensor.longitude,
-      });
+      dispatch(setSelectedSensorState(sensor));
+      dispatch(
+        setMapPosition({
+          lat: sensor.latitude,
+          lng: sensor.longitude,
+        })
+      );
     }
   };
-  console.log(selectedSensor, "selected");
 
   const handleClickCloseInfoWindow = () => {
     setIsActive(false);
@@ -70,11 +76,7 @@ const Monitoring = () => {
           sx={{ flexDirection: "row", height: `calc(100vh - ${GNB_HEIGHT}px)` }}
         >
           {/* 신호기 목록 */}
-          <SensorList
-            sensorGroups={sensorGroups}
-            selectedSensor={selectedSensor}
-            setSelectedSensor={setSelectedSensor}
-          />
+          <SensorList sensorGroups={sensorGroups} />
           {/* 카카오맵 */}
           <Stack
             sx={{
@@ -93,8 +95,7 @@ const Monitoring = () => {
             {isVisible ? (
               <Roadview
                 position={{
-                  lat: center.lat,
-                  lng: center.lng,
+                  ...mapPosition,
                   radius: 50,
                 }}
                 style={{
@@ -105,7 +106,7 @@ const Monitoring = () => {
             ) : (
               <>
                 <Map
-                  center={center}
+                  center={mapPosition}
                   level={6}
                   style={{
                     width: "100%",
@@ -119,13 +120,15 @@ const Monitoring = () => {
                     <>
                       <MapTypeId type={kakao.maps.MapTypeId.ROADVIEW} />
                       <MapMarker
-                        position={center}
+                        position={mapPosition}
                         draggable={true}
                         onDragEnd={(marker) => {
-                          setCenter({
-                            lat: marker.getPosition().getLat(),
-                            lng: marker.getPosition().getLng(),
-                          });
+                          dispatch(
+                            setMapPosition({
+                              lat: marker.getPosition().getLat(),
+                              lng: marker.getPosition().getLng(),
+                            })
+                          );
                         }}
                         image={{
                           src: "https://t1.daumcdn.net/localimg/localimages/07/2018/pc/roadview_minimap_wk_2018.png",
