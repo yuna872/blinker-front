@@ -201,11 +201,8 @@ const Monitoring = () => {
                                   "& > p": { fontSize: "11px" },
                                 }}
                               >
-                                <Typography>
-                                  {`${sensor.sensorGroupId}}`}
-                                </Typography>
-                                <Typography>
-                                  {`${
+                                <Typography sx={{ whiteSpace: "nowrap" }}>
+                                  {`${sensor.sensorGroupId} ${
                                     sensor.groupPositionNumber > 0
                                       ? `(슬레이브 ${sensor.groupPositionNumber}번)`
                                       : "(마스터)"
@@ -219,10 +216,10 @@ const Monitoring = () => {
                                   <Typography>
                                     기기 위치: {"종원씨가 만들어"}
                                   </Typography>
-                                  <Typography>
-                                    {`최근 작동시간: ${dayjs(
+                                  <Typography sx={{ whiteSpace: "nowrap" }}>
+                                    {`최근수정일: ${dayjs(
                                       sensor.updatedAt
-                                    ).format("YYYY-MM-DD HH:mm:ss")}`}
+                                    ).format("YYYY/MM/DD HH:mm:ss")}`}
                                   </Typography>
                                   <Typography>
                                     동작 상태: {sensor.status}
@@ -237,7 +234,7 @@ const Monitoring = () => {
                                     border: "none",
                                     outline: "none",
                                     fontSize: "10px",
-                                    width: "90%", // 너비 조정
+                                    width: "95%",
                                   }}
                                   rows={3}
                                   placeholder="간단한 메모 작성"
