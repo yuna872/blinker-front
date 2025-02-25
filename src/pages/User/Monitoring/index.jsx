@@ -19,7 +19,6 @@ import { ChevronRight, Close } from "@mui/icons-material";
 import UserLayout from "@layouts/UserLayout";
 import AddressSearchBar from "@components/Monitoring/AddressSearchBar";
 import { useGetSensorGroups } from "@apis/useGetSensorGroups";
-import dayjs from "dayjs";
 import InfoWindow from "@components/Monitoring/InfoWindow";
 
 const Monitoring = () => {
@@ -52,7 +51,7 @@ const Monitoring = () => {
       });
     }
   };
-  console.log(selectedSensor, 'selected');
+  console.log(selectedSensor, "selected");
 
   const handleClickCloseInfoWindow = () => {
     setIsActive(false);
@@ -194,7 +193,9 @@ const Monitoring = () => {
                             }}
                             onClick={() => handleClickMarker(sensor)}
                           >
-                            {selected && <InfoWindow sensor={sensor} />}
+                            {selected && (
+                              <InfoWindow sensorId={sensor.sensorId} />
+                            )}
                           </MapMarker>
                         );
                       })}
