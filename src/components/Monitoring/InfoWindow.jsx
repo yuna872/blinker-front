@@ -1,4 +1,4 @@
-import { useGetSensorDetail } from "@apis/useGetSensorDetails";
+import { useGetSensorDetail } from "@apis/sensor/useGetSensorDetails";
 import { CircularProgress, Stack, Typography } from "@mui/material";
 import { theme } from "@styles/theme";
 import dayjs from "dayjs";

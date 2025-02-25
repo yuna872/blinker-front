@@ -18,7 +18,7 @@ import SensorList from "@components/Monitoring/SensorList";
 import { ChevronRight, Close } from "@mui/icons-material";
 import UserLayout from "@layouts/UserLayout";
 import AddressSearchBar from "@components/Monitoring/AddressSearchBar";
-import { useGetSensorGroups } from "@apis/useGetSensorGroups";
+import { useGetSensorGroups } from "@apis/sensor/useGetSensorGroups";
 import InfoWindow from "@components/Monitoring/InfoWindow";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedSensorState } from "@store/selectedSensorSlice";

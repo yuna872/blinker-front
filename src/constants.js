@@ -69,5 +69,4 @@ export const FAULTS = {
   "User Button Fault": "버튼 장애",
   "Speaker Fault": "스피커 단락/단선",
   "Signal Light Residual Fault": "신호등 전원 오류",
- 
 };

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { axiosInstance } from "./axiosInstance";
+import { axiosInstance } from "../axiosInstance";
 
 const getSensorGroups = async () => {
   const { data } = await axiosInstance.get("/sensor/groups");
