@@ -20,6 +20,7 @@ import UserLayout from "@layouts/UserLayout";
 import AddressSearchBar from "@components/Monitoring/AddressSearchBar";
 import { useGetSensorGroups } from "@apis/useGetSensorGroups";
 import dayjs from "dayjs";
+import InfoWindow from "@components/Monitoring/InfoWindow";
 
 const Monitoring = () => {
   const [isActive, setIsActive] = useState(false);
@@ -51,6 +52,7 @@ const Monitoring = () => {
       });
     }
   };
+  console.log(selectedSensor, 'selected');
 
   const handleClickCloseInfoWindow = () => {
     setIsActive(false);
@@ -62,8 +64,6 @@ const Monitoring = () => {
     const sensors = sensorGroups.flatMap(({ sensorGroupId, sensors }) =>
       sensors.map((sensor) => ({ ...sensor, sensorGroupId }))
     );
-
-    console.log(sensors, "sensors");
 
     return (
       <UserLayout>
@@ -194,53 +194,7 @@ const Monitoring = () => {
                             }}
                             onClick={() => handleClickMarker(sensor)}
                           >
-                            {selected && (
-                              <Stack
-                                sx={{
-                                  width: "100%",
-                                  "& > p": { fontSize: "11px" },
-                                }}
-                              >
-                                <Typography sx={{ whiteSpace: "nowrap" }}>
-                                  {`${sensor.sensorGroupId} ${
-                                    sensor.groupPositionNumber > 0
-                                      ? `(슬레이브 ${sensor.groupPositionNumber}번)`
-                                      : "(마스터)"
-                                  }`}
-                                </Typography>
-                                <Stack
-                                  sx={{
-                                    "& > p": { fontSize: "11px" },
-                                  }}
-                                >
-                                  <Typography>
-                                    기기 위치: {"종원씨가 만들어"}
-                                  </Typography>
-                                  <Typography sx={{ whiteSpace: "nowrap" }}>
-                                    {`최근수정일: ${dayjs(
-                                      sensor.updatedAt
-                                    ).format("YYYY/MM/DD HH:mm:ss")}`}
-                                  </Typography>
-                                  <Typography>
-                                    동작 상태: {sensor.status}
-                                  </Typography>
-                                </Stack>
-                                <Typography sx={{ fontSize: "10px" }}>
-                                  - 메모 -
-                                </Typography>
-                                <textarea
-                                  id="info-window-memo"
-                                  style={{
-                                    border: "none",
-                                    outline: "none",
-                                    fontSize: "10px",
-                                    width: "95%",
-                                  }}
-                                  rows={3}
-                                  placeholder="간단한 메모 작성"
-                                />
-                              </Stack>
-                            )}
+                            {selected && <InfoWindow sensor={sensor} />}
                           </MapMarker>
                         );
                       })}

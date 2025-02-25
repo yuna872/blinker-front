@@ -116,15 +116,18 @@ const SensorList = ({ sensorGroups, setSelectedSensor, selectedSensor }) => {
                   </Stack>
                   <Stack>{`(SSID) ${group.ssid}`}</Stack>
                 </Stack>
-                {group.sensors.map((sensor, idx) => {
+                {group.sensors.map((sensor) => {
                   const selected = sensor.sensorId === selectedSensor?.sensorId;
                   return (
                     <Stack
                       spacing={1}
                       key={sensor.sensorId}
-                      sx={{ ...TableRowStyle, marginLeft: "15px" }}
+                      sx={{
+                        ...TableRowStyle,
+                        marginLeft: "15px",
+                        backgroundColor: selected ? grey[100] : "white",
+                      }}
                       onClick={() => handleClickSensor(sensor)}
-                      selected={selected}
                     >
                       <Stack sx={{ width: "30px", maxWidth: "30px" }}>
                         {/* TODO: order 정보 추가하기 */}
