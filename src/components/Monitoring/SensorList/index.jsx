@@ -142,7 +142,7 @@ const SensorList = ({ sensorGroups, setSelectedSensor, selectedSensor }) => {
                         {!sensor.groupPositionNumber && (
                           <Star sx={{ width: "15px", color: grey[700] }} />
                         )}
-                        {"주소는 내가 만들어"}
+                        {"주소는 종원씨가 맹글어"}
                       </Stack>
                       <Stack sx={{ width: "40px", maxWidth: "40px" }}>
                         <Circle color="#91ff35">{sensor.buttonCount}</Circle>
