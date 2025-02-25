@@ -30,9 +30,9 @@ const Monitoring = () => {
   const [center, setCenter] = useState({ lat: 37.2803, lng: 127.0181 });
   const [address, setAddress] = useState("");
 
-  const { data : sensorGroups, isLoading } = useGetSensorGroups();
+  const { data: sensorGroups, isLoading } = useGetSensorGroups();
 
-  console.log(sensorGroups)
+  console.log(sensorGroups);
 
   const handleChangeAddress = (e) => {
     setAddress(e.target.value);
@@ -61,7 +61,7 @@ const Monitoring = () => {
     setIsVisible(false);
   };
 
-  if(isLoading) return <>...is loading</>
+  if (isLoading) return <>...is loading</>;
   return (
     <UserLayout>
       <Stack
