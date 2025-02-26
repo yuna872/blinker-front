@@ -2,8 +2,12 @@ import { TextField } from "@components/TextField";
 import Title from "@components/Title";
 import { Stack, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
+import dayjs from "dayjs";
+import { useSelector } from "react-redux";
 
 const SensorInfo = () => {
+  const selectedSensor = useSelector((state) => state.selectedSensor);
+
   return (
     <Stack>
       <Title title="센서 정보" />
@@ -25,14 +29,18 @@ const SensorInfo = () => {
       >
         <Stack>
           <Typography sx={{ width: "40px" }}>ID</Typography>
-          <Typography>0000102140ca63fffe1def20</Typography>
+          <Typography>{selectedSensor?.sensorGroupId}</Typography>
         </Stack>
         <Stack>
           <Typography sx={{ width: "40px" }}>LT</Typography>
-          <Typography>2025-02-17T12:37:14+09:00</Typography>
+          <Typography>
+            {selectedSensor?.updatedAt
+              ? dayjs(selectedSensor?.updatedAt).format("YYYY-MM-DD HH:mm:ss")
+              : ""}
+          </Typography>
         </Stack>
         <Stack>
-          <Typography sx={{ width: "40px" }}>위치</Typography>
+          <Typography sx={{ width: "40px" }}>주소</Typography>
           <TextField
             fullWidth
             slotProps={{
@@ -41,7 +49,7 @@ const SensorInfo = () => {
                 style: { fontSize: "14px" },
               },
             }}
-            value="경기도 수원시 권선구"
+            value={selectedSensor?.address}
           />
         </Stack>
       </Stack>

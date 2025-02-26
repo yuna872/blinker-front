@@ -5,10 +5,8 @@ import { USERTABLE_WIDTH } from "@components/AdminMonitoring/UserTable";
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 import { grey } from "@mui/material/colors";
-import { useSelector } from "react-redux";
 
 const SensorDrawer = () => {
-  const selectedUser = useSelector((state) => state.selectedUser);
   const [isOpen, setIsOpen] = useState(true);
 
   const toggleOpenDrawer = () => {

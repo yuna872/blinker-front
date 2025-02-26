@@ -3,9 +3,10 @@ import Title from "@components/Title";
 import { Star, Traffic } from "@mui/icons-material";
 import { Stack, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { grey } from "@mui/material/colors";
+import { setSelectedSensorState } from "@store/selectedSensorSlice";
 import { theme } from "@styles/theme";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const TableHeaderStyle = {
   backgroundColor: grey[50],
@@ -39,7 +40,9 @@ const TableRowStyle = {
 };
 
 const SensorList = () => {
+  const dispatch = useDispatch();
   const selectedUser = useSelector((state) => state.selectedUser);
+  const selectedSensor = useSelector((state) => state.selectedSensor);
   const { data: sensorGroups } = useGetUserSensorGroups(
     selectedUser?.appUserId
   );
@@ -50,7 +53,12 @@ const SensorList = () => {
     setFilterOption(newOption);
   };
 
+  const handleClickSensor = (sensor) => {
+    dispatch(setSelectedSensorState(sensor));
+  };
+
   console.log(sensorGroups, "user sensor");
+  console.log(selectedSensor, "selected");
 
   return (
     <Stack>
@@ -83,7 +91,7 @@ const SensorList = () => {
         {/* Header */}
         <Stack sx={TableHeaderStyle}>
           <Stack sx={{ width: "40px", maxWidth: "40px" }}>ID</Stack>
-          <Stack sx={{ width: "250px", maxWidth: "250px" }}>주소</Stack>
+          <Stack sx={{ width: "280px", maxWidth: "280px" }}>주소</Stack>
           <Stack>상태</Stack>
         </Stack>
         {/* Body */}
@@ -105,7 +113,7 @@ const SensorList = () => {
                       },
                     }}
                   >
-                    <Stack sx={{ width: "30px", maxWidth: "30px" }}>
+                    <Stack sx={{ width: "40px", maxWidth: "40px" }}>
                       {group.order}
                     </Stack>
                     <Stack sx={{ width: "220px", maxWidth: "220px" }}>
@@ -114,8 +122,8 @@ const SensorList = () => {
                     <Stack>{`(SSID) ${group.ssid}`}</Stack>
                   </Stack>
                   {group.sensors.map((sensor) => {
-                    // const selected = sensor.sensorId === selectedSensor?.sensorId;
-                    const selected = false;
+                    const selected =
+                      sensor.sensorId === selectedSensor?.sensorId;
                     return (
                       <Stack
                         spacing={1}
@@ -126,7 +134,7 @@ const SensorList = () => {
                           backgroundColor: selected ? grey[100] : "white",
                           flexDirection: "row",
                         }}
-                        // onClick={() => handleClickSensor(sensor)}
+                        onClick={() => handleClickSensor(sensor)}
                       >
                         <Stack sx={{ width: "40px", maxWidth: "40px" }}>
                           {/* TODO: order 정보 추가하기 */}
@@ -134,8 +142,8 @@ const SensorList = () => {
                         </Stack>
                         <Stack
                           sx={{
-                            width: "250px",
-                            maxWidth: "250px",
+                            width: "280px",
+                            maxWidth: "280px",
                             flexDirection: "row",
                             alignItems: "center",
                             gap: "5px",
