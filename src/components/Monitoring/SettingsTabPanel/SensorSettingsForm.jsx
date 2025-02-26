@@ -3,6 +3,7 @@ import { FormTitle } from "./GeneralSettingsForm";
 import { grey } from "@mui/material/colors";
 import { theme } from "@styles/theme";
 import { TextField } from "@components/TextField";
+import { useFormContext } from "react-hook-form";
 
 export const fieldStyle = {
   flexDirection: "row",
@@ -17,6 +18,8 @@ export const labelStyle = {
 };
 
 const SensorSettingsForm = () => {
+  const { register } = useFormContext();
+
   return (
     <Stack sx={{ border: `1px solid ${grey[300]}`, height: "fit-content" }}>
       <FormTitle title="신호기 설정" />
@@ -32,27 +35,27 @@ const SensorSettingsForm = () => {
       >
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>장비번호</Typography>
-          <TextField value="장비 번호" disabled />
+          <TextField {...register("deviceNumber")} disabled />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>장비 ID</Typography>
-          <TextField />
+          <TextField {...register("deviceId")} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>위치무선세기 기준</Typography>
-          <TextField />
+          <TextField {...register('positionSignalThreshold')}/>
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>위치무선세기</Typography>
-          <TextField />
+          <TextField {...register('positionSignalStrength')}/>
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>신호무선세기 기준</Typography>
-          <TextField />
+          <TextField {...register('communicationSignalThreshold')}/>
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>신호무선세기</Typography>
-          <TextField />
+          <TextField {...register('communicationSignalStrength')}/>
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>서버타임</Typography>
