@@ -15,10 +15,13 @@ import redMarker from "@assets/images/marker-red.png";
 import SensorDrawer from "@components/Sensors/SensorDrawer";
 import { useState } from "react";
 import { dummySignalLights } from "@pages/User/Monitoring/dummy";
+import { useGetUsers } from "@apis/auth/useGetUsers";
 
 const Sensors = () => {
   const [sensors, setSensors] = useState(dummySignalLights);
   const [selectedSensor, setSelectedSensor] = useState();
+
+  const {data : users} = useGetUsers();
 
   return (
     <Stack
@@ -29,7 +32,7 @@ const Sensors = () => {
         height: `calc(100vh - ${GNB_HEIGHT}px)`,
       }}
     >
-      <UserTable />
+      <UserTable users={users}/>
       <SensorDrawer
         sensors={sensors}
         selectedSensor={selectedSensor}

@@ -8,7 +8,7 @@ const getSensorGroups = async () => {
 
 export const useGetSensorGroups = () => {
   return useQuery({
-    queryKey: ["/sensor/groups"],
+    queryKey: ["sensor", "groups"],
     queryFn: getSensorGroups,
   });
 };

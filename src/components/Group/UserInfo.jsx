@@ -3,8 +3,9 @@ import Title from "@components/Title";
 import { Button, Stack, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 
-const UserInfo = ({ user }) => {
+const UserInfo = () => {
   const fieldStyle = {
     flexDirection: "row",
     gap: "10px",
@@ -18,16 +19,18 @@ const UserInfo = ({ user }) => {
     fontSize: "14px",
   };
 
+  const selectedUser = useSelector((state) => state.selectedUser);
+
   const { handleSubmit, register, setValue } = useForm({
     defaultValues: {
-      ID: user?.userId,
-      userName: user?.userName,
+      ID: selectedUser?.userId,
+      userName: selectedUser?.username,
     },
   });
 
-  if (user) {
-    setValue("ID", user.userId);
-    setValue("userName", user.userName);
+  if (selectedUser) {
+    setValue("ID", selectedUser.userId);
+    setValue("username", selectedUser.username);
   }
 
   const onSubmit = (formValue) => {
@@ -50,7 +53,7 @@ const UserInfo = ({ user }) => {
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>이름</Typography>
-          <TextField fullWidth d {...register("userName")} />
+          <TextField fullWidth d {...register("username")} />
         </Stack>
       </Stack>
       <Button variant="outlined" sx={{ margin: "15px" }} type="submit">

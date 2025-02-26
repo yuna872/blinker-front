@@ -6,8 +6,10 @@ import {
   DialogTitle,
   Typography,
 } from "@mui/material";
+import { useSelector } from "react-redux";
 
-const AlertDialog = ({ open, handleClose, selectedUser }) => {
+const AlertDialog = ({ open, handleClose }) => {
+  const selectedUser = useSelector((state) => state.selectedUser);
   return (
     <Dialog
       open={open}
@@ -18,7 +20,7 @@ const AlertDialog = ({ open, handleClose, selectedUser }) => {
       <DialogTitle id="alert-dialog-title">{"유저 삭제 확인"}</DialogTitle>
       <DialogContent>
         <Typography>{`ID: ${selectedUser?.userId}`}</Typography>
-        <Typography>{` Name: ${selectedUser?.userName}`}</Typography>
+        <Typography>{` Name: ${selectedUser?.username}`}</Typography>
         <Typography>
           해당 유저를 삭제하면 복구할 수 없습니다. 계속 진행하시겠습니까?
         </Typography>

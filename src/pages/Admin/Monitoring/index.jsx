@@ -15,8 +15,11 @@ import redMarker from "@assets/images/marker-red.png";
 import SensorDrawer from "@components/AdminMonitoring/SensorDrawer";
 import FailureInfo from "@components/AdminMonitoring/FailureInfo";
 import { dummySignalLights } from "@pages/User/Monitoring/dummy";
+import { useGetUsers } from "@apis/auth/useGetUsers";
 
 const AdminMonitoring = () => {
+  const { data: users } = useGetUsers();
+
   return (
     <Stack
       sx={{
@@ -32,7 +35,7 @@ const AdminMonitoring = () => {
           backgroundColor: "white",
         }}
       >
-        <UserTable />
+        <UserTable users={users} />
         <FailureInfo />
       </Stack>
       <SensorDrawer />

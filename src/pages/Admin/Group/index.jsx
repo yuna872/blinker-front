@@ -9,10 +9,9 @@ import { theme } from "@styles/theme";
 import { useState } from "react";
 import AlertDialog from "../../../components/Group/AlertDialog";
 import CreateUserDialog from "@components/Group/CreateUserDialog";
+import { useGetUsers } from "@apis/auth/useGetUsers";
 
 const Group = () => {
-  const [selectedUser, setSelectedUser] = useState();
-
   const [openAlertDialog, setOpenAlertDialog] = useState(false);
 
   const handleOpenAlertDialog = () => setOpenAlertDialog(true);
@@ -23,20 +22,19 @@ const Group = () => {
   const handleOpenCreateUserDialog = () => setOpenCreateUserDialog(true);
   const handleCloseCreateUserDialog = () => setOpenCreateUserDialog(false);
 
-  console.log(selectedUser);
+  const { data: users } = useGetUsers();
 
   return (
     <Stack
       sx={{ flexDirection: "row", height: `calc(100vh - ${GNB_HEIGHT}px)` }}
     >
       <UserTable
-        setSelectedUser={setSelectedUser}
-        selectedUser={selectedUser}
+        users={users}
         handleOpenAlertDialog={handleOpenAlertDialog}
         handleOpenCreateUserDialog={handleOpenCreateUserDialog}
       />
       <Stack sx={{ overflow: "hidden" }}>
-        <UserInfo user={selectedUser} />
+        <UserInfo />
         <SensorList />
       </Stack>
       <Stack
@@ -64,7 +62,6 @@ const Group = () => {
       <AlertDialog
         open={openAlertDialog}
         handleClose={handleCloseAlertDialog}
-        selectedUser={selectedUser}
       />
       <CreateUserDialog
         open={openCreateUserDialog}

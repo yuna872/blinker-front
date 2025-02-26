@@ -2,7 +2,6 @@ import {
   FormControlLabelStyle,
   RadioGroupStyle,
 } from "@components/Settings/DefaultSettings";
-import Title from "@components/Title";
 import {
   FormControlLabel,
   Radio,

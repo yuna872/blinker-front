@@ -14,16 +14,19 @@ import {
   TableRow,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import { dummyUsers } from "constants";
+import { setSelectedUser } from "@store/selectedUserSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const UserTable = ({
-  setSelectedUser,
-  selectedUser,
   handleOpenAlertDialog,
   handleOpenCreateUserDialog,
+  users,
 }) => {
+  const dispatch = useDispatch();
+  const selectedUser = useSelector((state) => state.selectedUser);
+
   const handleClickUser = (user) => {
-    setSelectedUser(user);
+    dispatch(setSelectedUser(user));
   };
 
   return (
@@ -61,11 +64,11 @@ const UserTable = ({
               </TableRow>
             </TableHead>
             <TableBody>
-              {dummyUsers.map((user) => {
-                const selected = user.id === selectedUser?.id;
+              {users.map((user) => {
+                const selected = user.appUserId === selectedUser?.appUserId;
                 return (
                   <TableRow
-                    key={user.id}
+                    key={user.appUserId}
                     selected={selected}
                     sx={{
                       ...TableRowStyle,
@@ -73,7 +76,7 @@ const UserTable = ({
                     onClick={() => handleClickUser(user)}
                   >
                     <TableCell>{user.userId}</TableCell>
-                    <TableCell>{user.userName}</TableCell>
+                    <TableCell>{user.username}</TableCell>
                   </TableRow>
                 );
               })}
