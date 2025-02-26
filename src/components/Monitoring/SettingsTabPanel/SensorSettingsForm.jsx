@@ -59,7 +59,7 @@ const SensorSettingsForm = () => {
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>서버타임</Typography>
-          <TextField />
+          <TextField disabled/>
         </Stack>
       </Stack>
     </Stack>

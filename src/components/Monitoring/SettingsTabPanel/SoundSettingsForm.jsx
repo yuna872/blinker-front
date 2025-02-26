@@ -31,8 +31,8 @@ const SoundSettingsForm = () => {
           <TextField {...register("cricketVolume")} />
         </Stack>
         <Stack sx={fieldStyle}>
-          <Typography sx={labelStyle}>멜로디 음량</Typography>
-          <TextField />
+          <Typography sx={labelStyle}>딩동댕 음량</Typography>
+          <TextField {...register("dingdongVolume")} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>여자 음량</Typography>
@@ -68,7 +68,7 @@ const SoundSettingsForm = () => {
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>통신간격(분 단위)</Typography>
-          <TextField/>
+          <TextField {...register("communicationInterval")}/>
         </Stack>
       </Stack>
     </Stack>
