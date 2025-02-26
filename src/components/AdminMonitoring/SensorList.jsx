@@ -43,29 +43,30 @@ const SensorList = () => {
   const dispatch = useDispatch();
   const selectedUser = useSelector((state) => state.selectedUser);
   const selectedSensor = useSelector((state) => state.selectedSensor);
-  const { data: sensorGroups } = useGetUserSensorGroups(
-    selectedUser?.appUserId
-  );
+  const [onlyFaulty, setOnlyFaulty] = useState(false);
 
-  const [filterOption, setFilterOption] = useState("");
-
-  const handleChangeFilterOption = (e, newOption) => {
-    setFilterOption(newOption);
+  const handleChangeOnlyFaulty = (_, newOption) => {
+    setOnlyFaulty(newOption);
   };
 
   const handleClickSensor = (sensor) => {
     dispatch(setSelectedSensorState(sensor));
+    setOnlyFaulty(false);
   };
 
+  const { data: sensorGroups } = useGetUserSensorGroups(
+    selectedUser?.appUserId,
+    onlyFaulty
+  );
+
   console.log(sensorGroups, "user sensor");
-  console.log(selectedSensor, "selected");
 
   return (
     <Stack>
       <Title title="센서 목록" />
       <ToggleButtonGroup
-        value={filterOption}
-        onChange={handleChangeFilterOption}
+        value={onlyFaulty}
+        onChange={handleChangeOnlyFaulty}
         exclusive
         color="primary"
         sx={{
@@ -75,10 +76,10 @@ const SensorList = () => {
           },
         }}
       >
-        <ToggleButton value="ALL" size="small">
+        <ToggleButton value={false} size="small">
           전체
         </ToggleButton>
-        <ToggleButton value="FAULT" size="small">
+        <ToggleButton value={true} size="small">
           장애
         </ToggleButton>
       </ToggleButtonGroup>

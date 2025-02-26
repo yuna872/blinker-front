@@ -17,7 +17,6 @@ import { useSelector } from "react-redux";
 
 const FaultInfo = () => {
   const selectedSensor = useSelector((state) => state.selectedSensor);
-  console.log(selectedSensor);
 
   return (
     <Stack sx={{ borderRight: `1px solid ${grey[200]}` }}>
