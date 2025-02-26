@@ -13,7 +13,7 @@ import greenMarker from "@assets/images/marker-green.png";
 import greyMarker from "@assets/images/marker-grey.png";
 import redMarker from "@assets/images/marker-red.png";
 import SensorDrawer from "@components/AdminMonitoring/SensorDrawer";
-import FailureInfo from "@components/AdminMonitoring/FailureInfo";
+import FailureInfo from "@components/AdminMonitoring/FaultInfo";
 import { dummySignalLights } from "@pages/User/Monitoring/dummy";
 import { useGetUsers } from "@apis/auth/useGetUsers";
 
