@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 import { theme } from "@styles/theme";
 import { grey } from "@mui/material/colors";
 import { useDispatch } from "react-redux";
-import { setUser } from "@store/userSlice";
 
 const Login = () => {
   const {
@@ -24,20 +23,13 @@ const Login = () => {
   });
   const { mutateAsync: login } = useLogin();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const onSubmit = async (formData) => {
     await login(formData).then((data) => {
       if (data.code === "SUCCESS") {
-        const { appUserId, roles } = data.response;
-        dispatch(
-          setUser({
-            appUserId,
-            roles,
-          })
-        );
-        if (roles[0] === "ADMIN") navigate("/admin/monitoring");
-        else if (roles[0] === "USER") navigate("/monitoring");
+        const user = data.response;
+        if (user.roles[0] === "ADMIN") navigate("/admin/monitoring");
+        else if (user.roles[0] === "USER") navigate("/monitoring");
       } else {
         alert(data?.message);
         reset();

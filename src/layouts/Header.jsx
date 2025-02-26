@@ -4,15 +4,12 @@ import { theme } from "@styles/theme";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { grey } from "@mui/material/colors";
 import { getCookies, removeCookies } from "@apis/auth/cookie";
-import { useDispatch } from "react-redux";
-import { resetUser } from "@store/userSlice";
 export const GNB_HEIGHT = 50;
 
 const Header = ({ isAdmin }) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const accessToken = getCookies("accessToken");
-  const dispatch = useDispatch();
 
   const links = [
     { to: "/admin/monitoring", label: "모니터링" },
@@ -23,8 +20,8 @@ const Header = ({ isAdmin }) => {
 
   const handleClickLogout = () => {
     removeCookies("accessToken");
+    removeCookies("role");
     if (!getCookies("accessToken")) navigate("/login");
-    dispatch(resetUser());
   };
 
   return (
