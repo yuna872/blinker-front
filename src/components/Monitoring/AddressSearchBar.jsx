@@ -1,7 +1,7 @@
 import { TextField } from "@components/TextField";
 import { Search } from "@mui/icons-material";
 import { InputAdornment } from "@mui/material";
-import { setMapPosition } from "@store/mapPosition";
+import { setMapPosition } from "@store/mapPositionSlice";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 

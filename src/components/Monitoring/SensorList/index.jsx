@@ -9,7 +9,7 @@ import SensorDetailsDialog from "../SensorDetailsDialog";
 import Legend from "./Legend";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedSensorState } from "@store/selectedSensorSlice";
-import { setMapPosition } from "@store/mapPosition";
+import { setMapPosition } from "@store/mapPositionSlice";
 
 const TableHeaderStyle = {
   backgroundColor: grey[50],
@@ -68,7 +68,7 @@ const SensorList = ({ sensorGroups, refetch }) => {
   };
 
   const handleClickRefresh = () => {
-    refetch()
+    refetch();
   };
 
   return (

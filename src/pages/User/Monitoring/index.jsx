@@ -22,7 +22,7 @@ import { useGetSensorGroups } from "@apis/sensor/useGetSensorGroups";
 import InfoWindow from "@components/Monitoring/InfoWindow";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedSensorState } from "@store/selectedSensorSlice";
-import { setMapPosition } from "@store/mapPosition";
+import { setMapPosition } from "@store/mapPositionSlice";
 
 const Monitoring = () => {
   const [isActive, setIsActive] = useState(false);
@@ -78,7 +78,7 @@ const Monitoring = () => {
             }}
           >
             <Title title="지도보기">
-              <AddressSearchBar map={map}/>
+              <AddressSearchBar map={map} />
             </Title>
             {isVisible ? (
               <Roadview
