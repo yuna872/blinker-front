@@ -12,6 +12,7 @@ import {
   TableRow,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
+import { setSelectedSensorState } from "@store/selectedSensorSlice";
 import { setSelectedUser } from "@store/selectedUserSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -23,6 +24,7 @@ const UserTable = ({ users }) => {
 
   const handleClickUser = (user) => {
     dispatch(setSelectedUser(user));
+    dispatch(setSelectedSensorState(null));
   };
 
   if (!users) return null;
