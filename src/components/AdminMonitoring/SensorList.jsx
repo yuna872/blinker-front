@@ -3,9 +3,9 @@ import Title from "@components/Title";
 import { Star, Traffic } from "@mui/icons-material";
 import { Stack, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { grey } from "@mui/material/colors";
+import { setMapPosition } from "@store/mapPositionSlice";
 import { setSelectedSensorState } from "@store/selectedSensorSlice";
 import { theme } from "@styles/theme";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const TableHeaderStyle = {
@@ -49,7 +49,15 @@ const SensorList = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
   };
 
   const handleClickSensor = (sensor) => {
-    dispatch(setSelectedSensorState(sensor));
+    if (sensor) {
+      dispatch(setSelectedSensorState(sensor));
+      dispatch(
+        setMapPosition({
+          lat: sensor.latitude,
+          lng: sensor.longitude,
+        })
+      );
+    }
     setOnlyFaulty(false);
   };
 
@@ -130,7 +138,6 @@ const SensorList = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
                         onClick={() => handleClickSensor(sensor)}
                       >
                         <Stack sx={{ width: "40px", maxWidth: "40px" }}>
-                          {/* TODO: order 정보 추가하기 */}
                           {group.order}-{sensor.groupPositionNumber}
                         </Stack>
                         <Stack
@@ -148,13 +155,9 @@ const SensorList = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
                           {sensor.address}
                         </Stack>
                         <Stack sx={{ width: "fit-content" }}>
-                          {/* TODO: 상태 정보 반영하기 */}
                           <Traffic
                             sx={{
                               color: `${theme.palette.status[sensor.status]}`,
-                            }}
-                            onClick={() => {
-                              // handleOpenDetailsDialog();
                             }}
                           />
                         </Stack>

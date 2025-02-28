@@ -22,14 +22,14 @@ const FaultInfo = () => {
     <Stack sx={{ borderRight: `1px solid ${grey[200]}` }}>
       <Title title="장애 정보" />
       <Stack sx={{ padding: "10px" }}>
-        {selectedSensor?.faultInformation && (
-          <Table>
-            <TableHead>
-              <TableRow sx={TableHeaderStyle}>
-                <TableCell>항목</TableCell>
-                <TableCell>장애유무</TableCell>
-              </TableRow>
-            </TableHead>
+        <Table>
+          <TableHead>
+            <TableRow sx={TableHeaderStyle}>
+              <TableCell>항목</TableCell>
+              <TableCell>장애유무</TableCell>
+            </TableRow>
+          </TableHead>
+          {selectedSensor?.faultInformation && (
             <TableBody>
               {Object.entries(selectedSensor.faultInformation).map(
                 ([key, value]) => {
@@ -50,8 +50,8 @@ const FaultInfo = () => {
                 }
               )}
             </TableBody>
-          </Table>
-        )}
+          )}
+        </Table>
       </Stack>
     </Stack>
   );

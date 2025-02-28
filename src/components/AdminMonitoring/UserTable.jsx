@@ -27,7 +27,6 @@ const UserTable = ({ users }) => {
     dispatch(setSelectedSensorState(null));
   };
 
-  if (!users) return null;
   return (
     <Stack
       sx={{
@@ -50,7 +49,7 @@ const UserTable = ({ users }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.map((user) => {
+            {users?.map((user) => {
               const selected = user.appUserId === selectedUser?.appUserId;
               return (
                 <TableRow
