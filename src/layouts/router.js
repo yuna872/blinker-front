@@ -6,13 +6,14 @@ import AdminMonitoring from "@pages/Admin/Monitoring";
 import Sensors from "@pages/Admin/Sensors";
 import Settings from "@pages/Admin/Settings";
 import Group from "@pages/Admin/Group";
-import AdminLayout from "@layouts/AdminLayout";
 import PasswordChange from "@pages/Auth/PasswordChange";
+import Layouts from "./Layouts";
 
 const router = createBrowserRouter(
   [
     {
       path: "/",
+      element: <Layouts />,
       children: [
         {
           path: "login",
@@ -32,7 +33,6 @@ const router = createBrowserRouter(
         },
         {
           path: "admin",
-          element: <AdminLayout />,
           children: [
             {
               path: "monitoring",
