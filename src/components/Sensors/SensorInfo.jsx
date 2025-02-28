@@ -2,9 +2,11 @@ import { TextField } from "@components/TextField";
 import Title from "@components/Title";
 import { Stack, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
+import { useSelector } from "react-redux";
 
-const SensorInfo = ({ selectedSensor }) => {
-  console.log(selectedSensor);
+const SensorInfo = () => {
+  const selectedSensor = useSelector((state) => state.selectedSensor);
+
   return (
     <Stack>
       <Title title="센서 정보" />
@@ -18,15 +20,18 @@ const SensorInfo = ({ selectedSensor }) => {
             flexDirection: "row",
             gap: "10px",
             alignItems: "center",
+            "& > p": {
+              fontSize: "14px",
+            },
           },
         }}
       >
         <Stack>
           <Typography sx={{ width: "50px" }}>ID</Typography>
-          <Typography>{selectedSensor?.sensorId}</Typography>
+          <Typography>{selectedSensor?.sensorGroupId}</Typography>
         </Stack>
         <Stack>
-          <Typography sx={{ width: "50px" }}>위치</Typography>
+          <Typography sx={{ width: "50px" }}>주소</Typography>
           <TextField
             fullWidth
             slotProps={{
@@ -34,7 +39,7 @@ const SensorInfo = ({ selectedSensor }) => {
                 readOnly: true,
               },
             }}
-            value={selectedSensor?.address}
+            value={selectedSensor ? selectedSensor?.address : ""}
           />
         </Stack>
       </Stack>

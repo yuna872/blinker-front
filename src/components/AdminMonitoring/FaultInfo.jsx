@@ -1,7 +1,5 @@
-import {
-  TableHeaderStyle,
-  TableRowStyle,
-} from "@components/Sensors/SensorList";
+
+import { TableHeaderStyle, TableRowStyle } from "@components/Sensors/SensorList";
 import Title from "@components/Title";
 import {
   Stack,
