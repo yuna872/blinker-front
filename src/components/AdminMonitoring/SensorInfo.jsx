@@ -49,7 +49,7 @@ const SensorInfo = () => {
                 style: { fontSize: "14px" },
               },
             }}
-            value={selectedSensor?.address}
+            value={selectedSensor ? selectedSensor?.address : ""}
           />
         </Stack>
       </Stack>

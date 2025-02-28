@@ -14,11 +14,37 @@ import greyMarker from "@assets/images/marker-grey.png";
 import redMarker from "@assets/images/marker-red.png";
 import SensorDrawer from "@components/AdminMonitoring/SensorDrawer";
 import FailureInfo from "@components/AdminMonitoring/FaultInfo";
-import { dummySignalLights } from "@pages/User/Monitoring/dummy";
 import { useGetUsers } from "@apis/auth/useGetUsers";
+import { useGetUserSensorGroups } from "@apis/sensor/useGetUserSensorGroups";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import InfoWindow from "@components/Monitoring/InfoWindow";
+import { setSelectedSensorState } from "@store/selectedSensorSlice";
+import { setMapPosition } from "@store/mapPositionSlice";
 
 const AdminMonitoring = () => {
+  const dispatch = useDispatch();
+  const selectedSensor = useSelector((state) => state.selectedSensor);
+  const selectedUser = useSelector((state) => state.selectedUser);
+  const [onlyFaulty, setOnlyFaulty] = useState(false);
+
   const { data: users } = useGetUsers();
+  const { data: sensorGroups } = useGetUserSensorGroups(
+    selectedUser?.appUserId,
+    onlyFaulty
+  );
+
+  const handleClickMarker = (sensor) => {
+    dispatch(setSelectedSensorState(sensor));
+    dispatch(
+      setMapPosition({
+        lat: sensor.latitude,
+        lng: sensor.longitude,
+      })
+    );
+  };
+
+  console.log(sensorGroups, "user sensor");
 
   return (
     <Stack
@@ -38,7 +64,11 @@ const AdminMonitoring = () => {
         <UserTable users={users} />
         <FailureInfo />
       </Stack>
-      <SensorDrawer />
+      <SensorDrawer
+        sensorGroups={sensorGroups}
+        onlyFaulty={onlyFaulty}
+        setOnlyFaulty={setOnlyFaulty}
+      />
       <Stack
         sx={{
           position: "absolute",
@@ -56,29 +86,38 @@ const AdminMonitoring = () => {
         >
           <ZoomControl />
           <MarkerClusterer averageCenter={true} minLevel={6} gridSize={35}>
-            {dummySignalLights.map((marker) => {
-              return (
-                <MapMarker
-                  key={`${marker.latitude}-${marker.longitude}`}
-                  position={{
-                    lat: marker.latitude,
-                    lng: marker.longitude,
-                  }}
-                  image={{
-                    src:
-                      marker.status === "정상"
-                        ? greenMarker
-                        : marker.status === "오류"
-                        ? redMarker
-                        : greyMarker,
-                    size: {
-                      width: 30,
-                      height: 30,
-                    },
-                  }}
-                />
-              );
-            })}
+            {sensorGroups &&
+              sensorGroups
+                ?.flatMap((v) => v.sensors)
+                .map((sensor) => {
+                  const selected =
+                    selectedSensor &&
+                    sensor.sensorId === selectedSensor.sensorId;
+                  return (
+                    <MapMarker
+                      key={`${sensor.latitude}-${sensor.longitude}-${sensor.groupPositionNumber}`}
+                      position={{
+                        lat: sensor.latitude,
+                        lng: sensor.longitude,
+                      }}
+                      image={{
+                        src:
+                          sensor.status === "정상"
+                            ? greenMarker
+                            : sensor.status === "오류"
+                            ? redMarker
+                            : greyMarker,
+                        size: {
+                          width: selected ? 35 : 30,
+                          height: selected ? 35 : 30,
+                        },
+                      }}
+                      onClick={() => handleClickMarker(sensor)}
+                    >
+                      {selected && <InfoWindow sensorId={sensor.sensorId} />}
+                    </MapMarker>
+                  );
+                })}
           </MarkerClusterer>
         </Map>
       </Stack>

@@ -39,14 +39,13 @@ const TableRowStyle = {
   },
 };
 
-const SensorList = () => {
+const SensorList = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
   const dispatch = useDispatch();
-  const selectedUser = useSelector((state) => state.selectedUser);
   const selectedSensor = useSelector((state) => state.selectedSensor);
-  const [onlyFaulty, setOnlyFaulty] = useState(false);
 
   const handleChangeOnlyFaulty = (_, newOption) => {
     setOnlyFaulty(newOption);
+    dispatch(setSelectedSensorState(null));
   };
 
   const handleClickSensor = (sensor) => {
@@ -54,15 +53,8 @@ const SensorList = () => {
     setOnlyFaulty(false);
   };
 
-  const { data: sensorGroups } = useGetUserSensorGroups(
-    selectedUser?.appUserId,
-    onlyFaulty
-  );
-
-  console.log(sensorGroups, "user sensor");
-
   return (
-    <Stack>
+    <Stack sx={{ flex: "1" }}>
       <Title title="센서 목록" />
       <ToggleButtonGroup
         value={onlyFaulty}
@@ -114,10 +106,10 @@ const SensorList = () => {
                       },
                     }}
                   >
-                    <Stack sx={{ width: "40px", maxWidth: "40px" }}>
+                    <Stack sx={{ width: "30px", maxWidth: "30px" }}>
                       {group.order}
                     </Stack>
-                    <Stack sx={{ width: "220px", maxWidth: "220px" }}>
+                    <Stack sx={{ width: "210px", maxWidth: "210px" }}>
                       {group.sensorGroupId}
                     </Stack>
                     <Stack>{`(SSID) ${group.ssid}`}</Stack>
