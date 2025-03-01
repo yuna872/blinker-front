@@ -70,3 +70,29 @@ export const FAULTS = {
   "Speaker Fault": "스피커 단락/단선",
   "Signal Light Residual Fault": "신호등 전원 오류",
 };
+
+export const DEVICE_SETTINGS = [
+  "Proximity",
+  "Configuration",
+  "Priority",
+  "Sound",
+  "Crossroad",
+  "Gender",
+];
+
+export const VOLUME_SETTINGS = [
+  "Bird Volume",
+  "Cricket Volume",
+  "Dingdong Volume",
+  "Female Volume",
+  "Male Volume",
+  "Minuet Volume",
+  "System Volume",
+];
+
+export const SILENT_SETTINGS = [
+  'Female Mute 1',
+  'Female Mute 2',
+  'Male Mute 1',
+  'Male Mute 2',
+]

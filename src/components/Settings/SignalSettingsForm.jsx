@@ -2,6 +2,8 @@ import FormTitle from "@components/FormTitle";
 import { TextField } from "@components/TextField";
 import { Stack, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
+import { useFormContext } from "react-hook-form";
+import { useSelector } from "react-redux";
 
 export const fieldStyle = {
   flexDirection: "row",
@@ -17,6 +19,8 @@ export const labelStyle = {
 };
 
 const SignalSettingsForm = () => {
+  const { register } = useFormContext();
+  const selectedSensor = useSelector((state) => state.selectedSensor);
   return (
     <Stack
       sx={{
@@ -27,31 +31,39 @@ const SignalSettingsForm = () => {
       <Stack sx={{ gap: "10px" }}>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>장비번호</Typography>
-          <TextField fullWidth disabled />
+          <TextField fullWidth disabled {...register("deviceNumber")} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>장비 ID</Typography>
-          <TextField fullWidth />
+          <TextField fullWidth {...register("deviceId")} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>위치안내신호세기</Typography>
-          <TextField fullWidth />
+          <TextField fullWidth {...register("positionSignalStrength")} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>신호안내신호세기</Typography>
-          <TextField fullWidth />
+          <TextField fullWidth {...register("communicationSignalThreshold")} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>위치신호세기기준</Typography>
-          <TextField fullWidth />
+          <TextField fullWidth {...register("positionSignalThreshold")} />
+        </Stack>
+        <Stack sx={fieldStyle}>
+          <Typography sx={labelStyle}>위치무선세기기준</Typography>
+          <TextField fullWidth {...register("communicationSignalThreshold")} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>235신호세기</Typography>
-          <TextField fullWidth />
+          <TextField fullWidth {...register("wireless235Strength")} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>서버타임</Typography>
-          <TextField fullWidth />
+          <TextField
+            fullWidth
+            value={selectedSensor?.serverTime || ""}
+            disabled
+          />
         </Stack>
         {/* 장비설정 */}
         <Stack sx={fieldStyle}>
@@ -59,51 +71,51 @@ const SignalSettingsForm = () => {
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>새소리 음량</Typography>
-          <TextField fullWidth />
+          <TextField fullWidth {...register("birdVolume")} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>귀뚜라미소리 음량</Typography>
-          <TextField fullWidth />
+          <TextField fullWidth {...register("cricketVolume")} />
         </Stack>
         <Stack sx={fieldStyle}>
-          <Typography sx={labelStyle}>멜로디 음량</Typography>
-          <TextField fullWidth />
+          <Typography sx={labelStyle}>딩동 음량</Typography>
+          <TextField fullWidth {...register("dingdongVolume")} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>여자 음량</Typography>
-          <TextField fullWidth />
+          <TextField fullWidth {...register("femaleVolume")} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>남자 음량</Typography>
-          <TextField fullWidth />
+          <TextField fullWidth {...register("maleVolume")} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>미뉴에트 음량</Typography>
-          <TextField fullWidth />
+          <TextField fullWidth {...register("minuetVolume")} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>시스템 음량</Typography>
-          <TextField fullWidth />
+          <TextField fullWidth {...register("systemVolume")} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>여자묵음시간1 (초)</Typography>
-          <TextField fullWidth />
+          <TextField fullWidth {...register("femaleMute1")} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>여자묵음시간2 (초)</Typography>
-          <TextField fullWidth />
+          <TextField fullWidth {...register("femaleMute2")} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>남자묵음시간1 (초)</Typography>
-          <TextField fullWidth />
+          <TextField fullWidth {...register("maleMute1")} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>남자묵음시간2 (초)</Typography>
-          <TextField fullWidth />
+          <TextField fullWidth {...register("maleMute2")} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>통신간격(분 단위)</Typography>
-          <TextField fullWidth />
+          <TextField fullWidth {...register("communicationInterval")} />
         </Stack>
         {/* 장애정보 */}
         <Stack sx={fieldStyle}>
@@ -111,23 +123,23 @@ const SignalSettingsForm = () => {
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>SW 버전</Typography>
-          <TextField fullWidth disabled />
+          <TextField fullWidth disabled {...register("swVersion")} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>HW 버전</Typography>
-          <TextField fullWidth disabled />
+          <TextField fullWidth disabled {...register("hwVersion")} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>버튼 횟수</Typography>
-          <TextField fullWidth disabled />
+          <TextField fullWidth disabled {...register("buttonCount")} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>위치안내 횟수</Typography>
-          <TextField fullWidth disabled />
+          <TextField fullWidth disabled {...register("positionGuideCount")} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>신호안내 횟수</Typography>
-          <TextField fullWidth disabled />
+          <TextField fullWidth disabled {...register("signalGuideCount")} />
         </Stack>
       </Stack>
     </Stack>
