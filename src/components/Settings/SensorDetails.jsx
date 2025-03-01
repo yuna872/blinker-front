@@ -5,8 +5,11 @@ import DefaultSettings from "@components/Settings/DefaultSettings";
 import { grey } from "@mui/material/colors";
 import Title from "@components/Title";
 import { TextField } from "@components/TextField";
+import { useSelector } from "react-redux";
 
 const SensorDetails = () => {
+  const selectedSensor = useSelector((state) => state.selectedSensor);
+
   return (
     <Stack sx={{ flex: "1" }}>
       <Title title="센서 상세 정보" />
@@ -28,10 +31,10 @@ const SensorDetails = () => {
         >
           <Stack>
             <Typography sx={{ width: "50px" }}>ID</Typography>
-            <Typography>00000741702c1ffffe54c0c3</Typography>
+            <Typography>{selectedSensor?.sensorGroupId}</Typography>
           </Stack>
           <Stack>
-            <Typography sx={{ width: "50px" }}>위치</Typography>
+            <Typography sx={{ width: "50px" }}>주소</Typography>
             <TextField
               fullWidth
               slotProps={{
@@ -39,6 +42,7 @@ const SensorDetails = () => {
                   readOnly: true,
                 },
               }}
+              value={selectedSensor?.address || ""}
             />
           </Stack>
         </Stack>
