@@ -1,3 +1,4 @@
+import { useDeleteUser } from "@apis/auth/useDeleteUser";
 import { USERTABLE_WIDTH } from "@components/AdminMonitoring/UserTable";
 import {
   TableHeaderStyle,
