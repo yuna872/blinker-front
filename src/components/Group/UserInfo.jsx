@@ -1,10 +1,16 @@
+import { usePutUser } from "@apis/auth/usePutUser";
 import { TextField } from "@components/TextField";
 import Title from "@components/Title";
 import { Button, Stack, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
+import { setSelectedSensorState } from "@store/selectedSensorSlice";
+import { setSelectedUser } from "@store/selectedUserSlice";
+import { showToast } from "@utils/toast";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 
-const UserInfo = ({ user }) => {
+const UserInfo = () => {
   const fieldStyle = {
     flexDirection: "row",
     gap: "10px",
@@ -18,20 +24,43 @@ const UserInfo = ({ user }) => {
     fontSize: "14px",
   };
 
-  const { handleSubmit, register, setValue } = useForm({
+  const selectedUser = useSelector((state) => state.selectedUser);
+  const dispatch = useDispatch();
+
+  const { handleSubmit, register, reset } = useForm({
     defaultValues: {
-      ID: user?.userId,
-      userName: user?.userName,
+      userId: "",
+      username: "",
     },
   });
 
-  if (user) {
-    setValue("ID", user.userId);
-    setValue("userName", user.userName);
-  }
+  useEffect(() => {
+    if (selectedUser) {
+      reset({
+        userId: selectedUser?.userId,
+        username: selectedUser?.username,
+      });
+    }
+  }, [selectedUser, reset]);
 
-  const onSubmit = (formValue) => {
-    console.log(formValue);
+  const { mutateAsync: putUser } = usePutUser();
+  const onSubmit = async (formData) => {
+    if (selectedUser) {
+      console.log(formData);
+      const { appUserId } = selectedUser;
+      try {
+        await putUser({ appUserId, formData }).then((data) => {
+          if (data.code === "SUCCESS") {
+            showToast.success("수정 되었습니다.");
+            dispatch(setSelectedUser({ appUserId, ...formData }));
+          } else if (data.code === "DIALOGUE") {
+            showToast.error(data?.message);
+          }
+        });
+      } catch (error) {
+        showToast.error(error?.response?.data?.message);
+      }
+    }
   };
 
   return (
@@ -46,11 +75,11 @@ const UserInfo = ({ user }) => {
       <Stack sx={{ gap: "10px", padding: "10px" }}>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>ID</Typography>
-          <TextField fullWidth {...register("ID")} />
+          <TextField fullWidth {...register("userId")} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>이름</Typography>
-          <TextField fullWidth d {...register("userName")} />
+          <TextField fullWidth d {...register("username")} />
         </Stack>
       </Stack>
       <Button variant="outlined" sx={{ margin: "15px" }} type="submit">

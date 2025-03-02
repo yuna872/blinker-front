@@ -2,7 +2,6 @@ import {
   FormControlLabelStyle,
   RadioGroupStyle,
 } from "@components/Settings/DefaultSettings";
-import Title from "@components/Title";
 import {
   FormControlLabel,
   Radio,
@@ -12,6 +11,7 @@ import {
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { theme } from "@styles/theme";
+import { useFormContext } from "react-hook-form";
 
 export const FormTitle = ({ title }) => {
   return (
@@ -29,6 +29,8 @@ export const FormTitle = ({ title }) => {
 };
 
 const GeneralSettingsForm = () => {
+  const { register } = useFormContext();
+
   return (
     <Stack sx={{ border: `1px solid ${grey[300]}`, height: "fit-content" }}>
       <FormTitle title="기본 설정" />

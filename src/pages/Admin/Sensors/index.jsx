@@ -15,10 +15,21 @@ import redMarker from "@assets/images/marker-red.png";
 import SensorDrawer from "@components/Sensors/SensorDrawer";
 import { useState } from "react";
 import { dummySignalLights } from "@pages/User/Monitoring/dummy";
+import { useGetUsers } from "@apis/auth/useGetUsers";
+import AdminKakaoMap from "@components/AdminMonitoring/AdminKakaoMap";
+import { useGetUserSensorGroups } from "@apis/sensor/useGetUserSensorGroups";
+import { useSelector } from "react-redux";
 
 const Sensors = () => {
-  const [sensors, setSensors] = useState(dummySignalLights);
   const [selectedSensor, setSelectedSensor] = useState();
+  const selectedUser = useSelector((state) => state.selectedUser);
+
+  const { data: users } = useGetUsers();
+  const { data: sensorGroups } = useGetUserSensorGroups(
+    selectedUser?.appUserId
+  );
+
+  const sensors = sensorGroups?.flatMap((v) => v.sensors);
 
   return (
     <Stack
@@ -29,55 +40,20 @@ const Sensors = () => {
         height: `calc(100vh - ${GNB_HEIGHT}px)`,
       }}
     >
-      <UserTable />
+      <Stack
+        sx={{
+          zIndex: "3",
+          backgroundColor: "white",
+        }}
+      >
+        <UserTable users={users} />
+      </Stack>
       <SensorDrawer
         sensors={sensors}
         selectedSensor={selectedSensor}
         setSelectedSensor={setSelectedSensor}
       />
-      <Stack
-        sx={{
-          position: "absolute",
-          left: `${USERTABLE_WIDTH}px`,
-          width: "100%",
-        }}
-      >
-        <Map
-          center={{ lat: 37.2803, lng: 127.0181 }}
-          level={6}
-          style={{
-            width: "100%",
-            height: `calc(100vh - ${GNB_HEIGHT}px)`,
-          }}
-        >
-          <ZoomControl />
-          <MarkerClusterer averageCenter={true} minLevel={6} gridSize={35}>
-            {dummySignalLights.map((marker) => {
-              return (
-                <MapMarker
-                  key={`${marker.latitude}-${marker.longitude}`}
-                  position={{
-                    lat: marker.latitude,
-                    lng: marker.longitude,
-                  }}
-                  image={{
-                    src:
-                      marker.status === "정상"
-                        ? greenMarker
-                        : marker.status === "오류"
-                        ? redMarker
-                        : greyMarker,
-                    size: {
-                      width: 30,
-                      height: 30,
-                    },
-                  }}
-                />
-              );
-            })}
-          </MarkerClusterer>
-        </Map>
-      </Stack>
+      <AdminKakaoMap sensors={sensors} />
     </Stack>
   );
 };

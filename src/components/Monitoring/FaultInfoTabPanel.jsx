@@ -1,8 +1,4 @@
 import {
-  TableHeaderStyle,
-  TableRowStyle,
-} from "@components/Sensors/SensorList";
-import {
   Table,
   TableBody,
   TableCell,
@@ -10,17 +6,13 @@ import {
   TableRow,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import { FAULT } from "constants";
+import { FAULTS } from "constants";
+import { useSelector } from "react-redux";
 
 const FaultInfoTabPanel = () => {
-  const data = {
-    "Front Cover Open": true,
-    "235.3MHz Receiver Fault": false,
-    " 358.5MHz Receiver Fault": false,
-    "User Button Fault": true,
-    "Speaker Fault": true,
-    "Signal Light Residual Fault": true,
-  };
+  const faultInformation = useSelector(
+    (state) => state.selectedSensor?.faultInformation
+  );
 
   return (
     <Table>
@@ -39,10 +31,10 @@ const FaultInfoTabPanel = () => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {Object.entries(data).map(([key, value]) => {
+        {Object.entries(faultInformation).map(([key, value]) => {
           return (
             <TableRow key={key}>
-              <TableCell>{FAULT[key]}</TableCell>
+              <TableCell>{FAULTS[key]}</TableCell>
               <TableCell>{value ? "오류" : "정상"}</TableCell>
             </TableRow>
           );

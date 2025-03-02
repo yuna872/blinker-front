@@ -1,22 +1,26 @@
 import { Stack } from "@mui/material";
-import UserTable, {
-  USERTABLE_WIDTH,
-} from "@components/AdminMonitoring/UserTable";
-import {
-  Map,
-  MapMarker,
-  MarkerClusterer,
-  ZoomControl,
-} from "react-kakao-maps-sdk";
+import UserTable from "@components/AdminMonitoring/UserTable";
 import { GNB_HEIGHT } from "@layouts/Header";
-import greenMarker from "@assets/images/marker-green.png";
-import greyMarker from "@assets/images/marker-grey.png";
-import redMarker from "@assets/images/marker-red.png";
 import SensorDrawer from "@components/AdminMonitoring/SensorDrawer";
-import FailureInfo from "@components/AdminMonitoring/FailureInfo";
-import { dummySignalLights } from "@pages/User/Monitoring/dummy";
+import FailureInfo from "@components/AdminMonitoring/FaultInfo";
+import { useGetUsers } from "@apis/auth/useGetUsers";
+import { useGetUserSensorGroups } from "@apis/sensor/useGetUserSensorGroups";
+import { useSelector } from "react-redux";
+import { useState } from "react";
+import AdminKakaoMap from "@components/AdminMonitoring/AdminKakaoMap";
 
 const AdminMonitoring = () => {
+  const selectedUser = useSelector((state) => state.selectedUser);
+  const [onlyFaulty, setOnlyFaulty] = useState(false);
+
+  const { data: users } = useGetUsers();
+  const { data: sensorGroups } = useGetUserSensorGroups(
+    selectedUser?.appUserId,
+    onlyFaulty
+  );
+
+  const sensors = sensorGroups?.flatMap((v) => v.sensors);
+
   return (
     <Stack
       sx={{
@@ -32,53 +36,15 @@ const AdminMonitoring = () => {
           backgroundColor: "white",
         }}
       >
-        <UserTable />
+        <UserTable users={users} />
         <FailureInfo />
       </Stack>
-      <SensorDrawer />
-      <Stack
-        sx={{
-          position: "absolute",
-          left: `${USERTABLE_WIDTH}px`,
-          width: "100%",
-        }}
-      >
-        <Map
-          center={{ lat: 37.2803, lng: 127.0181 }}
-          level={6}
-          style={{
-            width: "100%",
-            height: `calc(100vh - ${GNB_HEIGHT}px)`,
-          }}
-        >
-          <ZoomControl />
-          <MarkerClusterer averageCenter={true} minLevel={6} gridSize={35}>
-            {dummySignalLights.map((marker) => {
-              return (
-                <MapMarker
-                  key={`${marker.latitude}-${marker.longitude}`}
-                  position={{
-                    lat: marker.latitude,
-                    lng: marker.longitude,
-                  }}
-                  image={{
-                    src:
-                      marker.status === "정상"
-                        ? greenMarker
-                        : marker.status === "오류"
-                        ? redMarker
-                        : greyMarker,
-                    size: {
-                      width: 30,
-                      height: 30,
-                    },
-                  }}
-                />
-              );
-            })}
-          </MarkerClusterer>
-        </Map>
-      </Stack>
+      <SensorDrawer
+        sensorGroups={sensorGroups}
+        onlyFaulty={onlyFaulty}
+        setOnlyFaulty={setOnlyFaulty}
+      />
+      <AdminKakaoMap sensors={sensors} />
     </Stack>
   );
 };

@@ -1,3 +1,4 @@
+import { useGetUnregisteredSensorGroups } from "@apis/sensor/useGetUnregisteredSensorGroups.";
 import {
   TableHeaderStyle,
   TableRowStyle,
@@ -12,9 +13,17 @@ import {
   TableRow,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import { dummySignalLights } from "@pages/User/Monitoring/dummy";
 
-const UnregisteredSensorList = () => {
+const UnregisteredSensorList = ({
+  unregisteredSensor,
+  setUnregisteredSensor,
+}) => {
+  const { data: sensors } = useGetUnregisteredSensorGroups();
+
+  const handleClickUnregisteredSenor = (sensor) => {
+    setUnregisteredSensor(sensor);
+  };
+
   return (
     <Stack
       sx={{
@@ -34,17 +43,27 @@ const UnregisteredSensorList = () => {
         <Table>
           <TableHead>
             <TableRow sx={TableHeaderStyle}>
-              <TableCell>ID</TableCell>
-              <TableCell>위치</TableCell>
+              <TableCell sx={{ width: "230px", maxWidth: "230px" }}>
+                ID
+              </TableCell>
+              <TableCell>주소</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {dummySignalLights.map((item) => {
+            {sensors?.map((sensor) => {
+              const selected =
+                unregisteredSensor?.sensorGroupId === sensor.sensorGroupId;
               return (
-                <TableRow sx={TableRowStyle} key={item.sensorId}>
-                  {/* TODO: Id 수정 필요 */}
-                  <TableCell>00000741702c1ffffe54c0c3</TableCell>
-                  <TableCell>{item.address}</TableCell>
+                <TableRow
+                  sx={{ ...TableRowStyle }}
+                  key={sensor.sensorGroupId}
+                  onClick={() => handleClickUnregisteredSenor(sensor)}
+                  selected={selected}
+                >
+                  <TableCell sx={{ width: "230px", maxWidth: "230px" }}>
+                    {sensor.sensorGroupId}
+                  </TableCell>
+                  <TableCell>{sensor?.address}</TableCell>
                 </TableRow>
               );
             })}

@@ -1,4 +1,4 @@
-import { TableHeaderStyle } from "@components/Sensors/SensorList";
+import { useGetSensorLogs } from "@apis/sensor/useGetSensorLogs";
 import {
   Stack,
   Table,
@@ -8,9 +8,16 @@ import {
   TableRow,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
+import dayjs from "dayjs";
+import { useSelector } from "react-redux";
 
 const StatusHistoryTabPanel = () => {
-  const dummy = new Array(20).fill().map((_, idx) => idx);
+  const sensorId = useSelector((state) => state.selectedSensor?.sensorId);
+
+  const { data: logs } = useGetSensorLogs(sensorId);
+  console.log(logs, "logs");
+
+  // const dummy = new Array(20).fill().map((_, idx) => idx);
   return (
     <Stack sx={{ height: "100%", overflow: "auto" }}>
       <Table stickyHeader>
@@ -36,18 +43,35 @@ const StatusHistoryTabPanel = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {dummy.map((idx) => {
+          {logs?.map((log) => {
+            console.log(log.faultInformation)
             return (
-              <TableRow key={idx}>
-                <TableCell>2025-02-13 09:18:32</TableCell>
+              <TableRow key={log.sensorLogId}>
+                <TableCell>
+                  {dayjs(log.createdAt).format("YYYY-MM-DD HH:mm:ss")}
+                </TableCell>
                 <TableCell>0</TableCell>
                 <TableCell>0</TableCell>
                 <TableCell>0</TableCell>
                 <TableCell>0</TableCell>
-                <TableCell>정상</TableCell>
-                <TableCell>정상</TableCell>
-                <TableCell>정상</TableCell>
-                <TableCell>정상</TableCell>
+                <TableCell>
+                  {log.faultInformation["User Button Fault"] ? "오류" : "정상"}
+                </TableCell>
+                <TableCell>
+                  {log.faultInformation["Signal Light Residual Fault"]
+                    ? "오류"
+                    : "정상"}
+                </TableCell>
+                <TableCell>
+                  {log.faultInformation["235.3MHz Receiver Fault"]
+                    ? "오류"
+                    : "정상"}
+                </TableCell>
+                <TableCell>
+                  {log.faultInformation["358.5MHz Receiver Fault"]
+                    ? "오류"
+                    : "정상"}
+                </TableCell>
               </TableRow>
             );
           })}

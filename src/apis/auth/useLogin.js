@@ -14,6 +14,7 @@ export const useLogin = () => {
       // cookie 저장하기
       if (data.code === "SUCCESS") {
         setCookies("accessToken", data.response.accessToken);
+        setCookies("role", data.response.roles[0]);
       }
     },
   });

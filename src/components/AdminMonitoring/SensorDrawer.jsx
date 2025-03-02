@@ -6,7 +6,7 @@ import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 import { grey } from "@mui/material/colors";
 
-const SensorDrawer = () => {
+const SensorDrawer = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
   const [isOpen, setIsOpen] = useState(true);
 
   const toggleOpenDrawer = () => {
@@ -27,7 +27,11 @@ const SensorDrawer = () => {
     >
       <Stack sx={{ width: "100%", height: "100%", position: "relative" }}>
         <SensorInfo />
-        <SensorList />
+        <SensorList
+          sensorGroups={sensorGroups}
+          onlyFaulty={onlyFaulty}
+          setOnlyFaulty={setOnlyFaulty}
+        />
         <Stack
           sx={{
             position: "absolute",

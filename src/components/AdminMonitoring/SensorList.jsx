@@ -1,36 +1,72 @@
-import {
-  TableHeaderStyle,
-  TableRowStyle,
-} from "@components/Sensors/SensorList";
+import { useGetUserSensorGroups } from "@apis/sensor/useGetUserSensorGroups";
 import Title from "@components/Title";
-import { Traffic } from "@mui/icons-material";
-import {
-  Stack,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  ToggleButton,
-  ToggleButtonGroup,
-} from "@mui/material";
-import { dummySignalLights } from "@pages/User/Monitoring/dummy";
+import { Star, Traffic } from "@mui/icons-material";
+import { Stack, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { grey } from "@mui/material/colors";
+import { setMapPosition } from "@store/mapPositionSlice";
+import { setSelectedSensorState } from "@store/selectedSensorSlice";
 import { theme } from "@styles/theme";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-const SensorList = () => {
-  const [filterOption, setFilterOption] = useState("");
+const TableHeaderStyle = {
+  backgroundColor: grey[50],
+  fontWeight: 600,
+  whiteSpace: "nowrap",
+  flexDirection: "row",
+  padding: "16px",
+  borderBottom: `1px solid ${grey[200]}`,
+  "& > .MuiStack-root": {
+    justifyContent: "center",
+    marginTop: 0,
+    fontSize: "14px",
+    paddingLeft: "5px",
+  },
+};
 
-  const handleChangeFilterOption = (e, newOption) => {
-    setFilterOption(newOption);
+const TableRowStyle = {
+  cursor: "pointer",
+  "&:hover": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  flexDirection: "row",
+  padding: "16px",
+  alignItems: "center",
+  borderBottom: `1px solid ${grey[200]}`,
+  backgroundColor: "white",
+  "& > .MuiStack-root": {
+    marginTop: 0,
+    fontSize: "14px",
+  },
+};
+
+const SensorList = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
+  const dispatch = useDispatch();
+  const selectedSensor = useSelector((state) => state.selectedSensor);
+
+  const handleChangeOnlyFaulty = (_, newOption) => {
+    setOnlyFaulty(newOption);
+    dispatch(setSelectedSensorState(null));
+  };
+
+  const handleClickSensor = (sensor) => {
+    if (sensor) {
+      dispatch(setSelectedSensorState(sensor));
+      dispatch(
+        setMapPosition({
+          lat: sensor.latitude,
+          lng: sensor.longitude,
+        })
+      );
+    }
+    setOnlyFaulty(false);
   };
 
   return (
-    <Stack>
+    <Stack sx={{ flex: "1" }}>
       <Title title="센서 목록" />
       <ToggleButtonGroup
-        value={filterOption}
-        onChange={handleChangeFilterOption}
+        value={onlyFaulty}
+        onChange={handleChangeOnlyFaulty}
         exclusive
         color="primary"
         sx={{
@@ -40,39 +76,99 @@ const SensorList = () => {
           },
         }}
       >
-        <ToggleButton value="ALL" size="small">
+        <ToggleButton value={false} size="small">
           전체
         </ToggleButton>
-        <ToggleButton value="FAULT" size="small">
+        <ToggleButton value={true} size="small">
           장애
         </ToggleButton>
       </ToggleButtonGroup>
-      <Stack sx={{ padding: "10px" }}>
-        <Table>
-          <TableHead>
-            <TableRow sx={TableHeaderStyle}>
-              <TableCell>ID</TableCell>
-              <TableCell>위치</TableCell>
-              <TableCell>상태</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {dummySignalLights.map((item) => {
+      <Stack
+        sx={{
+          margin: "10px",
+          border: `1px solid ${grey[200]}`,
+        }}
+      >
+        {/* Header */}
+        <Stack sx={TableHeaderStyle}>
+          <Stack sx={{ width: "40px", maxWidth: "40px" }}>ID</Stack>
+          <Stack sx={{ width: "280px", maxWidth: "280px" }}>주소</Stack>
+          <Stack>상태</Stack>
+        </Stack>
+        {/* Body */}
+        {sensorGroups && (
+          <Stack
+            sx={{
+              backgroundColor: grey[300],
+              overflowY: "auto",
+            }}
+          >
+            {sensorGroups?.map((group) => {
               return (
-                <TableRow sx={TableRowStyle} key={item.sensorId}>
-                  {/* TODO: Id 수정 필요 */}
-                  <TableCell>00000741702c1ffffe54c0c3</TableCell>
-                  <TableCell>{item.address}</TableCell>
-                  <TableCell>
-                    <Traffic
-                      sx={{ color: `${theme.palette.status[item.status]}` }}
-                    />
-                  </TableCell>
-                </TableRow>
+                <Stack key={group.sensorGroupId}>
+                  <Stack
+                    sx={{
+                      ...TableRowStyle,
+                      "&:hover": {
+                        backgroundColor: "none",
+                      },
+                    }}
+                  >
+                    <Stack sx={{ width: "30px", maxWidth: "30px" }}>
+                      {group.order}
+                    </Stack>
+                    <Stack sx={{ width: "210px", maxWidth: "210px" }}>
+                      {group.sensorGroupId}
+                    </Stack>
+                    <Stack>{`(SSID) ${group.ssid}`}</Stack>
+                  </Stack>
+                  {group.sensors.map((sensor) => {
+                    const selected =
+                      sensor.sensorId === selectedSensor?.sensorId;
+                    return (
+                      <Stack
+                        spacing={1}
+                        key={sensor.sensorId}
+                        sx={{
+                          ...TableRowStyle,
+                          marginLeft: "15px",
+                          backgroundColor: selected ? grey[100] : "white",
+                          flexDirection: "row",
+                        }}
+                        onClick={() => handleClickSensor(sensor)}
+                      >
+                        <Stack sx={{ width: "40px", maxWidth: "40px" }}>
+                          {group.order}-{sensor.groupPositionNumber}
+                        </Stack>
+                        <Stack
+                          sx={{
+                            width: "280px",
+                            maxWidth: "280px",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            gap: "5px",
+                          }}
+                        >
+                          {!sensor.groupPositionNumber && (
+                            <Star sx={{ width: "15px", color: grey[700] }} />
+                          )}
+                          {sensor.address}
+                        </Stack>
+                        <Stack sx={{ width: "fit-content" }}>
+                          <Traffic
+                            sx={{
+                              color: `${theme.palette.status[sensor.status]}`,
+                            }}
+                          />
+                        </Stack>
+                      </Stack>
+                    );
+                  })}
+                </Stack>
               );
             })}
-          </TableBody>
-        </Table>
+          </Stack>
+        )}
       </Stack>
     </Stack>
   );

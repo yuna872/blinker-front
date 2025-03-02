@@ -10,7 +10,6 @@ const Header = ({ isAdmin }) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const accessToken = getCookies("accessToken");
-  // if (!accessToken) navigate("/login");
 
   const links = [
     { to: "/admin/monitoring", label: "모니터링" },
@@ -21,6 +20,7 @@ const Header = ({ isAdmin }) => {
 
   const handleClickLogout = () => {
     removeCookies("accessToken");
+    removeCookies("role");
     if (!getCookies("accessToken")) navigate("/login");
   };
 

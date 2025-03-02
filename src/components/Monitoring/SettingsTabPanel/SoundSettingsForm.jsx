@@ -3,9 +3,12 @@ import { Stack, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { FormTitle } from "./GeneralSettingsForm";
 import { theme } from "@styles/theme";
-import { fieldStyle, labelStyle } from "./\bSensorSettingsForm";
+import { fieldStyle, labelStyle } from "./SensorSettingsForm";
+import { useFormContext } from "react-hook-form";
 
 const SoundSettingsForm = () => {
+  const { register } = useFormContext();
+
   return (
     <Stack sx={{ border: `1px solid ${grey[300]}` }}>
       <FormTitle title="소리 설정" />
@@ -21,23 +24,23 @@ const SoundSettingsForm = () => {
       >
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>새소리 음량</Typography>
-          <TextField />
+          <TextField {...register("birdVolume")} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>귀뚜라미소리 음량</Typography>
-          <TextField />
+          <TextField {...register("cricketVolume")} />
         </Stack>
         <Stack sx={fieldStyle}>
-          <Typography sx={labelStyle}>멜로디 음량</Typography>
-          <TextField />
+          <Typography sx={labelStyle}>딩동댕 음량</Typography>
+          <TextField {...register("dingdongVolume")} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>여자 음량</Typography>
-          <TextField />
+          <TextField {...register("femaleVolume")}/>
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>남자 음량</Typography>
-          <TextField />
+          <TextField {...register("maleVolume")}/>
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>미뉴에트 음량</Typography>
@@ -45,27 +48,27 @@ const SoundSettingsForm = () => {
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>시스템 음량</Typography>
-          <TextField />
+          <TextField {...register("systemVolume")}/>
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>여자묵음시간1(초)</Typography>
-          <TextField />
+          <TextField {...register("femaleMute1")}/>
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>여자묵음시간2(초)</Typography>
-          <TextField />
+          <TextField {...register("femaleMute2")}/>
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>남자묵음시간1(초)</Typography>
-          <TextField />
+          <TextField {...register("maleMute1")}/>
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>남자묵음시간2(초)</Typography>
-          <TextField />
+          <TextField {...register("maleMute2")}/>
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>통신간격(분 단위)</Typography>
-          <TextField />
+          <TextField {...register("communicationInterval")}/>
         </Stack>
       </Stack>
     </Stack>

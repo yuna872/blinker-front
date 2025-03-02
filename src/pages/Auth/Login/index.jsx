@@ -7,6 +7,7 @@ import { ErrorMessage } from "@hookform/error-message";
 import { useNavigate } from "react-router-dom";
 import { theme } from "@styles/theme";
 import { grey } from "@mui/material/colors";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const {
@@ -26,8 +27,9 @@ const Login = () => {
   const onSubmit = async (formData) => {
     await login(formData).then((data) => {
       if (data.code === "SUCCESS") {
-        if (data.response.roles[0] === "ADMIN") navigate("/admin/monitoring");
-        else if (data.response.roles[0] === "USER") navigate("/monitoring");
+        const user = data.response;
+        if (user.roles[0] === "ADMIN") navigate("/admin/monitoring");
+        else if (user.roles[0] === "USER") navigate("/monitoring");
       } else {
         alert(data?.message);
         reset();

@@ -12,47 +12,21 @@ import {
   TableRow,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
+import { setSelectedSensorState } from "@store/selectedSensorSlice";
+import { setSelectedUser } from "@store/selectedUserSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 export const USERTABLE_WIDTH = 300;
 
-const UserTable = ({ setSelectedUser, selectedUser }) => {
+const UserTable = ({ users }) => {
+  const selectedUser = useSelector((state) => state.selectedUser);
+  const dispatch = useDispatch();
+
   const handleClickUser = (user) => {
-    setSelectedUser(user);
+    dispatch(setSelectedUser(user));
+    dispatch(setSelectedSensorState(null));
   };
 
-  const users = [
-    { id: 0, userId: "admin", userName: "admin" },
-    {
-      id: 1,
-      userId: "test",
-      userName: "test",
-    },
-    {
-      id: 2,
-      userId: "test",
-      userName: "test",
-    },
-    {
-      id: 3,
-      userId: "test",
-      userName: "test",
-    },
-    {
-      id: 4,
-      userId: "test",
-      userName: "test",
-    },
-    {
-      id: 5,
-      userId: "test",
-      userName: "test",
-    },
-    {
-      id: 6,
-      userId: "test",
-      userName: "test",
-    },
-  ];
   return (
     <Stack
       sx={{
@@ -75,11 +49,11 @@ const UserTable = ({ setSelectedUser, selectedUser }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.map((user) => {
-              const selected = user.id === selectedUser?.id;
+            {users?.map((user) => {
+              const selected = user.appUserId === selectedUser?.appUserId;
               return (
                 <TableRow
-                  key={user.id}
+                  key={user.appUserId}
                   selected={selected}
                   sx={{
                     ...TableRowStyle,
@@ -87,7 +61,7 @@ const UserTable = ({ setSelectedUser, selectedUser }) => {
                   onClick={() => handleClickUser(user)}
                 >
                   <TableCell>{user.userId}</TableCell>
-                  <TableCell>{user.userName}</TableCell>
+                  <TableCell>{user.username}</TableCell>
                 </TableRow>
               );
             })}
