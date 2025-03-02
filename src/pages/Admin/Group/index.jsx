@@ -10,19 +10,63 @@ import { useState } from "react";
 import AlertDialog from "../../../components/Group/AlertDialog";
 import CreateUserDialog from "@components/Group/CreateUserDialog";
 import { useGetUsers } from "@apis/auth/useGetUsers";
+import { usePostSensorGroupToUser } from "@apis/app-user/usePostSensorGroupToUser";
+import { useDeleteSensorGroupFromUser } from "@apis/app-user/useDeleteSensorGroupFromUser";
+import { showToast } from "@utils/toast";
+import { useSelector } from "react-redux";
 
 const Group = () => {
   const [openAlertDialog, setOpenAlertDialog] = useState(false);
+  const [openCreateUserDialog, setOpenCreateUserDialog] = useState(false);
+  const [unregisteredSensor, setUnregisteredSensor] = useState(null);
 
+  // 유저 삭제 alert dialog
   const handleOpenAlertDialog = () => setOpenAlertDialog(true);
   const handleCloseAlertDialog = () => setOpenAlertDialog(false);
-
-  const [openCreateUserDialog, setOpenCreateUserDialog] = useState(false);
-
+  // 유저 생성 form dialog
   const handleOpenCreateUserDialog = () => setOpenCreateUserDialog(true);
   const handleCloseCreateUserDialog = () => setOpenCreateUserDialog(false);
 
   const { data: users } = useGetUsers();
+  const selectedSensor = useSelector((state) => state.selectedSensor);
+  const selectedUser = useSelector((state) => state.selectedUser);
+  const { mutateAsync: postSensorGroupToUser } = usePostSensorGroupToUser();
+  const { mutateAsync: deleteSensorGroupFromUser } =
+    useDeleteSensorGroupFromUser();
+
+  const handleClickArrowForward = async () => {
+    if (selectedUser && selectedSensor) {
+      try {
+        await deleteSensorGroupFromUser({
+          appUserId: selectedUser.appUserId,
+          sensorGroupId: selectedSensor.sensorGroupId,
+        }).then((data) => {
+          if (data.code === "SUCCESS") {
+            showToast.success("등록 해제되었습니다.");
+          }
+        });
+      } catch (error) {
+        showToast.error(error?.response?.data?.message);
+      }
+    }
+  };
+
+  const handleClickArrowBack = async () => {
+    if (selectedUser && unregisteredSensor) {
+      try {
+        await postSensorGroupToUser({
+          appUserId: selectedUser.appUserId,
+          sensorGroupId: unregisteredSensor.sensorGroupId,
+        }).then((data) => {
+          if (data.code === "SUCCESS") {
+            showToast.success("등록되었습니다.");
+          }
+        });
+      } catch (error) {
+        showToast.error(error?.response?.data?.message);
+      }
+    }
+  };
 
   return (
     <Stack
@@ -47,18 +91,23 @@ const Group = () => {
       >
         <IconButton
           color="primary"
+          onClick={handleClickArrowForward}
           sx={{ backgroundColor: theme.palette.secondary.main }}
         >
           <ArrowForward />
         </IconButton>
         <IconButton
           color="primary"
+          onClick={handleClickArrowBack}
           sx={{ backgroundColor: theme.palette.secondary.main }}
         >
           <ArrowBack />
         </IconButton>
       </Stack>
-      <UnregisteredSensorList />
+      <UnregisteredSensorList
+        unregisteredSensor={unregisteredSensor}
+        setUnregisteredSensor={setUnregisteredSensor}
+      />
       <AlertDialog
         open={openAlertDialog}
         handleClose={handleCloseAlertDialog}

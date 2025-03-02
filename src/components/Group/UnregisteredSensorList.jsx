@@ -14,8 +14,16 @@ import {
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-const UnregisteredSensorList = () => {
-  const { data: sensorGroups } = useGetUnregisteredSensorGroups();
+const UnregisteredSensorList = ({
+  unregisteredSensor,
+  setUnregisteredSensor,
+}) => {
+  const { data: sensors } = useGetUnregisteredSensorGroups();
+
+  const handleClickUnregisteredSenor = (sensor) => {
+    setUnregisteredSensor(sensor);
+  };
+
   return (
     <Stack
       sx={{
@@ -42,9 +50,16 @@ const UnregisteredSensorList = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {sensorGroups?.map((sensor) => {
+            {sensors?.map((sensor) => {
+              const selected =
+                unregisteredSensor?.sensorGroupId === sensor.sensorGroupId;
               return (
-                <TableRow sx={TableRowStyle} key={sensor.sensorGroupId}>
+                <TableRow
+                  sx={{ ...TableRowStyle }}
+                  key={sensor.sensorGroupId}
+                  onClick={() => handleClickUnregisteredSenor(sensor)}
+                  selected={selected}
+                >
                   <TableCell sx={{ width: "230px", maxWidth: "230px" }}>
                     {sensor.sensorGroupId}
                   </TableCell>
