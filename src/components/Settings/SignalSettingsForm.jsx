@@ -131,23 +131,31 @@ const SignalSettingsForm = () => {
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>SW 버전</Typography>
-          <TextField fullWidth disabled {...register("swVersion")} />
+          <TextField fullWidth disabled value={selectedSensor?.swVersion} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>HW 버전</Typography>
-          <TextField fullWidth disabled {...register("hwVersion")} />
+          <TextField fullWidth disabled value={selectedSensor?.hwVersion} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>버튼 횟수</Typography>
-          <TextField fullWidth disabled {...register("buttonCount")} />
+          <TextField fullWidth disabled value={selectedSensor?.buttonCount} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>위치안내 횟수</Typography>
-          <TextField fullWidth disabled {...register("positionGuideCount")} />
+          <TextField
+            fullWidth
+            disabled
+            value={selectedSensor?.positionGuideCount}
+          />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>신호안내 횟수</Typography>
-          <TextField fullWidth disabled {...register("signalGuideCount")} />
+          <TextField
+            fullWidth
+            disabled
+            value={selectedSensor?.signalGuideCount}
+          />
         </Stack>
       </Stack>
     </Stack>

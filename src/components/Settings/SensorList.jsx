@@ -5,14 +5,7 @@ import {
 } from "@components/Sensors/SensorList";
 import Title from "@components/Title";
 import { Star } from "@mui/icons-material";
-import {
-  Stack,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-} from "@mui/material";
+import { Stack } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { setSelectedSensorState } from "@store/selectedSensorSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,8 +23,6 @@ const SensorList = () => {
       dispatch(setSelectedSensorState(sensor));
     }
   };
-
-  console.log(sensorGroups, 'sensors');
 
   return (
     <Stack
