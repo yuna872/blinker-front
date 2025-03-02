@@ -1,4 +1,5 @@
 import FormTitle from "@components/FormTitle";
+import NumberTextField from "@components/NumberTextfield";
 import { TextField } from "@components/TextField";
 import { Stack, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
@@ -19,7 +20,7 @@ export const labelStyle = {
 };
 
 const SignalSettingsForm = () => {
-  const { register } = useFormContext();
+  const { register, control } = useFormContext();
   const selectedSensor = useSelector((state) => state.selectedSensor);
   return (
     <Stack
@@ -35,27 +36,34 @@ const SignalSettingsForm = () => {
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>장비 ID</Typography>
-          <TextField fullWidth {...register("deviceId")} />
+          <NumberTextField name="deviceId" control={control} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>위치안내신호세기</Typography>
-          <TextField fullWidth {...register("positionSignalStrength")} />
+
+          <NumberTextField name="positionSignalStrength" control={control} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>신호안내신호세기</Typography>
-          <TextField fullWidth {...register("communicationSignalThreshold")} />
+          <NumberTextField
+            name="communicationSignalStrength"
+            control={control}
+          />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>위치신호세기기준</Typography>
-          <TextField fullWidth {...register("positionSignalThreshold")} />
+          <NumberTextField name="positionSignalThreshold" control={control} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>위치무선세기기준</Typography>
-          <TextField fullWidth {...register("communicationSignalThreshold")} />
+          <NumberTextField
+            name="communicationSignalThreshold"
+            control={control}
+          />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>235신호세기</Typography>
-          <TextField fullWidth {...register("wireless235Strength")} />
+          <NumberTextField name="wireless235Strength" control={control} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>서버타임</Typography>
@@ -71,51 +79,51 @@ const SignalSettingsForm = () => {
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>새소리 음량</Typography>
-          <TextField fullWidth {...register("birdVolume")} />
+          <NumberTextField name="birdVolume" control={control} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>귀뚜라미소리 음량</Typography>
-          <TextField fullWidth {...register("cricketVolume")} />
+          <NumberTextField name="cricketVolume" control={control} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>딩동 음량</Typography>
-          <TextField fullWidth {...register("dingdongVolume")} />
+          <NumberTextField name="dingdongVolume" control={control} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>여자 음량</Typography>
-          <TextField fullWidth {...register("femaleVolume")} />
+          <NumberTextField name="femaleVolume" control={control} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>남자 음량</Typography>
-          <TextField fullWidth {...register("maleVolume")} />
+          <NumberTextField name="maleVolume" control={control} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>미뉴에트 음량</Typography>
-          <TextField fullWidth {...register("minuetVolume")} />
+          <NumberTextField name="minuetVolume" control={control} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>시스템 음량</Typography>
-          <TextField fullWidth {...register("systemVolume")} />
+          <NumberTextField name="systemVolume" control={control} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>여자묵음시간1 (초)</Typography>
-          <TextField fullWidth {...register("femaleMute1")} />
+          <NumberTextField name="femaleMute1" control={control} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>여자묵음시간2 (초)</Typography>
-          <TextField fullWidth {...register("femaleMute2")} />
+          <NumberTextField name="femaleMute2" control={control} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>남자묵음시간1 (초)</Typography>
-          <TextField fullWidth {...register("maleMute1")} />
+          <NumberTextField name="maleMute1" control={control} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>남자묵음시간2 (초)</Typography>
-          <TextField fullWidth {...register("maleMute2")} />
+          <NumberTextField name="maleMute2" control={control} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>통신간격(분 단위)</Typography>
-          <TextField fullWidth {...register("communicationInterval")} />
+          <NumberTextField name="communicationInterval" control={control} />
         </Stack>
         {/* 장애정보 */}
         <Stack sx={fieldStyle}>

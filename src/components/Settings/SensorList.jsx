@@ -31,6 +31,8 @@ const SensorList = () => {
     }
   };
 
+  console.log(sensorGroups, 'sensors');
+
   return (
     <Stack
       sx={{

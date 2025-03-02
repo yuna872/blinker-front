@@ -65,7 +65,7 @@ const DefaultSettings = () => {
           )}
         ></Controller>
         <Controller
-          name="deviceSettings.CrossRoad"
+          name="deviceSettings.Crossroad"
           control={control}
           render={({ field }) => (
             <RadioGroup {...field} sx={RadioGroupStyle}>

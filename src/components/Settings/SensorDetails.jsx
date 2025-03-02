@@ -94,67 +94,75 @@ const SensorDetails = () => {
     }
   }, [selectedSensor]);
 
+  const onSubmit = (formData) => {
+    console.log(formData);
+  };
+
   return (
-    <Stack sx={{ flex: "1" }}>
-      <Title title="센서 상세 정보" />
-      <Stack sx={{ overflow: "hidden" }}>
-        <Stack
-          sx={{
-            padding: "15px",
-            gap: "15px",
-            backgroundColor: grey[100],
-            "& > .MuiStack-root": {
-              flexDirection: "row",
-              gap: "10px",
-              alignItems: "center",
-              "& > p": {
-                fontSize: "14px",
-              },
-            },
-          }}
-        >
-          <Stack>
-            <Typography sx={{ width: "50px" }}>ID</Typography>
-            <Typography>{selectedSensor?.sensorGroupId}</Typography>
-          </Stack>
-          <Stack>
-            <Typography sx={{ width: "50px" }}>주소</Typography>
-            <TextField
-              fullWidth
-              slotProps={{
-                input: {
-                  readOnly: true,
+    <FormProvider {...methods}>
+      <Stack
+        component="form"
+        onSubmit={methods.handleSubmit(onSubmit)}
+        sx={{ flex: "1" }}
+      >
+        <Title title="센서 상세 정보" />
+        <Stack sx={{ overflow: "hidden" }}>
+          <Stack
+            sx={{
+              padding: "15px",
+              gap: "15px",
+              backgroundColor: grey[100],
+              "& > .MuiStack-root": {
+                flexDirection: "row",
+                gap: "10px",
+                alignItems: "center",
+                "& > p": {
+                  fontSize: "14px",
                 },
-              }}
-              value={selectedSensor?.address || ""}
-            />
+              },
+            }}
+          >
+            <Stack>
+              <Typography sx={{ width: "50px" }}>ID</Typography>
+              <Typography>{selectedSensor?.sensorGroupId}</Typography>
+            </Stack>
+            <Stack>
+              <Typography sx={{ width: "50px" }}>주소</Typography>
+              <TextField
+                fullWidth
+                slotProps={{
+                  input: {
+                    readOnly: true,
+                  },
+                }}
+                value={selectedSensor?.address || ""}
+              />
+            </Stack>
           </Stack>
-        </Stack>
-        <Stack
-          sx={{
-            gap: "15px",
-            flex: "1",
-            overflowY: "auto",
-          }}
-        >
-          {/* SSID 설정 */}
-          {selectedSensor && selectedSensor?.groupPositionNumber === 0 && (
-            <SSIDSettingsForm />
-          )}
-          <FormProvider {...methods}>
+          <Stack
+            sx={{
+              gap: "15px",
+              flex: "1",
+              overflowY: "auto",
+            }}
+          >
+            {/* SSID 설정 */}
+            {selectedSensor && selectedSensor?.groupPositionNumber === 0 && (
+              <SSIDSettingsForm />
+            )}
             {/* 신호기 설정 */}
             <SignalSettingsForm />
             {/* 기본 설정 */}
             <DefaultSettings />
-          </FormProvider>
+          </Stack>
+        </Stack>
+        <Stack sx={{ backgroundColor: "white", padding: "15px" }}>
+          <Button variant="outlined" type="submit" disabled={!selectedSensor}>
+            저장
+          </Button>
         </Stack>
       </Stack>
-      <Stack sx={{ backgroundColor: "white", padding: "15px" }}>
-        <Button variant="outlined" type>
-          저장
-        </Button>
-      </Stack>
-    </Stack>
+    </FormProvider>
   );
 };
 
