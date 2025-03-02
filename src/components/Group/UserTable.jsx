@@ -17,6 +17,7 @@ import { grey } from "@mui/material/colors";
 import { setSelectedUser } from "@store/selectedUserSlice";
 import { useDispatch, useSelector } from "react-redux";
 
+
 const UserTable = ({
   handleOpenAlertDialog,
   handleOpenCreateUserDialog,
