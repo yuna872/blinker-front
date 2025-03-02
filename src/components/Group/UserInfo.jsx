@@ -6,6 +6,7 @@ import { grey } from "@mui/material/colors";
 import { setSelectedSensorState } from "@store/selectedSensorSlice";
 import { setSelectedUser } from "@store/selectedUserSlice";
 import { showToast } from "@utils/toast";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -26,12 +27,21 @@ const UserInfo = () => {
   const selectedUser = useSelector((state) => state.selectedUser);
   const dispatch = useDispatch();
 
-  const { handleSubmit, register } = useForm({
+  const { handleSubmit, register, reset } = useForm({
     defaultValues: {
-      userId: selectedUser?.userId,
-      username: selectedUser?.username,
+      userId: "",
+      username: "",
     },
   });
+
+  useEffect(() => {
+    if (selectedUser) {
+      reset({
+        userId: selectedUser?.userId,
+        username: selectedUser?.username,
+      });
+    }
+  }, [selectedUser, reset]);
 
   const { mutateAsync: putUser } = usePutUser();
   const onSubmit = async (formData) => {
