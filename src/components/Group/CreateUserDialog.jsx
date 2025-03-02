@@ -1,28 +1,48 @@
 import { ErrorMessage } from "@hookform/error-message";
 import { useForm } from "react-hook-form";
 import TextFieldErrorMessage from "./TextFieldErrorMessage";
+import { useSignup } from "@apis/auth/useSignup";
+import { showToast } from "@utils/toast";
+import { useQueryClient } from "@tanstack/react-query";
 
 const { TextField } = require("@components/TextField");
 const { Dialog, Stack, Typography, Button } = require("@mui/material");
 
 const CreateUserDialog = ({ open, handleClose }) => {
+  const queryClient = useQueryClient();
+
   const {
     handleSubmit,
     register,
     watch,
     formState: { errors },
+    reset,
   } = useForm({
     defaultValues: {
-      id: "",
-      userName: "",
+      userId: "",
+      username: "",
       password: "",
       passwordCheck: "",
       role: "USER",
     },
   });
+  const { mutateAsync: signup } = useSignup();
+  const onSubmit = async (formData) => {
+    const { passwordCheck, ...signupData } = formData;
+    console.log(signupData);
 
-  const onSubmit = (formData) => {
-    console.log(formData);
+    try {
+      await signup(signupData).then((data) => {
+        if (data.code === "SUCCESS") {
+          showToast.success("유저가 생성되었습니다.");
+          handleClose();
+          queryClient.invalidateQueries(["auth", "users"]);
+          reset();
+        }
+      });
+    } catch (error) {
+      showToast.error(error?.response?.data?.message);
+    }
   };
 
   return (
@@ -49,12 +69,12 @@ const CreateUserDialog = ({ open, handleClose }) => {
             <Typography>아이디</Typography>
             <TextField
               type="text"
-              {...register("id", { required: "아이디를 입력해주세요." })}
-              error={errors.id}
+              {...register("userId", { required: "아이디를 입력해주세요." })}
+              error={errors.userId}
             />
             <ErrorMessage
               errors={errors}
-              name="id"
+              name="userId"
               render={({ message }) => (
                 <Typography sx={{ fontSize: "11px", color: "#FF3C3C" }}>
                   {message}
@@ -66,12 +86,12 @@ const CreateUserDialog = ({ open, handleClose }) => {
             <Typography>사용자명</Typography>
             <TextField
               type="text"
-              {...register("userName", {
+              {...register("username", {
                 required: "사용자명을 입력해주세요.",
               })}
-              error={errors.userName}
+              error={errors.username}
             />
-            <TextFieldErrorMessage name={"userName"} errors={errors} />
+            <TextFieldErrorMessage name={"username"} errors={errors} />
           </Stack>
           <Stack>
             <Typography>비밀번호</Typography>
@@ -102,7 +122,7 @@ const CreateUserDialog = ({ open, handleClose }) => {
           sx={{
             flexDirection: "row",
             width: "100%",
-            gap:'10px'
+            gap: "10px",
           }}
         >
           <Button variant="outlined" onClick={handleClose} fullWidth>
