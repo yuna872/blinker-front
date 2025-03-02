@@ -64,7 +64,7 @@ const UserTable = ({
               </TableRow>
             </TableHead>
             <TableBody>
-              {users.map((user) => {
+              {users?.map((user) => {
                 const selected = user.appUserId === selectedUser?.appUserId;
                 return (
                   <TableRow
