@@ -3,7 +3,6 @@ import { axiosInstance } from "../axiosInstance";
 
 const deleteUser = async (appUserId) => {
   const response = await axiosInstance.delete(`/auth/user/${appUserId}`);
-  console.log(response);
   return response.data;
 };
 

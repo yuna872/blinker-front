@@ -15,19 +15,14 @@ const AlertDialog = ({ open, handleClose }) => {
   const { mutateAsync: deleteUser } = useDeleteUser();
 
   const handleDeleteUser = async () => {
-    console.log("gg");
     try {
       await deleteUser(selectedUser?.appUserId).then((data) => {
-        console.log(data);
         if (data.code === "SUCCESS") {
           showToast.success("삭제 되었습니다.");
           handleClose();
         }
       });
-    } catch (error) {
-      console.error(error);
-      // showToast.error();
-    }
+    } catch (error) {}
   };
 
   return (
