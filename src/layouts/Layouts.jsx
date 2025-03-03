@@ -1,5 +1,7 @@
+import { Stack } from "@mui/material";
+
 const { Outlet, Navigate, useLocation } = require("react-router-dom");
-const { default: Header } = require("./Header");
+const { default: Header, GNB_HEIGHT } = require("./Header");
 const { getCookies } = require("@apis/auth/cookie");
 
 const Layouts = () => {
@@ -14,10 +16,17 @@ const Layouts = () => {
   }
 
   return (
-    <>
+    <Stack
+      sx={{
+        maxHeight: `100vh`,
+        height: "100vh", // 최대 높이를 화면 높이로 설정
+        overflow: "auto", // 내용이 넘칠 경우 스크롤 활성화
+        width: "100%", // 전체 너비 사용
+      }}
+    >
       <Header isAdmin={isAdmin} />
       {isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />}
-    </>
+    </Stack>
   );
 };
 

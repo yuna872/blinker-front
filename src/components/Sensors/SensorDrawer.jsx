@@ -6,7 +6,7 @@ import SensorInfo from "@components/Sensors/SensorInfo";
 import SensorList from "@components/Sensors/SensorList";
 import { USERTABLE_WIDTH } from "@components/AdminMonitoring/UserTable";
 
-const SensorDrawer = ({ sensors, selectedSensor, setSelectedSensor }) => {
+const SensorDrawer = ({ selectedSensor }) => {
   const [isOpen, setIsOpen] = useState(true);
 
   const toggleOpenDrawer = () => {
