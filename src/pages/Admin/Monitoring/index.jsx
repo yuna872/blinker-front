@@ -32,7 +32,7 @@ const AdminMonitoring = () => {
     >
       <Stack
         sx={{
-          zIndex: "3",
+          zIndex: "4",
           backgroundColor: "white",
         }}
       >

@@ -21,13 +21,13 @@ const SensorDrawer = ({ sensors, selectedSensor, setSelectedSensor }) => {
         width: "450px",
         height: "100%",
         backgroundColor: "white",
-        zIndex: "2",
+        zIndex: "3",
         transition: "left 0.3s ease",
       }}
     >
       <Stack sx={{ width: "100%", height: "100%", position: "relative" }}>
         <SensorInfo selectedSensor={selectedSensor} />
-        <SensorList/>
+        <SensorList />
         <Stack
           sx={{
             position: "absolute",
