@@ -27,7 +27,6 @@ const PasswordChange = () => {
   const onSubmit = async (formData) => {
     try {
       await changePassword(formData.newPassword).then((data) => {
-        console.log(data, "res");
         if (data.code === "SUCCESS") {
           showToast.success(
             "비밀번호가 변경되었습니다. 로그인 페이지로 이동합니다."
@@ -37,7 +36,6 @@ const PasswordChange = () => {
         }
       });
     } catch (error) {
-      console.log(error);
       showToast.error(error?.response?.data?.message);
     }
   };

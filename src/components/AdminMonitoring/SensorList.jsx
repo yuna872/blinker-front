@@ -1,4 +1,3 @@
-import { useGetUserSensorGroups } from "@apis/sensor/useGetUserSensorGroups";
 import Title from "@components/Title";
 import { Star, Traffic } from "@mui/icons-material";
 import { Stack, ToggleButton, ToggleButtonGroup } from "@mui/material";

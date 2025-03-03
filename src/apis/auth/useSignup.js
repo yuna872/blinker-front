@@ -9,8 +9,6 @@ const signup = async (credentials) => {
 export const useSignup = () => {
   return useMutation({
     mutationFn: signup,
-    onSuccess: (data) => {
-      console.log("회원가입 성공");
-    },
+    onSuccess: (data) => {},
   });
 };

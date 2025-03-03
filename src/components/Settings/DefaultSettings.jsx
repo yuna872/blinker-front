@@ -14,7 +14,7 @@ export const RadioGroupStyle = {
 };
 
 const DefaultSettings = () => {
-  const { register, control } = useFormContext();
+  const { control } = useFormContext();
 
   return (
     <Stack

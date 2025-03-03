@@ -1,6 +1,6 @@
 import { useGetUserSensorGroups } from "@apis/sensor/useGetUserSensorGroups";
 import Title from "@components/Title";
-import { Star, Traffic } from "@mui/icons-material";
+import { Star } from "@mui/icons-material";
 import { Stack } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { setMapPosition } from "@store/mapPositionSlice";

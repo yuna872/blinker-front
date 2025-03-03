@@ -7,7 +7,6 @@ import { ErrorMessage } from "@hookform/error-message";
 import { useNavigate } from "react-router-dom";
 import { theme } from "@styles/theme";
 import { grey } from "@mui/material/colors";
-import { useDispatch } from "react-redux";
 
 const Login = () => {
   const {

@@ -31,7 +31,6 @@ const AdminKakaoMap = ({ sensors }) => {
   const [map, setMap] = useState();
 
   const handleClickMarker = (sensor) => {
-    console.log(sensor)
     if (sensor) {
       dispatch(setSelectedSensorState(sensor));
       dispatch(

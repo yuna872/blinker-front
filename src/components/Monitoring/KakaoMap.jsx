@@ -1,4 +1,3 @@
-import { useGetSensorGroups } from "@apis/sensor/useGetSensorGroups";
 import { GNB_HEIGHT } from "@layouts/Header";
 import { Button, IconButton, Stack, Typography } from "@mui/material";
 import { setMapPosition } from "@store/mapPositionSlice";
