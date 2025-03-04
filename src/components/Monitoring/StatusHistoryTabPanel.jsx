@@ -17,7 +17,6 @@ const StatusHistoryTabPanel = () => {
   const { data: logs } = useGetSensorLogs(sensorId);
   console.log(logs, "logs");
 
-  // const dummy = new Array(20).fill().map((_, idx) => idx);
   return (
     <Stack sx={{ height: "100%", overflow: "auto" }}>
       <Table stickyHeader>

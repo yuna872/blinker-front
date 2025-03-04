@@ -30,7 +30,7 @@ const SensorDetailsDialog = ({ open, handleClose}) => {
     <Dialog onClose={handleClose} open={open} maxWidth="lg" fullWidth>
       <Stack sx={{ backgroundColor: theme.palette.primary.main }}>
         <DialogTitle sx={{ m: 0, p: 2, color: "white", fontSize: "18px" }}>
-          {`신호기 ${"그룹아이디"}  ${
+          {`신호기 ${selectedSensor.sensorGroupId}  ${
             selectedSensor.groupPositionNumber > 0
               ? `슬레이브 ${selectedSensor.groupPositionNumber}번`
               : "마스터"

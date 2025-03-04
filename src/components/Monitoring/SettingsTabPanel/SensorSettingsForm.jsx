@@ -4,6 +4,7 @@ import { grey } from "@mui/material/colors";
 import { theme } from "@styles/theme";
 import { TextField } from "@components/TextField";
 import { useFormContext } from "react-hook-form";
+import { useSelector } from "react-redux";
 
 export const fieldStyle = {
   flexDirection: "row",
@@ -19,6 +20,7 @@ export const labelStyle = {
 
 const SensorSettingsForm = () => {
   const { register } = useFormContext();
+  const selectedSensor = useSelector((state) => state.selectedSensor);
 
   return (
     <Stack sx={{ border: `1px solid ${grey[300]}`, height: "fit-content" }}>
@@ -43,23 +45,23 @@ const SensorSettingsForm = () => {
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>위치무선세기 기준</Typography>
-          <TextField {...register('positionSignalThreshold')}/>
+          <TextField {...register("positionSignalThreshold")} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>위치무선세기</Typography>
-          <TextField {...register('positionSignalStrength')}/>
+          <TextField {...register("positionSignalStrength")} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>신호무선세기 기준</Typography>
-          <TextField {...register('communicationSignalThreshold')}/>
+          <TextField {...register("communicationSignalThreshold")} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>신호무선세기</Typography>
-          <TextField {...register('communicationSignalStrength')}/>
+          <TextField {...register("communicationSignalStrength")} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>서버타임</Typography>
-          <TextField disabled/>
+          <TextField disabled value={selectedSensor?.serverTime ?? 0} />
         </Stack>
       </Stack>
     </Stack>
