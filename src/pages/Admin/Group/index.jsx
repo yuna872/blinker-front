@@ -77,7 +77,7 @@ const Group = () => {
         handleOpenAlertDialog={handleOpenAlertDialog}
         handleOpenCreateUserDialog={handleOpenCreateUserDialog}
       />
-      <Stack sx={{ overflow: "hidden" }}>
+      <Stack>
         <UserInfo />
         <SensorList />
       </Stack>

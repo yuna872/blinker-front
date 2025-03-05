@@ -18,7 +18,6 @@ const SensorList = () => {
     selectedUser?.appUserId
   );
 
-
   const handleClickSensor = (sensor) => {
     dispatch(setSelectedSensorState(sensor));
   };
