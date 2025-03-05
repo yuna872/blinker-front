@@ -1,4 +1,5 @@
 import { useGetSensorLogs } from "@apis/sensor/useGetSensorLogs";
+import Loading from "@components/Loading";
 import {
   Stack,
   Table,
@@ -14,10 +15,9 @@ import { useSelector } from "react-redux";
 const StatusHistoryTabPanel = () => {
   const sensorId = useSelector((state) => state.selectedSensor?.sensorId);
 
-  const { data: logs } = useGetSensorLogs(sensorId);
-  console.log(logs, "logs");
+  const { data: logs, isLoading } = useGetSensorLogs(sensorId);
 
-  // const dummy = new Array(20).fill().map((_, idx) => idx);
+  if (isLoading) return <Loading />;
   return (
     <Stack sx={{ height: "100%", overflow: "auto" }}>
       <Table stickyHeader>
@@ -44,7 +44,6 @@ const StatusHistoryTabPanel = () => {
         </TableHead>
         <TableBody>
           {logs?.map((log) => {
-            console.log(log.faultInformation)
             return (
               <TableRow key={log.sensorLogId}>
                 <TableCell>

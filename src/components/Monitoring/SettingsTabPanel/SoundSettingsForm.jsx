@@ -44,7 +44,7 @@ const SoundSettingsForm = () => {
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>미뉴에트 음량</Typography>
-          <TextField />
+          <TextField {...register('minuetVolume')}/>
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>시스템 음량</Typography>
