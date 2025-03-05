@@ -33,12 +33,14 @@ const UserTable = ({ users }) => {
         maxWidth: `${USERTABLE_WIDTH}px`,
         width: `${USERTABLE_WIDTH}px`,
         borderRight: `1px solid ${grey[200]}`,
+        overflow: "hidden",
       }}
     >
       <Title title="사용자 목록" />
       <Stack
         sx={{
           padding: "10px",
+          overflow: "auto",
         }}
       >
         <Table>

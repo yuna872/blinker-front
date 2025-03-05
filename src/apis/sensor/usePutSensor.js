@@ -6,7 +6,6 @@ const putSensor = async ({ sensorGroupId, formData }) => {
     `/sensor/${sensorGroupId}`,
     formData
   );
-  console.log(response, '여기야')
   return response.data;
 };
 

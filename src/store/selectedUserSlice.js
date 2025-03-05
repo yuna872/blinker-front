@@ -9,9 +9,12 @@ export const selectedUserSlice = createSlice({
     setSelectedUser: (_, action) => {
       return action.payload;
     },
+    resetSelectedUser: () => {
+      return null;
+    },
   },
 });
 
-export const { setSelectedUser } = selectedUserSlice.actions;
+export const { setSelectedUser, resetSelectedUser } = selectedUserSlice.actions;
 
 export default selectedUserSlice.reducer;

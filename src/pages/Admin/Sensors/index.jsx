@@ -1,20 +1,9 @@
 import { Stack } from "@mui/material";
-import UserTable, {
-  USERTABLE_WIDTH,
-} from "@components/AdminMonitoring/UserTable";
-import {
-  Map,
-  MapMarker,
-  MarkerClusterer,
-  ZoomControl,
-} from "react-kakao-maps-sdk";
+import UserTable from "@components/AdminMonitoring/UserTable";
+
 import { GNB_HEIGHT } from "@layouts/Header";
-import greenMarker from "@assets/images/marker-green.png";
-import greyMarker from "@assets/images/marker-grey.png";
-import redMarker from "@assets/images/marker-red.png";
 import SensorDrawer from "@components/Sensors/SensorDrawer";
 import { useState } from "react";
-import { dummySignalLights } from "@pages/User/Monitoring/dummy";
 import { useGetUsers } from "@apis/auth/useGetUsers";
 import AdminKakaoMap from "@components/AdminMonitoring/AdminKakaoMap";
 import { useGetUserSensorGroups } from "@apis/sensor/useGetUserSensorGroups";
@@ -42,7 +31,7 @@ const Sensors = () => {
     >
       <Stack
         sx={{
-          zIndex: "3",
+          zIndex: "4",
           backgroundColor: "white",
         }}
       >

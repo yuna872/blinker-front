@@ -28,6 +28,8 @@ const SensorList = () => {
     <Stack
       sx={{
         borderRight: `1px solid ${grey[200]}`,
+        height:'100%',
+        overflow: 'hidden'
       }}
     >
       <Title title="센서 목록" />
@@ -35,6 +37,7 @@ const SensorList = () => {
         sx={{
           margin: "10px",
           border: `1px solid ${grey[200]}`,
+          overflow: "auto",
         }}
       >
         {/* Header */}

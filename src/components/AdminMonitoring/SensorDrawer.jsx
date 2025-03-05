@@ -21,7 +21,7 @@ const SensorDrawer = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
         width: "450px",
         height: "100%",
         backgroundColor: "white",
-        zIndex: "2",
+        zIndex: "3",
         transition: "left 0.3s ease",
       }}
     >

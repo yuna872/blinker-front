@@ -11,12 +11,12 @@ import AdminKakaoMap from "@components/AdminMonitoring/AdminKakaoMap";
 
 const AdminMonitoring = () => {
   const selectedUser = useSelector((state) => state.selectedUser);
-  const [onlyFaulty, setOnlyFaulty] = useState(false);
+  const [onlyFaulty, setOnlyFaulty] = useState(null);
 
   const { data: users } = useGetUsers();
   const { data: sensorGroups } = useGetUserSensorGroups(
     selectedUser?.appUserId,
-    onlyFaulty
+    onlyFaulty ?? false
   );
 
   const sensors = sensorGroups?.flatMap((v) => v.sensors);
@@ -32,7 +32,7 @@ const AdminMonitoring = () => {
     >
       <Stack
         sx={{
-          zIndex: "3",
+          zIndex: "4",
           backgroundColor: "white",
         }}
       >

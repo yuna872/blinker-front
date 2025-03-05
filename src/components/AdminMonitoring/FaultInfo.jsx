@@ -1,5 +1,7 @@
-
-import { TableHeaderStyle, TableRowStyle } from "@components/Sensors/SensorList";
+import {
+  TableHeaderStyle,
+  TableRowStyle,
+} from "@components/Sensors/SensorList";
 import Title from "@components/Title";
 import {
   Stack,
@@ -27,28 +29,27 @@ const FaultInfo = () => {
               <TableCell>장애유무</TableCell>
             </TableRow>
           </TableHead>
-          {selectedSensor?.faultInformation && (
-            <TableBody>
-              {Object.entries(selectedSensor.faultInformation).map(
-                ([key, value]) => {
-                  return (
-                    <TableRow
-                      key={key}
-                      sx={{
-                        ...TableRowStyle,
-                        "& > .MuiTableCell-root": {
-                          padding: "8px 16px",
-                        },
-                      }}
-                    >
-                      <TableCell>{FAULTS[key]}</TableCell>
-                      <TableCell>{value ? "오류" : "정상"}</TableCell>
-                    </TableRow>
-                  );
-                }
-              )}
-            </TableBody>
-          )}
+          <TableBody>
+            {Object.keys(FAULTS).map((key) => {
+              const faulty = selectedSensor?.faultInformation[key] ?? null;
+              return (
+                <TableRow
+                  key={key}
+                  sx={{
+                    ...TableRowStyle,
+                    "& > .MuiTableCell-root": {
+                      padding: "8px 16px",
+                    },
+                  }}
+                >
+                  <TableCell>{FAULTS[key]}</TableCell>
+                  <TableCell>
+                    {faulty === null ? "" : faulty ? "오류" : "정상"}
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
         </Table>
       </Stack>
     </Stack>

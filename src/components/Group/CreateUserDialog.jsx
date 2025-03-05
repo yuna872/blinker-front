@@ -29,7 +29,6 @@ const CreateUserDialog = ({ open, handleClose }) => {
   const { mutateAsync: signup } = useSignup();
   const onSubmit = async (formData) => {
     const { passwordCheck, ...signupData } = formData;
-    console.log(signupData);
 
     try {
       await signup(signupData).then((data) => {

@@ -3,7 +3,6 @@ import { TextField } from "@components/TextField";
 import Title from "@components/Title";
 import { Button, Stack, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import { setSelectedSensorState } from "@store/selectedSensorSlice";
 import { setSelectedUser } from "@store/selectedUserSlice";
 import { showToast } from "@utils/toast";
 import { useEffect } from "react";
@@ -46,7 +45,6 @@ const UserInfo = () => {
   const { mutateAsync: putUser } = usePutUser();
   const onSubmit = async (formData) => {
     if (selectedUser) {
-      console.log(formData);
       const { appUserId } = selectedUser;
       try {
         await putUser({ appUserId, formData }).then((data) => {

@@ -1,14 +1,18 @@
 import { Stack, Typography } from "@mui/material";
 import React from "react";
 import { theme } from "@styles/theme";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { grey } from "@mui/material/colors";
 import { getCookies, removeCookies } from "@apis/auth/cookie";
+import { useDispatch } from "react-redux";
+import { resetSelectedSensor } from "@store/selectedSensorSlice";
+import { resetSelectedUser } from "@store/selectedUserSlice";
 export const GNB_HEIGHT = 50;
 
 const Header = ({ isAdmin }) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const accessToken = getCookies("accessToken");
 
   const links = [
@@ -24,6 +28,12 @@ const Header = ({ isAdmin }) => {
     if (!getCookies("accessToken")) navigate("/login");
   };
 
+  const handleClickLink = (to) => {
+    navigate(to);
+    dispatch(resetSelectedSensor());
+    dispatch(resetSelectedUser());
+  };
+
   return (
     <Stack
       sx={{
@@ -33,27 +43,26 @@ const Header = ({ isAdmin }) => {
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        "& p, a": {
-          color: "white",
-          textDecoration: "none",
-          fontWeight: 600,
-        },
       }}
     >
       {isAdmin ? (
         <Stack sx={{ flexDirection: "row", gap: "20px" }}>
           {links.map((link) => {
+            console.log(pathname === link.to);
             return (
-              <Link
+              <Typography
                 key={link.to}
-                to={link.to}
-                style={{
+                onClick={() => {
+                  handleClickLink(link.to);
+                }}
+                sx={{
+                  cursor: "pointer",
                   fontWeight: pathname === link.to ? 600 : 400,
                   color: pathname === link.to ? "white" : grey[400],
                 }}
               >
                 {link.label}
-              </Link>
+              </Typography>
             );
           })}
         </Stack>
@@ -72,6 +81,9 @@ const Header = ({ isAdmin }) => {
               cursor: "pointer",
               fontSize: "14px",
               ":hover": { scale: 1.01 },
+              color: "white",
+              textDecoration: "none",
+              fontWeight: 600,
             },
           }}
         >

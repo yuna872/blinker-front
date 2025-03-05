@@ -6,7 +6,7 @@ import SensorInfo from "@components/Sensors/SensorInfo";
 import SensorList from "@components/Sensors/SensorList";
 import { USERTABLE_WIDTH } from "@components/AdminMonitoring/UserTable";
 
-const SensorDrawer = ({ sensors, selectedSensor, setSelectedSensor }) => {
+const SensorDrawer = ({ selectedSensor }) => {
   const [isOpen, setIsOpen] = useState(true);
 
   const toggleOpenDrawer = () => {
@@ -21,13 +21,13 @@ const SensorDrawer = ({ sensors, selectedSensor, setSelectedSensor }) => {
         width: "450px",
         height: "100%",
         backgroundColor: "white",
-        zIndex: "2",
+        zIndex: "3",
         transition: "left 0.3s ease",
       }}
     >
       <Stack sx={{ width: "100%", height: "100%", position: "relative" }}>
         <SensorInfo selectedSensor={selectedSensor} />
-        <SensorList/>
+        <SensorList />
         <Stack
           sx={{
             position: "absolute",

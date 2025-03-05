@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 
 const AddressSearchBar = ({ map }) => {
   const [address, setAddress] = useState("");
+  const [marker, setMarker] = useState(null);
   const dispatch = useDispatch();
 
   const handleChangeAddress = (e) => {
@@ -27,12 +28,17 @@ const AddressSearchBar = ({ map }) => {
       var markerPosition = new kakao.maps.LatLng(result[0].y, result[0].x);
 
       // 마커를 생성합니다
-      var marker = new kakao.maps.Marker({
+      var newMarker = new kakao.maps.Marker({
         position: markerPosition,
       });
 
       // 마커가 지도 위에 표시되도록 설정합니다
-      marker.setMap(map);
+      newMarker.setMap(map);
+
+      if (marker) {
+        marker.setMap(null);
+      }
+      setMarker(newMarker);
     };
 
     geocoder.addressSearch(`${address}`, callback);
