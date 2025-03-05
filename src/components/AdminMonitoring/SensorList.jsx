@@ -42,8 +42,6 @@ const SensorList = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
   const dispatch = useDispatch();
   const selectedSensor = useSelector((state) => state.selectedSensor);
 
-  console.log(sensorGroups);
-
   const handleChangeOnlyFaulty = (_, newOption) => {
     setOnlyFaulty(newOption);
     dispatch(setSelectedSensorState(null));

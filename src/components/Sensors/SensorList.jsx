@@ -61,12 +61,13 @@ const SensorList = () => {
   };
 
   return (
-    <Stack sx={{ flex: "1" }}>
+    <Stack sx={{ flex: "1", height: "100%", overflow: "hidden" }}>
       <Title title="센서 목록" />
       <Stack
         sx={{
           margin: "10px",
           border: `1px solid ${grey[200]}`,
+          overflow: "auto",
         }}
       >
         {/* Header */}
@@ -79,7 +80,6 @@ const SensorList = () => {
           <Stack
             sx={{
               backgroundColor: grey[300],
-              overflowY: "auto",
             }}
           >
             {sensorGroups?.map((group) => {

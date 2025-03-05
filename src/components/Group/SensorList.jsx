@@ -28,6 +28,7 @@ const SensorList = () => {
       sx={{
         borderRight: `1px solid ${grey[200]}`,
         overflow: "hidden",
+        height:'100%'
       }}
     >
       <Title title="센서 목록" />
@@ -35,6 +36,7 @@ const SensorList = () => {
         sx={{
           margin: "10px",
           border: `1px solid ${grey[200]}`,
+          overflow:'auto',
         }}
       >
         {/* Header */}
