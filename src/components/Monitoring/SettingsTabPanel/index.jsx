@@ -84,31 +84,41 @@ const SettingsTabPanel = () => {
   }, [selectedSensor]);
 
   const { mutateAsync: putSensor } = usePutSensor();
-    const onSubmit = async (formData) => {
-      if (selectedSensor) {
-        const { sensorGroupId } = selectedSensor;
-        try {
-          await putSensor({ sensorGroupId, formData }).then((data) => {
-            if (data.code === "SUCCESS") {
-              showToast.success(
-                "설정이 완료되었습니다. 반영되기까지는 시간이 소요될 수 있습니다."
-              );
-            }
-          });
-        } catch (error) {
-          showToast.error(error?.response?.data?.message);
-        }
+  const onSubmit = async (formData) => {
+    if (selectedSensor) {
+      const { sensorGroupId } = selectedSensor;
+      try {
+        await putSensor({ sensorGroupId, formData }).then((data) => {
+          if (data.code === "SUCCESS") {
+            showToast.success(
+              "설정이 완료되었습니다. 반영되기까지는 시간이 소요될 수 있습니다."
+            );
+          }
+        });
+      } catch (error) {
+        showToast.error(error?.response?.data?.message);
       }
-    };
-    
+    }
+  };
+
   return (
     <FormProvider {...methods}>
       <Stack
         component="form"
         onSubmit={methods.handleSubmit(onSubmit)}
-        sx={{ paddingBottom: "30px", gap: "20px" }}
+        sx={{
+          gap: "20px",
+          height: "100%",
+          overflow: "hidden",
+        }}
       >
-        <Stack sx={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <Stack
+          sx={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            overflow: "auto",
+          }}
+        >
           <GeneralSettingsForm />
           <SensorSettingsForm />
           <SoundSettingsForm />

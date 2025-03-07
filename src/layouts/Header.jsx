@@ -48,7 +48,6 @@ const Header = ({ isAdmin }) => {
       {isAdmin ? (
         <Stack sx={{ flexDirection: "row", gap: "20px" }}>
           {links.map((link) => {
-            console.log(pathname === link.to);
             return (
               <Typography
                 key={link.to}
@@ -67,11 +66,16 @@ const Header = ({ isAdmin }) => {
           })}
         </Stack>
       ) : (
-        <Typography sx={{ fontSize: "18px" }}>
+        <Typography
+          sx={{
+            fontSize: "18px",
+            color: "white",
+            fontWeight: 600,
+          }}
+        >
           Osan 스마트 음향 신호기 모니터링
         </Typography>
       )}
-
       {accessToken && (
         <Stack
           sx={{
@@ -82,7 +86,6 @@ const Header = ({ isAdmin }) => {
               fontSize: "14px",
               ":hover": { scale: 1.01 },
               color: "white",
-              textDecoration: "none",
               fontWeight: 600,
             },
           }}

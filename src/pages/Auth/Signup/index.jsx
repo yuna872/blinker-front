@@ -172,9 +172,10 @@ const Signup = () => {
               name="role"
               value={watch("role")}
               onChange={(e) => setValue("role", e.target.value)}
+              disabled
             >
-              <MenuItem value="USER">USER</MenuItem>
-              <MenuItem value="ADMIN">ADMIN</MenuItem>
+              <MenuItem value="USER" selected>USER</MenuItem>
+              {/* <MenuItem value="ADMIN">ADMIN</MenuItem> */}
             </Select>
           </Stack>
         </Stack>

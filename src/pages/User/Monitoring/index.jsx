@@ -7,11 +7,12 @@ import SensorList from "@components/Monitoring/SensorList";
 import { useGetSensorGroups } from "@apis/sensor/useGetSensorGroups";
 
 import KakaoMap from "@components/Monitoring/KakaoMap";
+import Loading from "@components/Loading";
 
 const Monitoring = () => {
   const { data: sensorGroups, isLoading, refetch } = useGetSensorGroups();
 
-  if (isLoading) return <>...is loading</>;
+  if (isLoading) return <Loading />;
   const sensors = sensorGroups.flatMap((v) => v.sensors);
 
   return (
