@@ -1,11 +1,15 @@
 import { GNB_HEIGHT } from "@layouts/Header";
 import { Button, IconButton, Stack, Typography } from "@mui/material";
 import { setMapPosition } from "@store/mapPositionSlice";
-import { setSelectedSensorState } from "@store/selectedSensorSlice";
+import {
+  resetSelectedSensor,
+  setSelectedSensorState,
+} from "@store/selectedSensorSlice";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Map,
+  MapInfoWindow,
   MapMarker,
   MapTypeId,
   MarkerClusterer,
@@ -80,6 +84,16 @@ const AdminKakaoMap = ({ sensors }) => {
             }}
             isPanto={true}
             onCreate={setMap}
+            onClick={(_, mouseEvent) => {
+              const latlng = mouseEvent.latLng;
+              dispatch(resetSelectedSensor());
+              dispatch(
+                setMapPosition({
+                  lat: latlng.getLat(),
+                  lng: latlng.getLng(),
+                })
+              );
+            }}
           >
             <ZoomControl />
             {/* 동동이 */}
