@@ -4,9 +4,17 @@ import TextFieldErrorMessage from "./TextFieldErrorMessage";
 import { useSignup } from "@apis/auth/useSignup";
 import { showToast } from "@utils/toast";
 import { useQueryClient } from "@tanstack/react-query";
+import { Select } from "@components/Select";
+import { theme } from "@styles/theme";
 
 const { TextField } = require("@components/TextField");
-const { Dialog, Stack, Typography, Button } = require("@mui/material");
+const {
+  Dialog,
+  Stack,
+  Typography,
+  Button,
+  MenuItem,
+} = require("@mui/material");
 
 const CreateUserDialog = ({ open, handleClose }) => {
   const queryClient = useQueryClient();
@@ -15,6 +23,7 @@ const CreateUserDialog = ({ open, handleClose }) => {
     handleSubmit,
     register,
     watch,
+    setValue,
     formState: { errors },
     reset,
   } = useForm({
@@ -45,7 +54,7 @@ const CreateUserDialog = ({ open, handleClose }) => {
   };
 
   return (
-    <Dialog open={open}>
+    <Dialog open={open} sx={{}}>
       <Stack
         component="form"
         onSubmit={handleSubmit(onSubmit)}
@@ -75,7 +84,7 @@ const CreateUserDialog = ({ open, handleClose }) => {
               errors={errors}
               name="userId"
               render={({ message }) => (
-                <Typography sx={{ fontSize: "11px", color: "#FF3C3C" }}>
+                <Typography sx={{ fontSize: "11px", color: theme.palette.error.main }}>
                   {message}
                 </Typography>
               )}
@@ -115,6 +124,17 @@ const CreateUserDialog = ({ open, handleClose }) => {
               error={errors.passwordCheck}
             />
             <TextFieldErrorMessage name={"passwordCheck"} errors={errors} />
+          </Stack>
+          <Stack>
+            <Typography>관리등급</Typography>
+            <Select
+              name="role"
+              value={watch("role")}
+              onChange={(e) => setValue("role", e.target.value)}
+            >
+              <MenuItem value="USER">USER</MenuItem>
+              <MenuItem value="ADMIN">ADMIN</MenuItem>
+            </Select>
           </Stack>
         </Stack>
         <Stack

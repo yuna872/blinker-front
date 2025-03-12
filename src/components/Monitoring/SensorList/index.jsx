@@ -124,7 +124,7 @@ const SensorList = ({ sensorGroups, refetch }) => {
                   <Stack sx={{ width: "220px", maxWidth: "220px" }}>
                     {group.sensorGroupId}
                   </Stack>
-                  <Stack>{`(SSID) ${group.ssid}`}</Stack>
+                  <Stack>{`(SSID) ${group.ssid ?? '-'}`}</Stack>
                 </Stack>
                 {group.sensors.map((sensor) => {
                   const selected = sensor.sensorId === selectedSensor?.sensorId;
