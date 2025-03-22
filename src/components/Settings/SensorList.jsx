@@ -54,7 +54,6 @@ const SensorList = () => {
             }}
           >
             {sensorGroups?.map((group) => {
-              console.log(group)
               return (
                 <Stack key={group.sensorGroupId}>
                   <Stack

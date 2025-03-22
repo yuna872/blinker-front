@@ -167,7 +167,9 @@ const SensorList = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
                           <Stack sx={{ width: "fit-content" }}>
                             <Traffic
                               sx={{
-                                color: `${theme.palette.status[sensor.status]}`,
+                                color: sensor.needUpdate
+                                  ? theme.palette.status["업데이트 필요"]
+                                  : `${theme.palette.status[sensor.status]}`,
                               }}
                             />
                           </Stack>
