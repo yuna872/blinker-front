@@ -7,13 +7,13 @@ import dayjs from "dayjs";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
-const InfoWindow = ({ sensorId }) => {
-  const selectedUser = useSelector((state) => state.selectedUser);
-  const { data: sensor } = useGetSensorDetail(sensorId, selectedUser.appUserId);
+const InfoWindow = ({ sensorId, appUserId }) => {
+  // const selectedUser = useSelector((state) => state.selectedUser);
+  const { data: sensor } = useGetSensorDetail(sensorId, appUserId);
   const [memo, setMemo] = useState(sensor?.memo);
   const { mutateAsync: patchSensorMemo } = usePatchSensorMemo(
     sensorId,
-    selectedUser.appUserId
+  appUserId
   );
 
   const handleChangeMemo = (e) => {
@@ -24,7 +24,7 @@ const InfoWindow = ({ sensorId }) => {
     if (e.keyCode === 13) {
       await patchSensorMemo({
         sensorId,
-        appUserId: selectedUser.appUserId,
+        appUserId,
         memo,
       })
         .then((res) => {
@@ -48,7 +48,7 @@ const InfoWindow = ({ sensorId }) => {
     borderRadius: "8px",
   };
 
-  if (!sensorId || !selectedUser || !sensor) {
+  if (!sensorId || !appUserId || !sensor) {
     return (
       <Stack sx={placeholderStyles}>
         <CircularProgress size={15} />

@@ -20,6 +20,7 @@ import { ChevronRight, Close } from "@mui/icons-material";
 import greenMarker from "@assets/images/marker-green.png";
 import greyMarker from "@assets/images/marker-grey.png";
 import redMarker from "@assets/images/marker-red.png";
+import yellowMarker from "@assets/images/marker-yellow.png";
 import InfoWindow from "@components/Monitoring/InfoWindow";
 import AddressSearchBar from "@components/Monitoring/AddressSearchBar";
 import Title from "@components/Title";
@@ -30,6 +31,7 @@ const AdminKakaoMap = ({ sensors }) => {
   const [isVisible, setIsVisible] = useState(false);
   const dispatch = useDispatch();
   const selectedSensor = useSelector((state) => state.selectedSensor);
+  const selectedUser = useSelector((state) => state.selectedUser);
   const mapPosition = useSelector((state) => state.mapPosition);
   const [map, setMap] = useState();
 
@@ -163,12 +165,13 @@ const AdminKakaoMap = ({ sensors }) => {
                         lng: sensor.longitude,
                       }}
                       image={{
-                        src:
-                          sensor.status === "정상"
-                            ? greenMarker
-                            : sensor.status === "오류"
-                            ? redMarker
-                            : greyMarker,
+                        src: sensor.needUpdate
+                          ? yellowMarker
+                          : sensor.status === "정상"
+                          ? greenMarker
+                          : sensor.status === "오류"
+                          ? redMarker
+                          : greyMarker,
                         size: {
                           width: selected ? 35 : 30,
                           height: selected ? 35 : 30,
@@ -176,7 +179,12 @@ const AdminKakaoMap = ({ sensors }) => {
                       }}
                       onClick={() => handleClickMarker(sensor)}
                     >
-                      {selected && <InfoWindow sensorId={sensor.sensorId} />}
+                      {selected && (
+                        <InfoWindow
+                          sensorId={sensor.sensorId}
+                          appUserId={selectedUser.appUserId}
+                        />
+                      )}
                     </MapMarker>
                   );
                 })}

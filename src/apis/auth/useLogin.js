@@ -15,6 +15,7 @@ export const useLogin = () => {
       if (data.code === "SUCCESS") {
         setCookies("accessToken", data.response.accessToken);
         setCookies("role", data.response.roles[0]);
+        setCookies("appUserId", data.response.appUserId);
       }
     },
   });
