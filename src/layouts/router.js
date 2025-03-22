@@ -42,6 +42,7 @@ const router = createBrowserRouter(
               path: "sensors",
               element: <Sensors />,
             },
+
             {
               path: "settings",
               element: <Settings />,

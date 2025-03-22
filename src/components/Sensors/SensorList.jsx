@@ -1,4 +1,5 @@
 import { useGetUserSensorGroups } from "@apis/sensor/useGetUserSensorGroups";
+import { usePatchSensorGroupsOrder } from "@apis/sensor/usePatchSensorGroupsOrder";
 import Title from "@components/Title";
 import { Menu, Star } from "@mui/icons-material";
 import { Button, Stack } from "@mui/material";
@@ -6,6 +7,7 @@ import { grey } from "@mui/material/colors";
 import { setMapPosition } from "@store/mapPositionSlice";
 import { setSelectedSensorState } from "@store/selectedSensorSlice";
 import { theme } from "@styles/theme";
+import { showToast } from "@utils/toast";
 import { useEffect, useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useDispatch, useSelector } from "react-redux";
@@ -49,6 +51,7 @@ const SensorList = () => {
   const [orderList, setOrderList] = useState();
   const [groups, setGroups] = useState([]);
 
+  const { mutateAsync: patchSensorGroupsOrder } = usePatchSensorGroupsOrder();
   const { data: sensorGroups } = useGetUserSensorGroups(
     selectedUser?.appUserId
   );
@@ -79,13 +82,21 @@ const SensorList = () => {
     copiedGroups.splice(destination.index, 0, targetGroup);
     setGroups(copiedGroups);
 
-    const newOrderList = copiedGroups.map((item) => item.order);
+    const newOrderList = copiedGroups.map((item) => item.sensorGroupId);
     setOrderList(newOrderList);
   };
 
-  const handleClickDoneEditing = () => {
-    setEditMode(false);
-    console.log(orderList);
+  const handleClickDoneEditing = async () => {
+    await patchSensorGroupsOrder({ sensorGroupIds: orderList })
+      .then((res) => {
+        if (res.code === "SUCCESS") {
+          showToast.success("순서가 편집되었습니다.");
+          setEditMode(false);
+        }
+      })
+      .catch(() => {
+        showToast.error("순서를 저장하는데 오류가 발생했습니다.");
+      });
   };
 
   return (
@@ -121,12 +132,15 @@ const SensorList = () => {
                 <Stack
                   ref={provided.innerRef}
                   {...provided.droppableProps}
-                  sx={{ height: "100%" }}
+                  sx={{
+                    height: "100%",
+                    overflow: "auto",
+                    backgroundColor: grey[300],
+                  }}
                 >
                   {sensorGroups && (
                     <Stack
                       sx={{
-                        backgroundColor: grey[300],
                         height: "100%",
                       }}
                     >
