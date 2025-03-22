@@ -1,7 +1,7 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { theme } from "@styles/theme";
 
-export const STATUS = ['정상', '오류', '미접속'];
+export const STATUS = ["정상", "오류", "업데이트 필요", "미접속"];
 
 const Legend = () => {
   return (
@@ -29,13 +29,13 @@ const Legend = () => {
               <Box
                 sx={{
                   display: "inline-block",
-                  width: "15px",
-                  height: "15px",
+                  width: "14px",
+                  height: "14px",
                   borderRadius: "100%",
                   backgroundColor: `${theme.palette.status[status]}`,
                 }}
               />
-              <Typography sx={{ fontSize: "14px" }}>{status}</Typography>
+              <Typography sx={{ fontSize: "12px" }}>{status}</Typography>
             </Stack>
           );
         })}

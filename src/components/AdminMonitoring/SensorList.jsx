@@ -109,13 +109,15 @@ const SensorList = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
           {sensorGroups && (
             <Stack
               sx={{
-                backgroundColor: grey[300],
                 height: "100%",
               }}
             >
               {sensorGroups?.map((group) => {
                 return (
-                  <Stack key={group.sensorGroupId}>
+                  <Stack
+                    key={group.sensorGroupId}
+                    sx={{ backgroundColor: grey[300] }}
+                  >
                     <Stack
                       sx={{
                         ...TableRowStyle,
@@ -130,7 +132,7 @@ const SensorList = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
                       <Stack sx={{ width: "210px", maxWidth: "210px" }}>
                         {group.sensorGroupId}
                       </Stack>
-                      <Stack>{`(SSID) ${group.ssid ?? '-'}`}</Stack>
+                      <Stack>{`(SSID) ${group.ssid ?? "-"}`}</Stack>
                     </Stack>
                     {group.sensors.map((sensor) => {
                       const selected =
@@ -167,7 +169,9 @@ const SensorList = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
                           <Stack sx={{ width: "fit-content" }}>
                             <Traffic
                               sx={{
-                                color: `${theme.palette.status[sensor.status]}`,
+                                color: sensor.needUpdate
+                                  ? theme.palette.status["업데이트 필요"]
+                                  : `${theme.palette.status[sensor.status]}`,
                               }}
                             />
                           </Stack>

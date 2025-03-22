@@ -1,6 +1,5 @@
 import { useGetSensorDetail } from "@apis/sensor/useGetSensorDetails";
 import { usePatchSensorMemo } from "@apis/sensor/usePatchSensorMemo";
-import Loading from "@components/Loading";
 import { CircularProgress, Stack, Typography } from "@mui/material";
 import { theme } from "@styles/theme";
 import { showToast } from "@utils/toast";
@@ -23,14 +22,15 @@ const InfoWindow = ({ sensorId }) => {
 
   const handleKeyDown = async (e) => {
     if (e.keyCode === 13) {
-      console.log(memo, selectedUser);
       await patchSensorMemo({
         sensorId,
         appUserId: selectedUser.appUserId,
         memo,
       })
-        .then((res) => {})
-        .catch(() => {
+        .then((res) => {
+          if (res.code === "DIALOGUE") showToast.error(res.message);
+        })
+        .catch((err) => {
           showToast.error("다시 시도해주세요.");
         });
     }

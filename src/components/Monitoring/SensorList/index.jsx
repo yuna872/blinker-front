@@ -124,7 +124,7 @@ const SensorList = ({ sensorGroups, refetch }) => {
                   <Stack sx={{ width: "220px", maxWidth: "220px" }}>
                     {group.sensorGroupId}
                   </Stack>
-                  <Stack>{`(SSID) ${group.ssid ?? '-'}`}</Stack>
+                  <Stack>{`(SSID) ${group.ssid ?? "-"}`}</Stack>
                 </Stack>
                 {group.sensors.map((sensor) => {
                   const selected = sensor.sensorId === selectedSensor?.sensorId;
@@ -140,7 +140,6 @@ const SensorList = ({ sensorGroups, refetch }) => {
                       onClick={() => handleClickSensor(sensor)}
                     >
                       <Stack sx={{ width: "30px", maxWidth: "30px" }}>
-                        {/* TODO: order 정보 추가하기 */}
                         1-{sensor.groupPositionNumber}
                       </Stack>
                       <Stack
@@ -174,10 +173,11 @@ const SensorList = ({ sensorGroups, refetch }) => {
                         {dayjs(sensor.updatedAt).format("YYYY-MM-DD HH:mm:ss")}
                       </Stack>
                       <Stack sx={{ width: "fit-content" }}>
-                        {/* TODO: 상태 정보 반영하기 */}
                         <Traffic
                           sx={{
-                            color: `${theme.palette.status[sensor.status]}`,
+                            color: sensor.needUpdate
+                              ? theme.palette.status["업데이트 필요"]
+                              : `${theme.palette.status[sensor.status]}`,
                           }}
                           onClick={() => {
                             handleOpenDetailsDialog();
