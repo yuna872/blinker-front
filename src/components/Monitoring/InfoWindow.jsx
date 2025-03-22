@@ -103,10 +103,11 @@ const InfoWindow = ({ sensorId }) => {
           outline: "none",
           fontSize: "10px",
           width: "95%",
+          resize: "none",
         }}
         rows={3}
         placeholder="간단한 메모 작성"
-        value={memo}
+        value={memo ?? sensor?.memo ?? ""}
         onChange={handleChangeMemo}
         onKeyDown={handleKeyDown}
       />
