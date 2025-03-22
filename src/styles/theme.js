@@ -22,6 +22,7 @@ export const theme = createTheme({
       정상: "#00BB00",
       오류: "#FF3C3C",
       미접속: "#757575",
+      "업데이트 필요": "#FBC02D",
     },
     error: {
       main: "#FF3C3C",
