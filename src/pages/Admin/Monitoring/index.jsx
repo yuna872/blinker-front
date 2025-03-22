@@ -7,7 +7,7 @@ import { useGetUsers } from "@apis/auth/useGetUsers";
 import { useGetUserSensorGroups } from "@apis/sensor/useGetUserSensorGroups";
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import AdminKakaoMap from "@components/AdminMonitoring/AdminKakaoMap";
+import AdminKakaoMap from "@components/AdminMonitoring/KakaoMap";
 
 const AdminMonitoring = () => {
   const selectedUser = useSelector((state) => state.selectedUser);

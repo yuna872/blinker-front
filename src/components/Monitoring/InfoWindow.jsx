@@ -1,20 +1,38 @@
 import { useGetSensorDetail } from "@apis/sensor/useGetSensorDetails";
+import { usePatchSensorMemo } from "@apis/sensor/usePatchSensorMemo";
+import Loading from "@components/Loading";
 import { CircularProgress, Stack, Typography } from "@mui/material";
 import { theme } from "@styles/theme";
+import { showToast } from "@utils/toast";
 import dayjs from "dayjs";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const InfoWindow = ({ sensorId }) => {
-  const { data: sensor } = useGetSensorDetail(sensorId);
+  const selectedUser = useSelector((state) => state.selectedUser);
+  const { data: sensor } = useGetSensorDetail(sensorId, selectedUser.appUserId);
   const [memo, setMemo] = useState(sensor?.memo);
+  const { mutateAsync: patchSensorMemo } = usePatchSensorMemo(
+    sensorId,
+    selectedUser.appUserId
+  );
 
   const handleChangeMemo = (e) => {
     setMemo(e.target.value);
   };
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = async (e) => {
     if (e.keyCode === 13) {
-      console.log(memo);
+      console.log(memo, selectedUser);
+      await patchSensorMemo({
+        sensorId,
+        appUserId: selectedUser.appUserId,
+        memo,
+      })
+        .then((res) => {})
+        .catch(() => {
+          showToast.error("다시 시도해주세요.");
+        });
     }
   };
 
@@ -30,7 +48,7 @@ const InfoWindow = ({ sensorId }) => {
     borderRadius: "8px",
   };
 
-  if (!sensor) {
+  if (!sensorId || !selectedUser || !sensor) {
     return (
       <Stack sx={placeholderStyles}>
         <CircularProgress size={15} />

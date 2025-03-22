@@ -153,9 +153,9 @@ const SensorDetails = () => {
             }}
           >
             {/* SSID 설정 */}
-            {selectedSensor && selectedSensor?.groupPositionNumber === 0 && (
+            {/* {selectedSensor && selectedSensor?.groupPositionNumber === 0 && (
               <SSIDSettingsForm />
-            )}
+            )} */}
             {/* 신호기 설정 */}
             <SignalSettingsForm />
             {/* 기본 설정 */}

@@ -130,7 +130,7 @@ const SensorList = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
                       <Stack sx={{ width: "210px", maxWidth: "210px" }}>
                         {group.sensorGroupId}
                       </Stack>
-                      <Stack>{`(SSID) ${group.ssid}`}</Stack>
+                      <Stack>{`(SSID) ${group.ssid ?? '-'}`}</Stack>
                     </Stack>
                     {group.sensors.map((sensor) => {
                       const selected =

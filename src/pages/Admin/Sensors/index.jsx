@@ -5,9 +5,9 @@ import { GNB_HEIGHT } from "@layouts/Header";
 import SensorDrawer from "@components/Sensors/SensorDrawer";
 import { useState } from "react";
 import { useGetUsers } from "@apis/auth/useGetUsers";
-import AdminKakaoMap from "@components/AdminMonitoring/AdminKakaoMap";
 import { useGetUserSensorGroups } from "@apis/sensor/useGetUserSensorGroups";
 import { useSelector } from "react-redux";
+import SensorsKakaoMap from "@components/Sensors/KakaoMap";
 
 const Sensors = () => {
   const [selectedSensor, setSelectedSensor] = useState();
@@ -42,7 +42,7 @@ const Sensors = () => {
         selectedSensor={selectedSensor}
         setSelectedSensor={setSelectedSensor}
       />
-      <AdminKakaoMap sensors={sensors} />
+      <SensorsKakaoMap sensors={sensors} />
     </Stack>
   );
 };

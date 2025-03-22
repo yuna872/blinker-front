@@ -1,7 +1,10 @@
 import { GNB_HEIGHT } from "@layouts/Header";
 import { Button, IconButton, Stack, Typography } from "@mui/material";
 import { setMapPosition } from "@store/mapPositionSlice";
-import { setSelectedSensorState } from "@store/selectedSensorSlice";
+import {
+  resetSelectedSensor,
+  setSelectedSensorState,
+} from "@store/selectedSensorSlice";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -22,7 +25,7 @@ import AddressSearchBar from "@components/Monitoring/AddressSearchBar";
 import Title from "@components/Title";
 import Legend from "@components/Monitoring/Legend";
 
-const AdminKakaoMap = ({ sensors }) => {
+const SensorsKakaoMap = ({ sensors }) => {
   const [isActive, setIsActive] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const dispatch = useDispatch();
@@ -80,6 +83,16 @@ const AdminKakaoMap = ({ sensors }) => {
             }}
             isPanto={true}
             onCreate={setMap}
+            onClick={(_, mouseEvent) => {
+              const latlng = mouseEvent.latLng;
+              dispatch(resetSelectedSensor());
+              dispatch(
+                setMapPosition({
+                  lat: latlng.getLat(),
+                  lng: latlng.getLng(),
+                })
+              );
+            }}
           >
             <ZoomControl />
             {/* 동동이 */}
@@ -139,34 +152,29 @@ const AdminKakaoMap = ({ sensors }) => {
               </>
             ) : (
               <MarkerClusterer averageCenter={true} minLevel={10}>
-                {sensors?.map((sensor) => {
-                  const selected =
-                    sensor?.sensorId === selectedSensor?.sensorId;
-                  return (
-                    <MapMarker
-                      key={`${sensor.latitude}-${sensor.longitude}-${sensor.groupPositionNumber}`}
-                      position={{
-                        lat: sensor.latitude,
-                        lng: sensor.longitude,
-                      }}
-                      image={{
-                        src:
-                          sensor.status === "정상"
-                            ? greenMarker
-                            : sensor.status === "오류"
-                            ? redMarker
-                            : greyMarker,
-                        size: {
-                          width: selected ? 35 : 30,
-                          height: selected ? 35 : 30,
-                        },
-                      }}
-                      onClick={() => handleClickMarker(sensor)}
-                    >
-                      {selected && <InfoWindow sensorId={sensor.sensorId} />}
-                    </MapMarker>
-                  );
-                })}
+                {selectedSensor && (
+                  <MapMarker
+                    position={{
+                      lat: selectedSensor.latitude,
+                      lng: selectedSensor.longitude,
+                    }}
+                    image={{
+                      src:
+                        selectedSensor.status === "정상"
+                          ? greenMarker
+                          : selectedSensor.status === "오류"
+                          ? redMarker
+                          : greyMarker,
+                      size: {
+                        width: 35,
+                        height: 35,
+                      },
+                    }}
+                    onClick={() => handleClickMarker(selectedSensor)}
+                  >
+                    <InfoWindow sensorId={selectedSensor.sensorId} />
+                  </MapMarker>
+                )}
               </MarkerClusterer>
             )}
           </Map>
@@ -195,4 +203,4 @@ const AdminKakaoMap = ({ sensors }) => {
   );
 };
 
-export default AdminKakaoMap;
+export default SensorsKakaoMap;
