@@ -180,10 +180,7 @@ const AdminKakaoMap = ({ sensors }) => {
                       onClick={() => handleClickMarker(sensor)}
                     >
                       {selected && (
-                        <InfoWindow
-                          sensorId={sensor.sensorId}
-                          appUserId={selectedUser.appUserId}
-                        />
+                        <InfoWindow/>
                       )}
                     </MapMarker>
                   );
