@@ -25,6 +25,8 @@ import AddressSearchBar from "@components/Monitoring/AddressSearchBar";
 import Title from "@components/Title";
 import Legend from "@components/Monitoring/Legend";
 import InfoWindow from "@components/Monitoring/InfoWindow";
+import { usePatchSensorLocation } from "@apis/sensor/usePatchSensorLocation";
+import { showToast } from "@utils/toast";
 
 const SensorsKakaoMap = ({ sensors }) => {
   const dispatch = useDispatch();
@@ -61,9 +63,29 @@ const SensorsKakaoMap = ({ sensors }) => {
     setIsVisible(false);
   };
 
+  const { mutateAsync: patchSensorLocation } = usePatchSensorLocation(
+    selectedSensor?.sensorId,
+    selectedUser?.appUserId
+  );
+
   // 새로운 위치 저장
-  const handleSaveNewPosition = () => {
+  const handleSaveNewPosition = async () => {
     console.log(draggedPosition);
+    if (!draggedPosition) return;
+    await patchSensorLocation({
+      sensorId: selectedSensor.sensorId,
+      latitude: draggedPosition.lat,
+      longitude: draggedPosition.lng,
+    })
+      .then((res) => {
+        showToast.success("위치가 변경되었습니다.");
+        setIsDraggable(false);
+        setDraggedPosition();
+      })
+      .catch((err) => {
+        showToast.error("문제가 발생했습니다.");
+      });
+
     // 저장 api 전송
   };
 

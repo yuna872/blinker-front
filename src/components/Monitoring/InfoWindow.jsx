@@ -26,6 +26,7 @@ const InfoWindow = ({
     selectedSensor.sensorId,
     appUserId
   );
+ 
 
   const handleChangeMemo = (e) => {
     setMemo(e.target.value);
@@ -48,11 +49,10 @@ const InfoWindow = ({
   };
 
   // 신호기 위치 변경 버튼
-  const handleClickPosEditBtn = () => {
+  const handleClickPosEditBtn = async () => {
     if (isDraggable === undefined || setIsDraggable === undefined) return;
     if (isDraggable) {
-      // 저장
-      alert("저장하시겠습니까?");
+      alert('저장하시겠습니까?')
     } else {
       // 위치 편집 모드 on
       setIsDraggable(true);
