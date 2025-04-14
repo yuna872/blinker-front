@@ -2,7 +2,7 @@ import axios from "axios";
 import { getCookies } from "./auth/cookie";
 
 export const axiosInstance = axios.create({
-  baseURL: "https://blinker-backend-155354731251.asia-northeast3.run.app/",
+  baseURL: process.env.REACT_APP_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
