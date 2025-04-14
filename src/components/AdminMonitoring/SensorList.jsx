@@ -1,3 +1,4 @@
+import SensorDetailsDialog from "@components/Monitoring/SensorDetailsDialog";
 import Title from "@components/Title";
 import { Star, Traffic } from "@mui/icons-material";
 import { Stack, ToggleButton, ToggleButtonGroup } from "@mui/material";
@@ -5,6 +6,7 @@ import { grey } from "@mui/material/colors";
 import { setMapPosition } from "@store/mapPositionSlice";
 import { setSelectedSensorState } from "@store/selectedSensorSlice";
 import { theme } from "@styles/theme";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const TableHeaderStyle = {
@@ -41,6 +43,16 @@ const TableRowStyle = {
 const SensorList = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
   const dispatch = useDispatch();
   const selectedSensor = useSelector((state) => state.selectedSensor);
+
+  const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
+
+  const handleOpenDetailsDialog = () => {
+    setOpenDetailsDialog(true);
+  };
+
+  const handleCloseDetailsDialog = () => {
+    setOpenDetailsDialog(false);
+  };
 
   const handleChangeOnlyFaulty = (_, newOption) => {
     setOnlyFaulty(newOption);
@@ -173,6 +185,7 @@ const SensorList = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
                                   ? theme.palette.status["업데이트 필요"]
                                   : `${theme.palette.status[sensor.status]}`,
                               }}
+                              onClick={handleOpenDetailsDialog}
                             />
                           </Stack>
                         </Stack>
@@ -185,7 +198,11 @@ const SensorList = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
           )}
         </Stack>
       </Stack>
-      ˝
+      <SensorDetailsDialog
+        sensor={selectedSensor}
+        open={openDetailsDialog}
+        handleClose={handleCloseDetailsDialog}
+      />
     </Stack>
   );
 };

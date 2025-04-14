@@ -120,7 +120,9 @@ const SensorList = ({ sensorGroups, refetch }) => {
                     },
                   }}
                 >
-                  <Stack sx={{ width: "30px", maxWidth: "30px" }}>1</Stack>
+                  <Stack sx={{ width: "30px", maxWidth: "30px" }}>
+                    {group.order}
+                  </Stack>
                   <Stack sx={{ width: "220px", maxWidth: "220px" }}>
                     {group.sensorGroupId}
                   </Stack>
@@ -140,7 +142,7 @@ const SensorList = ({ sensorGroups, refetch }) => {
                       onClick={() => handleClickSensor(sensor)}
                     >
                       <Stack sx={{ width: "30px", maxWidth: "30px" }}>
-                        1-{sensor.groupPositionNumber}
+                        {group.order}-{sensor.groupPositionNumber}
                       </Stack>
                       <Stack
                         sx={{
@@ -179,9 +181,7 @@ const SensorList = ({ sensorGroups, refetch }) => {
                               ? theme.palette.status["업데이트 필요"]
                               : `${theme.palette.status[sensor.status]}`,
                           }}
-                          onClick={() => {
-                            handleOpenDetailsDialog();
-                          }}
+                          onClick={handleOpenDetailsDialog}
                         />
                       </Stack>
                     </Stack>
