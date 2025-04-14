@@ -26,7 +26,6 @@ const InfoWindow = ({
     selectedSensor.sensorId,
     appUserId
   );
- 
 
   const handleChangeMemo = (e) => {
     setMemo(e.target.value);
@@ -52,7 +51,7 @@ const InfoWindow = ({
   const handleClickPosEditBtn = async () => {
     if (isDraggable === undefined || setIsDraggable === undefined) return;
     if (isDraggable) {
-      alert('저장하시겠습니까?')
+      alert("저장하시겠습니까?");
     } else {
       // 위치 편집 모드 on
       setIsDraggable(true);
@@ -62,7 +61,7 @@ const InfoWindow = ({
   // 값이 없을 때 공간을 유지하기 위한 기본 스타일
   const placeholderStyles = {
     minHeight: "150px",
-    minWidth: "250px",
+    minWidth: "270px",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -82,7 +81,7 @@ const InfoWindow = ({
   return (
     <Stack
       sx={{
-        width: "250px",
+        width: "270px",
         "& > p": { fontSize: "11px" },
       }}
     >
@@ -139,12 +138,14 @@ const InfoWindow = ({
               }}
             >
               <Typography>기기 위치: {sensor.address}</Typography>
-              <button
-                style={{ fontSize: "10px" }}
-                onClick={handleClickPosEditBtn}
-              >
-                {isDraggable ? "저장" : "위치 변경"}
-              </button>
+              {isDraggable !== undefined && (
+                <button
+                  style={{ fontSize: "10px" }}
+                  onClick={handleClickPosEditBtn}
+                >
+                  위치 변경
+                </button>
+              )}
             </Stack>
             <Typography sx={{ whiteSpace: "nowrap" }}>
               {`최근수정일: ${dayjs(sensor.updatedAt).format(
