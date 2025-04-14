@@ -70,7 +70,6 @@ const SensorsKakaoMap = ({ sensors }) => {
 
   // 새로운 위치 저장
   const handleSaveNewPosition = async () => {
-    console.log(draggedPosition);
     if (!draggedPosition) return;
     await patchSensorLocation({
       sensorId: selectedSensor.sensorId,
@@ -79,6 +78,19 @@ const SensorsKakaoMap = ({ sensors }) => {
     })
       .then((res) => {
         showToast.success("위치가 변경되었습니다.");
+
+        // selectedSensor 업데이트
+        let relocatedSensor = sensors?.find(
+          (sensor) => sensor.sensorId === selectedSensor.sensorId
+        );
+        relocatedSensor = {
+          ...relocatedSensor,
+          latitude: draggedPosition.lat,
+          longitude: draggedPosition.lng,
+        };
+        dispatch(setSelectedSensorState(relocatedSensor));
+
+        // drag 관련 변수들 초기화
         setIsDraggable(false);
         setDraggedPosition();
       })
@@ -86,7 +98,6 @@ const SensorsKakaoMap = ({ sensors }) => {
         showToast.error("문제가 발생했습니다.");
       });
 
-    // 저장 api 전송
   };
 
   // 위치 편집 모드 종료 시 selectedSensor 기준으로 초기화
