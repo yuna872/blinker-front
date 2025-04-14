@@ -169,10 +169,7 @@ const KakaoMap = ({ sensors }) => {
                         onClick={() => handleClickMarker(sensor)}
                       >
                         {selected && (
-                          <InfoWindow
-                            sensorId={sensor.sensorId}
-                            appUserId={appUserId}
-                          />
+                          <InfoWindow/>
                         )}
                       </MapMarker>
                     );

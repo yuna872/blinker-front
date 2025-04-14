@@ -25,7 +25,12 @@ const Header = ({ isAdmin }) => {
   const handleClickLogout = () => {
     removeCookies("accessToken");
     removeCookies("role");
-    if (!getCookies("accessToken")) navigate("/login");
+    removeCookies("appUserId");
+    navigate("/login");
+
+    // 리덕스 초기화
+    dispatch(resetSelectedSensor());
+    dispatch(resetSelectedUser());
   };
 
   const handleClickLink = (to) => {
