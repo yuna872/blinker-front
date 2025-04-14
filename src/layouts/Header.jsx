@@ -7,7 +7,7 @@ import { getCookies, removeCookies } from "@apis/auth/cookie";
 import { useDispatch } from "react-redux";
 import { resetSelectedSensor } from "@store/selectedSensorSlice";
 import { resetSelectedUser } from "@store/selectedUserSlice";
-const GNB_HEIGHT = 50;
+export const GNB_HEIGHT = 50;
 
 const Header = ({ isAdmin }) => {
   const { pathname } = useLocation();

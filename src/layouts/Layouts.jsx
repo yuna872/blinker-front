@@ -1,7 +1,7 @@
 import { Stack } from "@mui/material";
 
 const { Outlet, Navigate, useLocation } = require("react-router-dom");
-const { default: Header, GNB_HEIGHT } = require("./Header");
+const { default: Header } = require("./Header");
 const { getCookies } = require("@apis/auth/cookie");
 
 const Layouts = () => {
