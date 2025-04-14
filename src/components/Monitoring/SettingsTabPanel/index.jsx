@@ -81,7 +81,7 @@ const SettingsTabPanel = () => {
         ),
       });
     }
-  }, [selectedSensor]);
+  }, [selectedSensor, methods]);
 
   const { mutateAsync: putSensor } = usePutSensor();
   const onSubmit = async (formData) => {

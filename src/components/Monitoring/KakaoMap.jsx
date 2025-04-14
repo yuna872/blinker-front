@@ -22,14 +22,12 @@ import redMarker from "@assets/images/marker-red.png";
 import yellowMarker from "@assets/images/marker-yellow.png";
 import InfoWindow from "@components/Monitoring/InfoWindow";
 import Legend from "./Legend";
-import { getCookies } from "@apis/auth/cookie";
 
 const KakaoMap = ({ sensors }) => {
   const [isActive, setIsActive] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const dispatch = useDispatch();
   const selectedSensor = useSelector((state) => state.selectedSensor);
-  const appUserId = getCookies("appUserId");
   const mapPosition = useSelector((state) => state.mapPosition);
   const [map, setMap] = useState();
 

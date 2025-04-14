@@ -1,6 +1,5 @@
 import { Button, Stack, Typography } from "@mui/material";
 import SignalSettingsForm from "@components/Settings/SignalSettingsForm";
-import SSIDSettingsForm from "@components/Settings/SSIDSettingsForm";
 import DefaultSettings from "@components/Settings/DefaultSettings";
 import { grey } from "@mui/material/colors";
 import Title from "@components/Title";
@@ -84,7 +83,7 @@ const SensorDetails = () => {
         ),
       });
     }
-  }, [selectedSensor]);
+  }, [selectedSensor, methods]);
 
   const { mutateAsync: putSensor } = usePutSensor();
   const onSubmit = async (formData) => {

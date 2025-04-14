@@ -31,7 +31,6 @@ const AdminKakaoMap = ({ sensors }) => {
   const [isVisible, setIsVisible] = useState(false);
   const dispatch = useDispatch();
   const selectedSensor = useSelector((state) => state.selectedSensor);
-  const selectedUser = useSelector((state) => state.selectedUser);
   const mapPosition = useSelector((state) => state.mapPosition);
   const [map, setMap] = useState();
 
