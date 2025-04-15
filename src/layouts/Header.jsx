@@ -46,7 +46,7 @@ const Header = ({ isAdmin }) => {
         minHeight: `${GNB_HEIGHT}px`,
         padding: "0 15px",
         flexDirection: "row",
-        justifyContent: "space-between",
+        justifyContent: accessToken ? "space-between" : "center",
         alignItems: "center",
       }}
     >

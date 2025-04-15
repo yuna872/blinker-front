@@ -9,21 +9,27 @@ const Layouts = () => {
   const isAuthenticated = !!getCookies("accessToken");
   const isAdmin = getCookies("role") === "ADMIN" ? true : false;
 
+  const layoutStyle = {
+    maxHeight: `100vh`,
+    height: "100vh",
+    overflow: "auto", // 내용이 넘칠 경우 스크롤 활성화
+    width: "100%",
+  };
+  
   // 회원가입, 로그인 페이지는 토큰 확인 X
   const authPages = ["/login", "/signup"];
   if (authPages.includes(location.pathname)) {
-    return <Outlet />;
+    return (
+      <Stack sx={layoutStyle}>
+        <Header isAdmin={isAdmin} />
+        <Outlet />
+      </Stack>
+    );
   }
 
+  // 나머지 페이지
   return (
-    <Stack
-      sx={{
-        maxHeight: `100vh`,
-        height: "100vh", // 최대 높이를 화면 높이로 설정
-        overflow: "auto", // 내용이 넘칠 경우 스크롤 활성화
-        width: "100%", // 전체 너비 사용
-      }}
-    >
+    <Stack sx={layoutStyle}>
       <Header isAdmin={isAdmin} />
       {isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />}
     </Stack>
