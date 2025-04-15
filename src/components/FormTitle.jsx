@@ -1,10 +1,10 @@
 import { Stack, Typography } from "@mui/material";
-import { grey } from "@mui/material/colors";
+import { palette } from "@styles/palette";
 
 const FormTitle = ({ title }) => {
   return (
     <Stack sx={{ padding: "15px" }}>
-      <Typography sx={{ fontWeight: 600, fontSize: "14px", color: grey[700] }}>
+      <Typography sx={{ fontWeight: 600, fontSize: "14px", color: palette.grey[500] }}>
         {title}
       </Typography>
     </Stack>

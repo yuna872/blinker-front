@@ -10,7 +10,6 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { grey } from "@mui/material/colors";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
@@ -19,6 +18,9 @@ import "dayjs/locale/ko";
 import { Controller, useForm } from "react-hook-form";
 import { useState } from "react";
 import { showToast } from "@utils/toast";
+import { palette } from "@styles/palette";
+
+import noData from "@assets/svgs/noData.svg";
 
 const StatusHistoryTabPanel = () => {
   const sensorId = useSelector((state) => state.selectedSensor?.sensorId);
@@ -126,16 +128,21 @@ const StatusHistoryTabPanel = () => {
             검색
           </Button>
         </Stack>
-        <TableContainer sx={{ overflow: "auto" }}>
+        <TableContainer sx={{ overflow: "auto", height: "100%" }}>
           {isLoading ? (
             <Loading />
           ) : (
-            <Table stickyHeader>
+            <Table
+              stickyHeader
+              sx={{
+                height: "100%",
+              }}
+            >
               <TableHead>
                 <TableRow
                   sx={{
                     "& > .MuiTableCell-root": {
-                      backgroundColor: grey[50],
+                      backgroundColor: palette.grey[50],
                       fontWeight: 600,
                       whiteSpace: "nowrap",
                     },
@@ -152,41 +159,60 @@ const StatusHistoryTabPanel = () => {
                   <TableCell>358 채널 신호</TableCell>
                 </TableRow>
               </TableHead>
-              <TableBody>
-                {logs?.map((log) => {
-                  return (
-                    <TableRow key={log.sensorLogId}>
-                      <TableCell>
-                        {dayjs(log.createdAt).format("YYYY-MM-DD HH:mm:ss")}
-                      </TableCell>
-                      <TableCell>0</TableCell>
-                      <TableCell>0</TableCell>
-                      <TableCell>0</TableCell>
-                      <TableCell>0</TableCell>
-                      <TableCell>
-                        {log.faultInformation["User Button Fault"]
-                          ? "오류"
-                          : "정상"}
-                      </TableCell>
-                      <TableCell>
-                        {log.faultInformation["Signal Light Residual Fault"]
-                          ? "오류"
-                          : "정상"}
-                      </TableCell>
-                      <TableCell>
-                        {log.faultInformation["235.3MHz Receiver Fault"]
-                          ? "오류"
-                          : "정상"}
-                      </TableCell>
-                      <TableCell>
-                        {log.faultInformation["358.5MHz Receiver Fault"]
-                          ? "오류"
-                          : "정상"}
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
+              {logs.length ? (
+                <TableBody>
+                  {logs?.map((log) => {
+                    return (
+                      <TableRow key={log.sensorLogId}>
+                        <TableCell>
+                          {dayjs(log.createdAt).format("YYYY-MM-DD HH:mm:ss")}
+                        </TableCell>
+                        <TableCell>0</TableCell>
+                        <TableCell>0</TableCell>
+                        <TableCell>0</TableCell>
+                        <TableCell>0</TableCell>
+                        <TableCell>
+                          {log.faultInformation["User Button Fault"]
+                            ? "오류"
+                            : "정상"}
+                        </TableCell>
+                        <TableCell>
+                          {log.faultInformation["Signal Light Residual Fault"]
+                            ? "오류"
+                            : "정상"}
+                        </TableCell>
+                        <TableCell>
+                          {log.faultInformation["235.3MHz Receiver Fault"]
+                            ? "오류"
+                            : "정상"}
+                        </TableCell>
+                        <TableCell>
+                          {log.faultInformation["358.5MHz Receiver Fault"]
+                            ? "오류"
+                            : "정상"}
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              ) : (
+                <TableBody>
+                  <TableRow>
+                    <TableCell colSpan={9}>
+                      <Stack
+                        sx={{
+                          width: "100%",
+                          height: "100%",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <img src={noData} alt="No Data" width={60} />
+                      </Stack>
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              )}
             </Table>
           )}
         </TableContainer>

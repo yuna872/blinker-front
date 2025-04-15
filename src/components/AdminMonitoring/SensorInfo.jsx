@@ -1,7 +1,7 @@
 import { TextField } from "@components/TextField";
 import Title from "@components/Title";
 import { Stack, Typography } from "@mui/material";
-import { grey } from "@mui/material/colors";
+import { palette } from "@styles/palette";
 import dayjs from "dayjs";
 import { useSelector } from "react-redux";
 
@@ -15,8 +15,8 @@ const SensorInfo = () => {
         sx={{
           padding: "15px",
           gap: "15px",
-          backgroundColor: grey[100],
-          borderBottom: `1px solid ${grey[200]}`,
+          backgroundColor: palette.grey[50],
+          borderBottom: `1px solid ${palette.grey[100]}`,
           "& > .MuiStack-root": {
             flexDirection: "row",
             gap: "10px",

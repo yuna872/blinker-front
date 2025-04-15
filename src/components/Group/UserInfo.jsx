@@ -2,8 +2,8 @@ import { usePutUser } from "@apis/auth/usePutUser";
 import { TextField } from "@components/TextField";
 import Title from "@components/Title";
 import { Button, Stack, Typography } from "@mui/material";
-import { grey } from "@mui/material/colors";
 import { setSelectedUser } from "@store/selectedUserSlice";
+import { palette } from "@styles/palette";
 import { showToast } from "@utils/toast";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -64,7 +64,7 @@ const UserInfo = () => {
   return (
     <Stack
       sx={{
-        borderRight: `1px solid ${grey[200]}`,
+        borderRight: `1px solid ${palette.grey[200]}`,
       }}
       component="form"
       onSubmit={handleSubmit(onSubmit)}
@@ -77,7 +77,7 @@ const UserInfo = () => {
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>이름</Typography>
-          <TextField fullWidth d {...register("username")} />
+          <TextField fullWidth {...register("username")} />
         </Stack>
       </Stack>
       <Button variant="outlined" sx={{ margin: "15px" }} type="submit">

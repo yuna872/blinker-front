@@ -6,8 +6,9 @@ import {
 import Title from "@components/Title";
 import { Star } from "@mui/icons-material";
 import { Stack } from "@mui/material";
-import { grey } from "@mui/material/colors";
 import { setSelectedSensorState } from "@store/selectedSensorSlice";
+import { palette } from "@styles/palette";
+import { theme } from "@styles/theme";
 import { useDispatch, useSelector } from "react-redux";
 
 const SensorList = () => {
@@ -27,16 +28,16 @@ const SensorList = () => {
   return (
     <Stack
       sx={{
-        borderRight: `1px solid ${grey[200]}`,
-        height:'100%',
-        overflow: 'hidden'
+        borderRight: `1px solid ${palette.grey[200]}`,
+        height: "100%",
+        overflow: "hidden",
       }}
     >
       <Title title="센서 목록" />
       <Stack
         sx={{
           margin: "10px",
-          border: `1px solid ${grey[200]}`,
+          border: `1px solid ${palette.grey[200]}`,
           overflow: "auto",
         }}
       >
@@ -49,7 +50,7 @@ const SensorList = () => {
         {sensorGroups && (
           <Stack
             sx={{
-              backgroundColor: grey[300],
+              backgroundColor: palette.grey[300],
               overflowY: "auto",
             }}
           >
@@ -70,7 +71,7 @@ const SensorList = () => {
                     <Stack sx={{ width: "210px", maxWidth: "210px" }}>
                       {group.sensorGroupId}
                     </Stack>
-                    <Stack>{`(SSID) ${group.ssid ?? '-'}`}</Stack>
+                    <Stack>{`(SSID) ${group.ssid ?? "-"}`}</Stack>
                   </Stack>
                   {group.sensors.map((sensor) => {
                     const selected =
@@ -82,7 +83,9 @@ const SensorList = () => {
                         sx={{
                           ...TableRowStyle,
                           marginLeft: "15px",
-                          backgroundColor: selected ? grey[100] : "white",
+                          backgroundColor: selected
+                            ? theme.palette.action.selected
+                            : "white",
                           flexDirection: "row",
                         }}
                         onClick={() => handleClickSensor(sensor)}
@@ -100,7 +103,7 @@ const SensorList = () => {
                           }}
                         >
                           {!sensor.groupPositionNumber && (
-                            <Star sx={{ width: "15px", color: grey[700] }} />
+                            <Star sx={{ width: "15px", color: palette.grey[700] }} />
                           )}
                           {sensor.address}
                         </Stack>

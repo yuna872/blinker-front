@@ -8,6 +8,7 @@ import Settings from "@pages/Admin/Settings";
 import Group from "@pages/Admin/Group";
 import PasswordChange from "@pages/Auth/PasswordChange";
 import Layouts from "./Layouts";
+import RedirectByRole from "./RedirectByRole";
 
 const router = createBrowserRouter(
   [
@@ -15,6 +16,10 @@ const router = createBrowserRouter(
       path: "/",
       element: <Layouts />,
       children: [
+        {
+          index: true,
+          element: <RedirectByRole />,
+        },
         {
           path: "login",
           element: <Login />,

@@ -12,22 +12,26 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { grey } from "@mui/material/colors";
+import { resetSelectedSensor } from "@store/selectedSensorSlice";
+import { palette } from "@styles/palette";
+import { useDispatch } from "react-redux";
 
 const UnregisteredSensorList = ({
   unregisteredSensor,
   setUnregisteredSensor,
 }) => {
+  const dispatch = useDispatch();
   const { data: sensors } = useGetUnregisteredSensorGroups();
 
   const handleClickUnregisteredSenor = (sensor) => {
     setUnregisteredSensor(sensor);
+    dispatch(resetSelectedSensor());
   };
 
   return (
     <Stack
       sx={{
-        borderLeft: `1px solid ${grey[200]}`,
+        borderLeft: `1px solid ${palette.grey[200]}`,
         overflow: "hidden",
         flex: "1",
       }}

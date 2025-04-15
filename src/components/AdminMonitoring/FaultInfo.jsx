@@ -11,7 +11,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { grey } from "@mui/material/colors";
+import { palette } from "@styles/palette";
 import { FAULTS } from "constants";
 import { useSelector } from "react-redux";
 
@@ -19,7 +19,7 @@ const FaultInfo = () => {
   const selectedSensor = useSelector((state) => state.selectedSensor);
 
   return (
-    <Stack sx={{ borderRight: `1px solid ${grey[200]}` }}>
+    <Stack sx={{ borderRight: `1px solid ${palette.grey[50]}` }}>
       <Title title="장애 정보" />
       <Stack sx={{ padding: "10px" }}>
         <Table>

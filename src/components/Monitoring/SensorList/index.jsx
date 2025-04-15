@@ -1,5 +1,4 @@
 import { IconButton, Stack } from "@mui/material";
-import { grey } from "@mui/material/colors";
 import { Refresh, Star, Traffic } from "@mui/icons-material";
 import dayjs from "dayjs";
 import Title from "@components/Title";
@@ -10,14 +9,15 @@ import Legend from "./Legend";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedSensorState } from "@store/selectedSensorSlice";
 import { setMapPosition } from "@store/mapPositionSlice";
+import { palette } from "@styles/palette";
 
 const TableHeaderStyle = {
-  backgroundColor: grey[50],
+  backgroundColor: palette.grey[50],
   fontWeight: 600,
   whiteSpace: "nowrap",
   flexDirection: "row",
   padding: "16px",
-  borderBottom: `1px solid ${grey[200]}`,
+  borderBottom: `1px solid ${palette.grey[200]}`,
   "& > .MuiStack-root": {
     justifyContent: "center",
     marginTop: 0,
@@ -34,7 +34,7 @@ const TableRowStyle = {
   flexDirection: "row",
   padding: "16px",
   alignItems: "center",
-  borderBottom: `1px solid ${grey[200]}`,
+  borderBottom: `1px solid ${palette.grey[200]}`,
   backgroundColor: "white",
   "& > .MuiStack-root": {
     marginTop: 0,
@@ -74,7 +74,7 @@ const SensorList = ({ sensorGroups, refetch }) => {
   return (
     <Stack
       sx={{
-        border: `1px solid ${grey[300]}`,
+        border: `1px solid ${palette.grey[300]}`,
         overflow: "hidden",
         maxWidth: "600px",
       }}
@@ -90,7 +90,7 @@ const SensorList = ({ sensorGroups, refetch }) => {
       <Stack
         sx={{
           margin: "10px",
-          border: `1px solid ${grey[200]}`,
+          border: `1px solid ${palette.grey[200]}`,
         }}
       >
         {/* Header */}
@@ -106,7 +106,7 @@ const SensorList = ({ sensorGroups, refetch }) => {
         {/* Body */}
         <Stack
           sx={{
-            backgroundColor: grey[300],
+            backgroundColor: palette.grey[300],
           }}
         >
           {sensorGroups?.map((group) => {
@@ -137,7 +137,9 @@ const SensorList = ({ sensorGroups, refetch }) => {
                       sx={{
                         ...TableRowStyle,
                         marginLeft: "15px",
-                        backgroundColor: selected ? grey[100] : "white",
+                        backgroundColor: selected
+                          ? theme.palette.action.selected
+                          : "white",
                       }}
                       onClick={() => handleClickSensor(sensor)}
                     >
@@ -154,7 +156,9 @@ const SensorList = ({ sensorGroups, refetch }) => {
                         }}
                       >
                         {!sensor.groupPositionNumber && (
-                          <Star sx={{ width: "15px", color: grey[700] }} />
+                          <Star
+                            sx={{ width: "15px", color: palette.grey[700] }}
+                          />
                         )}
                         {sensor.address}
                       </Stack>

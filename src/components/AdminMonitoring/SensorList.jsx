@@ -2,20 +2,20 @@ import SensorDetailsDialog from "@components/Monitoring/SensorDetailsDialog";
 import Title from "@components/Title";
 import { Star, Traffic } from "@mui/icons-material";
 import { Stack, ToggleButton, ToggleButtonGroup } from "@mui/material";
-import { grey } from "@mui/material/colors";
 import { setMapPosition } from "@store/mapPositionSlice";
 import { setSelectedSensorState } from "@store/selectedSensorSlice";
+import { palette } from "@styles/palette";
 import { theme } from "@styles/theme";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const TableHeaderStyle = {
-  backgroundColor: grey[50],
+  backgroundColor: palette.grey[50],
   fontWeight: 600,
   whiteSpace: "nowrap",
   flexDirection: "row",
   padding: "16px",
-  borderBottom: `1px solid ${grey[200]}`,
+  borderBottom: `1px solid ${palette.grey[100]}`,
   "& > .MuiStack-root": {
     justifyContent: "center",
     marginTop: 0,
@@ -32,7 +32,7 @@ const TableRowStyle = {
   flexDirection: "row",
   padding: "16px",
   alignItems: "center",
-  borderBottom: `1px solid ${grey[200]}`,
+  borderBottom: `1px solid ${palette.grey[50]}`,
   backgroundColor: "white",
   "& > .MuiStack-root": {
     marginTop: 0,
@@ -97,7 +97,7 @@ const SensorList = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
       <Stack
         sx={{
           margin: "5px 10px 0 10px",
-          border: `1px solid ${grey[200]}`,
+          border: `1px solid ${palette.grey[100]}`,
           height: "100%",
           overflow: "hidden",
           position: "relative",
@@ -128,7 +128,7 @@ const SensorList = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
                 return (
                   <Stack
                     key={group.sensorGroupId}
-                    sx={{ backgroundColor: grey[300] }}
+                    sx={{ backgroundColor: palette.grey[200] }}
                   >
                     <Stack
                       sx={{
@@ -156,7 +156,9 @@ const SensorList = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
                           sx={{
                             ...TableRowStyle,
                             marginLeft: "15px",
-                            backgroundColor: selected ? grey[100] : "white",
+                            backgroundColor: selected
+                              ? theme.palette.action.selected
+                              : "white",
                             flexDirection: "row",
                           }}
                           onClick={() => handleClickSensor(sensor)}
@@ -174,7 +176,9 @@ const SensorList = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
                             }}
                           >
                             {!sensor.groupPositionNumber && (
-                              <Star sx={{ width: "15px", color: grey[700] }} />
+                              <Star
+                                sx={{ width: "15px", color: palette.grey[700] }}
+                              />
                             )}
                             {sensor.address}
                           </Stack>

@@ -7,7 +7,6 @@ import SensorList from "@components/Group/SensorList";
 import UnregisteredSensorList from "@components/Group/UnregisteredSensorList";
 import { theme } from "@styles/theme";
 import { useState } from "react";
-import AlertDialog from "../../../components/Group/AlertDialog";
 import CreateUserDialog from "@components/Group/CreateUserDialog";
 import { useGetUsers } from "@apis/auth/useGetUsers";
 import { usePostSensorGroupToUser } from "@apis/app-user/usePostSensorGroupToUser";
@@ -16,13 +15,9 @@ import { showToast } from "@utils/toast";
 import { useSelector } from "react-redux";
 
 const Group = () => {
-  const [openAlertDialog, setOpenAlertDialog] = useState(false);
   const [openCreateUserDialog, setOpenCreateUserDialog] = useState(false);
   const [unregisteredSensor, setUnregisteredSensor] = useState(null);
 
-  // 유저 삭제 alert dialog
-  const handleOpenAlertDialog = () => setOpenAlertDialog(true);
-  const handleCloseAlertDialog = () => setOpenAlertDialog(false);
   // 유저 생성 form dialog
   const handleOpenCreateUserDialog = () => setOpenCreateUserDialog(true);
   const handleCloseCreateUserDialog = () => setOpenCreateUserDialog(false);
@@ -35,7 +30,10 @@ const Group = () => {
     useDeleteSensorGroupFromUser();
 
   const handleClickArrowForward = async () => {
-    if (selectedUser && selectedSensor) {
+    if (!selectedUser) showToast.error("유저를 선택해주세요.");
+    else if (!selectedSensor)
+      showToast.error("등록을 해제할 센서를 선택해주세요.");
+    else {
       try {
         await deleteSensorGroupFromUser({
           appUserId: selectedUser.appUserId,
@@ -52,7 +50,10 @@ const Group = () => {
   };
 
   const handleClickArrowBack = async () => {
-    if (selectedUser && unregisteredSensor) {
+    if (!selectedUser) showToast.error("유저를 선택해주세요.");
+    else if (!unregisteredSensor)
+      showToast.error("등록할 센서를 선택해주세요.");
+    else {
       try {
         await postSensorGroupToUser({
           appUserId: selectedUser.appUserId,
@@ -74,12 +75,11 @@ const Group = () => {
     >
       <UserTable
         users={users}
-        handleOpenAlertDialog={handleOpenAlertDialog}
         handleOpenCreateUserDialog={handleOpenCreateUserDialog}
       />
       <Stack>
         <UserInfo />
-        <SensorList />
+        <SensorList setUnregisteredSensor={setUnregisteredSensor} />
       </Stack>
       <Stack
         sx={{
@@ -107,10 +107,6 @@ const Group = () => {
       <UnregisteredSensorList
         unregisteredSensor={unregisteredSensor}
         setUnregisteredSensor={setUnregisteredSensor}
-      />
-      <AlertDialog
-        open={openAlertDialog}
-        handleClose={handleCloseAlertDialog}
       />
       <CreateUserDialog
         open={openCreateUserDialog}

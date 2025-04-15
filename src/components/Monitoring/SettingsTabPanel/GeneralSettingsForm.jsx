@@ -9,7 +9,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { grey } from "@mui/material/colors";
+import { palette } from "@styles/palette";
 import { theme } from "@styles/theme";
 import { Controller, useFormContext } from "react-hook-form";
 
@@ -20,7 +20,7 @@ export const FormTitle = ({ title }) => {
         padding: "10px",
         fontSize: "14px",
         fontWeight: 600,
-        color: grey[900],
+        color: palette.grey[900],
       }}
     >
       {title}
@@ -32,7 +32,7 @@ const GeneralSettingsForm = () => {
   const { control } = useFormContext();
 
   return (
-    <Stack sx={{ border: `1px solid ${grey[300]}`, height: "fit-content" }}>
+    <Stack sx={{ border: `1px solid ${palette.grey[300]}`, height: "fit-content" }}>
       <FormTitle title="기본 설정" />
       <Stack
         sx={{
