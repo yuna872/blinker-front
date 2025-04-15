@@ -281,7 +281,9 @@ const SensorList = () => {
                         sx={{
                           ...TableRowStyle,
                           marginLeft: "15px",
-                          backgroundColor: selected ? grey[100] : "white",
+                          backgroundColor: selected
+                            ? theme.palette.action.selected
+                            : "white",
                           flexDirection: "row",
                         }}
                         onClick={() => handleClickSensor(sensor)}

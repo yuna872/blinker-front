@@ -8,9 +8,10 @@ import { Star } from "@mui/icons-material";
 import { Stack } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { setSelectedSensorState } from "@store/selectedSensorSlice";
+import { theme } from "@styles/theme";
 import { useDispatch, useSelector } from "react-redux";
 
-const SensorList = () => {
+const SensorList = ({ setUnregisteredSensor }) => {
   const selectedSensor = useSelector((state) => state.selectedSensor);
   const selectedUser = useSelector((state) => state.selectedUser);
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const SensorList = () => {
 
   const handleClickSensor = (sensor) => {
     dispatch(setSelectedSensorState(sensor));
+    setUnregisteredSensor();
   };
 
   return (
@@ -27,7 +29,7 @@ const SensorList = () => {
       sx={{
         borderRight: `1px solid ${grey[200]}`,
         overflow: "hidden",
-        height:'100%'
+        height: "100%",
       }}
     >
       <Title title="센서 목록" />
@@ -35,7 +37,7 @@ const SensorList = () => {
         sx={{
           margin: "10px",
           border: `1px solid ${grey[200]}`,
-          overflow:'auto',
+          overflow: "auto",
         }}
       >
         {/* Header */}
@@ -68,7 +70,7 @@ const SensorList = () => {
                     <Stack sx={{ width: "210px", maxWidth: "210px" }}>
                       {group.sensorGroupId}
                     </Stack>
-                    <Stack>{`(SSID) ${group.ssid ?? '-'}`}</Stack>
+                    <Stack>{`(SSID) ${group.ssid ?? "-"}`}</Stack>
                   </Stack>
                   {group.sensors.map((sensor) => {
                     const selected =
@@ -80,7 +82,9 @@ const SensorList = () => {
                         sx={{
                           ...TableRowStyle,
                           marginLeft: "15px",
-                          backgroundColor: selected ? grey[100] : "white",
+                          backgroundColor: selected
+                            ? theme.palette.action.selected
+                            : "white",
                           flexDirection: "row",
                         }}
                         onClick={() => handleClickSensor(sensor)}

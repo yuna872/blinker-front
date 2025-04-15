@@ -1,9 +1,11 @@
+import { useDeleteUser } from "@apis/auth/useDeleteUser";
 import { USERTABLE_WIDTH } from "@components/AdminMonitoring/UserTable";
 import {
   TableHeaderStyle,
   TableRowStyle,
 } from "@components/Sensors/SensorList";
 import Title from "@components/Title";
+import { useDialog } from "@hooks/useDialog";
 import {
   Button,
   Stack,
@@ -15,19 +17,41 @@ import {
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { setSelectedUser } from "@store/selectedUserSlice";
+import { showToast } from "@utils/toast";
 import { useDispatch, useSelector } from "react-redux";
 
-
-const UserTable = ({
-  handleOpenAlertDialog,
-  handleOpenCreateUserDialog,
-  users,
-}) => {
+const UserTable = ({ handleOpenCreateUserDialog, users }) => {
   const dispatch = useDispatch();
+  const { openDialog } = useDialog();
   const selectedUser = useSelector((state) => state.selectedUser);
+  const { mutateAsync: deleteUser } = useDeleteUser();
 
   const handleClickUser = (user) => {
     dispatch(setSelectedUser(user));
+  };
+
+  const handleClickDeleteUser = () => {
+    openDialog({
+      title: "유저 삭제",
+      description: `${selectedUser?.userId} 해당 유저를 삭제하면 복구할 수 없습니다. 계속 진행하시겠습니까?`,
+      variant: "alert",
+      primaryAction: {
+        name: "삭제",
+        onClick: async () => {
+          try {
+            await deleteUser(selectedUser?.appUserId).then((data) => {
+              if (data.code === "SUCCESS") {
+                showToast.success("삭제 되었습니다.");
+              }
+            });
+          } catch (error) {}
+        },
+      },
+      secondaryAction: {
+        name: "취소",
+        onClick: () => {},
+      },
+    });
   };
 
   return (
@@ -99,7 +123,7 @@ const UserTable = ({
         </Button>
         <Button
           variant="outlined"
-          onClick={handleOpenAlertDialog}
+          onClick={handleClickDeleteUser}
           disabled={!selectedUser}
         >
           유저 삭제
