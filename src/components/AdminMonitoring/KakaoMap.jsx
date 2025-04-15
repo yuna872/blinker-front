@@ -158,7 +158,7 @@ const AdminKakaoMap = ({ sensors }) => {
                     sensor?.sensorId === selectedSensor?.sensorId;
                   return (
                     <MapMarker
-                      key={`${sensor.latitude}-${sensor.longitude}-${sensor.groupPositionNumber}`}
+                      key={`${sensor.latitude}-${sensor.longitude}-${sensor.sensorId}`}
                       position={{
                         lat: sensor.latitude,
                         lng: sensor.longitude,
@@ -178,9 +178,7 @@ const AdminKakaoMap = ({ sensors }) => {
                       }}
                       onClick={() => handleClickMarker(sensor)}
                     >
-                      {selected && (
-                        <InfoWindow/>
-                      )}
+                      {selected && <InfoWindow />}
                     </MapMarker>
                   );
                 })}

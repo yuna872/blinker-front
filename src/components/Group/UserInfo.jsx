@@ -77,7 +77,7 @@ const UserInfo = () => {
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>이름</Typography>
-          <TextField fullWidth d {...register("username")} />
+          <TextField fullWidth {...register("username")} />
         </Stack>
       </Stack>
       <Button variant="outlined" sx={{ margin: "15px" }} type="submit">

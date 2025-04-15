@@ -75,7 +75,8 @@ const SensorList = () => {
   };
 
   const onDragEnd = ({ source, destination }) => {
-    if (!destination) return;
+    if (!destination) return; // 옮기지 않은 경우
+    if (source.index === destination.index) return; // 원래 위치에 드롭
 
     const copiedGroups = JSON.parse(JSON.stringify(sensorGroups));
     const [targetGroup] = copiedGroups.splice(source.index, 1);
