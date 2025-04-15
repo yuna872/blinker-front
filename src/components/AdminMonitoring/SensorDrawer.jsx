@@ -4,7 +4,7 @@ import SensorList from "@components/AdminMonitoring/SensorList";
 import { USERTABLE_WIDTH } from "@components/AdminMonitoring/UserTable";
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
-import { grey } from "@mui/material/colors";
+import { palette } from "@styles/palette";
 
 const SensorDrawer = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
   const [isOpen, setIsOpen] = useState(true);
@@ -45,7 +45,7 @@ const SensorDrawer = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
             justifyContent: "center",
             width: "40px",
             "& > svg": {
-              color: grey[600],
+              color: palette.grey[600],
               width: "32px",
               height: "32px",
             },

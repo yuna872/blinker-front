@@ -1,10 +1,10 @@
 import { Stack, Typography } from "@mui/material";
 import { FormTitle } from "./GeneralSettingsForm";
-import { grey } from "@mui/material/colors";
 import { theme } from "@styles/theme";
 import { TextField } from "@components/TextField";
 import { useFormContext } from "react-hook-form";
 import { useSelector } from "react-redux";
+import { palette } from "@styles/palette";
 
 export const fieldStyle = {
   flexDirection: "row",
@@ -23,7 +23,7 @@ const SensorSettingsForm = () => {
   const selectedSensor = useSelector((state) => state.selectedSensor);
 
   return (
-    <Stack sx={{ border: `1px solid ${grey[300]}`, height: "fit-content" }}>
+    <Stack sx={{ border: `1px solid ${palette.grey[300]}`, height: "fit-content" }}>
       <FormTitle title="신호기 설정" />
       <Stack
         sx={{

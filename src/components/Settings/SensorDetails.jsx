@@ -1,7 +1,6 @@
 import { Button, Stack, Typography } from "@mui/material";
 import SignalSettingsForm from "@components/Settings/SignalSettingsForm";
 import DefaultSettings from "@components/Settings/DefaultSettings";
-import { grey } from "@mui/material/colors";
 import Title from "@components/Title";
 import { TextField } from "@components/TextField";
 import { useSelector } from "react-redux";
@@ -10,6 +9,7 @@ import { DEVICE_SETTINGS } from "constants";
 import { useEffect } from "react";
 import { usePutSensor } from "@apis/sensor/usePutSensor";
 import { showToast } from "@utils/toast";
+import { palette } from "@styles/palette";
 
 const SensorDetails = () => {
   const selectedSensor = useSelector((state) => state.selectedSensor);
@@ -116,7 +116,7 @@ const SensorDetails = () => {
             sx={{
               padding: "15px",
               gap: "15px",
-              backgroundColor: grey[100],
+              backgroundColor: palette.grey[100],
               "& > .MuiStack-root": {
                 flexDirection: "row",
                 gap: "10px",

@@ -2,7 +2,7 @@ import FormTitle from "@components/FormTitle";
 import NumberTextField from "@components/NumberTextfield";
 import { TextField } from "@components/TextField";
 import { Stack, Typography } from "@mui/material";
-import { grey } from "@mui/material/colors";
+import { palette } from "@styles/palette";
 import { useFormContext } from "react-hook-form";
 import { useSelector } from "react-redux";
 
@@ -25,7 +25,7 @@ const SignalSettingsForm = () => {
   return (
     <Stack
       sx={{
-        borderTop: `1px solid ${grey[300]}`,
+        borderTop: `1px solid ${palette.grey[300]}`,
       }}
     >
       <FormTitle title="신호기 설정" />

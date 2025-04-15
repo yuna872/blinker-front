@@ -15,8 +15,8 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { grey } from "@mui/material/colors";
 import { setSelectedUser } from "@store/selectedUserSlice";
+import { palette } from "@styles/palette";
 import { showToast } from "@utils/toast";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -59,7 +59,7 @@ const UserTable = ({ handleOpenCreateUserDialog, users }) => {
       sx={{
         flexDirection: "column",
         justifyContent: "space-between",
-        borderRight: `1px solid ${grey[200]}`,
+        borderRight: `1px solid ${palette.grey[200]}`,
         width: `${USERTABLE_WIDTH}px`,
       }}
     >
@@ -85,7 +85,7 @@ const UserTable = ({ handleOpenCreateUserDialog, users }) => {
             <TableHead>
               <TableRow sx={TableHeaderStyle}>
                 <TableCell>ID</TableCell>
-                <TableCell>Name</TableCell>
+                <TableCell>이름</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -115,7 +115,7 @@ const UserTable = ({ handleOpenCreateUserDialog, users }) => {
           justifyContent: "flex-end",
           gap: "10px",
           padding: "10px",
-          borderTop: `1px solid ${grey[100]}`,
+          borderTop: `1px solid ${palette.grey[100]}`,
         }}
       >
         <Button variant="contained" onClick={handleOpenCreateUserDialog}>

@@ -3,9 +3,9 @@ import { usePatchSensorGroupsOrder } from "@apis/sensor/usePatchSensorGroupsOrde
 import Title from "@components/Title";
 import { Menu, Star } from "@mui/icons-material";
 import { Button, Stack } from "@mui/material";
-import { grey } from "@mui/material/colors";
 import { setMapPosition } from "@store/mapPositionSlice";
 import { setSelectedSensorState } from "@store/selectedSensorSlice";
+import { palette } from "@styles/palette";
 import { theme } from "@styles/theme";
 import { showToast } from "@utils/toast";
 import { useEffect, useState } from "react";
@@ -13,12 +13,12 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useDispatch, useSelector } from "react-redux";
 
 export const TableHeaderStyle = {
-  backgroundColor: grey[50],
+  backgroundColor: palette.grey[50],
   fontWeight: 600,
   whiteSpace: "nowrap",
   flexDirection: "row",
   padding: "16px",
-  borderBottom: `1px solid ${grey[200]}`,
+  borderBottom: `1px solid ${palette.grey[200]}`,
   "& > .MuiStack-root": {
     justifyContent: "center",
     marginTop: 0,
@@ -35,7 +35,7 @@ export const TableRowStyle = {
   flexDirection: "row",
   padding: "16px",
   alignItems: "center",
-  borderBottom: `1px solid ${grey[200]}`,
+  borderBottom: `1px solid ${palette.grey[200]}`,
   backgroundColor: "white",
   "& > .MuiStack-root": {
     marginTop: 0,
@@ -114,7 +114,7 @@ const SensorList = () => {
       <Stack
         sx={{
           margin: "10px",
-          border: `1px solid ${grey[200]}`,
+          border: `1px solid ${palette.grey[200]}`,
           overflow: "auto",
           height: "100%",
         }}
@@ -135,7 +135,7 @@ const SensorList = () => {
                   sx={{
                     height: "100%",
                     overflow: "auto",
-                    backgroundColor: grey[300],
+                    backgroundColor: palette.grey[300],
                   }}
                 >
                   {sensorGroups && (
@@ -170,7 +170,10 @@ const SensorList = () => {
                                       sx={{ width: "30px", maxWidth: "30px" }}
                                     >
                                       <Menu
-                                        sx={{ width: "20px", color: grey[500] }}
+                                        sx={{
+                                          width: "20px",
+                                          color: palette.grey[500],
+                                        }}
                                       />
                                     </Stack>
                                     <Stack
@@ -194,7 +197,7 @@ const SensorList = () => {
                                           ...TableRowStyle,
                                           marginLeft: "15px",
                                           backgroundColor: selected
-                                            ? grey[100]
+                                            ? palette.grey[100]
                                             : "white",
                                           flexDirection: "row",
                                         }}
@@ -224,7 +227,7 @@ const SensorList = () => {
                                             <Star
                                               sx={{
                                                 width: "15px",
-                                                color: grey[700],
+                                                color: palette.grey[700],
                                               }}
                                             />
                                           )}
@@ -249,7 +252,7 @@ const SensorList = () => {
         ) : (
           <Stack
             sx={{
-              backgroundColor: grey[300],
+              backgroundColor: palette.grey[300],
             }}
           >
             {sensorGroups?.map((group) => {
@@ -301,7 +304,9 @@ const SensorList = () => {
                           }}
                         >
                           {!sensor.groupPositionNumber && (
-                            <Star sx={{ width: "15px", color: grey[700] }} />
+                            <Star
+                              sx={{ width: "15px", color: palette.grey[700] }}
+                            />
                           )}
                           {sensor.address}
                         </Stack>

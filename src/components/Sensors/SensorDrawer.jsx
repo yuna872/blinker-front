@@ -1,10 +1,10 @@
 import { Stack } from "@mui/material";
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
-import { grey } from "@mui/material/colors";
 import SensorInfo from "@components/Sensors/SensorInfo";
 import SensorList from "@components/Sensors/SensorList";
 import { USERTABLE_WIDTH } from "@components/AdminMonitoring/UserTable";
+import { palette } from "@styles/palette";
 
 const SensorDrawer = ({ selectedSensor }) => {
   const [isOpen, setIsOpen] = useState(true);
@@ -41,7 +41,7 @@ const SensorDrawer = ({ selectedSensor }) => {
             justifyContent: "center",
             width: "40px",
             "& > svg": {
-              color: grey[600],
+              color: palette.grey[600],
               width: "32px",
               height: "32px",
             },

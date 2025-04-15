@@ -10,7 +10,6 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { grey } from "@mui/material/colors";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
@@ -19,6 +18,7 @@ import "dayjs/locale/ko";
 import { Controller, useForm } from "react-hook-form";
 import { useState } from "react";
 import { showToast } from "@utils/toast";
+import { palette } from "@styles/palette";
 
 const StatusHistoryTabPanel = () => {
   const sensorId = useSelector((state) => state.selectedSensor?.sensorId);
@@ -135,7 +135,7 @@ const StatusHistoryTabPanel = () => {
                 <TableRow
                   sx={{
                     "& > .MuiTableCell-root": {
-                      backgroundColor: grey[50],
+                      backgroundColor: palette.grey[50],
                       fontWeight: 600,
                       whiteSpace: "nowrap",
                     },

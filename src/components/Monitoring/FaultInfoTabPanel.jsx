@@ -5,7 +5,6 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { grey } from "@mui/material/colors";
 import { FAULTS } from "constants";
 import { useSelector } from "react-redux";
 
@@ -17,15 +16,7 @@ const FaultInfoTabPanel = () => {
   return (
     <Table>
       <TableHead>
-        <TableRow
-          sx={{
-            "& > .MuiTableCell-root": {
-              backgroundColor: grey[50],
-              fontWeight: 600,
-              whiteSpace: "nowrap",
-            },
-          }}
-        >
+        <TableRow>
           <TableCell>항목</TableCell>
           <TableCell>장애유무</TableCell>
         </TableRow>

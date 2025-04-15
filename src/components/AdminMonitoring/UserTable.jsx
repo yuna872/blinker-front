@@ -11,9 +11,9 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { grey } from "@mui/material/colors";
 import { setSelectedSensorState } from "@store/selectedSensorSlice";
 import { setSelectedUser } from "@store/selectedUserSlice";
+import { palette } from "@styles/palette";
 import { useDispatch, useSelector } from "react-redux";
 
 export const USERTABLE_WIDTH = 300;
@@ -32,7 +32,7 @@ const UserTable = ({ users }) => {
       sx={{
         maxWidth: `${USERTABLE_WIDTH}px`,
         width: `${USERTABLE_WIDTH}px`,
-        borderRight: `1px solid ${grey[200]}`,
+        borderRight: `1px solid ${palette.grey[50]}`,
         overflow: "hidden",
       }}
     >
@@ -47,7 +47,7 @@ const UserTable = ({ users }) => {
           <TableHead>
             <TableRow sx={TableHeaderStyle}>
               <TableCell>ID</TableCell>
-              <TableCell>Name</TableCell>
+              <TableCell>이름</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

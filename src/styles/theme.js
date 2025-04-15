@@ -13,6 +13,29 @@ export const theme = createTheme({
         },
       },
     },
+    MuiTableRow: {
+      styleOverrides: {
+        root: {
+          "&:hover": {
+            backgroundColor: palette.action.hover,
+          },
+        },
+      },
+    },
+    MuiTableCell: {
+      defaultProps: {},
+      styleOverrides: {
+        root: { color: palette.grey[900], fontSize: "14px" },
+        head: {
+          backgroundColor: palette.grey[50],
+          fontWeight: "600",
+          padding: "14px",
+        },
+        body: {
+          borderBottom: `1px solid ${palette.grey[100]}`,
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {

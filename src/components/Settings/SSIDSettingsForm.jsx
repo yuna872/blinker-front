@@ -1,7 +1,7 @@
 import FormTitle from "@components/FormTitle";
 import { TextField } from "@components/TextField";
 import { Button, Stack, Typography } from "@mui/material";
-import { grey } from "@mui/material/colors";
+import { palette } from "@styles/palette";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -20,7 +20,7 @@ const SSIDSettingsForm = () => {
   return (
     <Stack
       sx={{
-        borderTop: `1px solid ${grey[300]}`,
+        borderTop: `1px solid ${palette.grey[300]}`,
       }}
     >
       <FormTitle title="SSID 설정" />

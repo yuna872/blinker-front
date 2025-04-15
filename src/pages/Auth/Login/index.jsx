@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { useNavigate } from "react-router-dom";
 import { theme } from "@styles/theme";
-import { grey } from "@mui/material/colors";
+import { palette } from "@styles/palette";
 
 const Login = () => {
   const {
@@ -117,7 +117,7 @@ const Login = () => {
           cursor: "pointer",
           textDecoration: "underline",
           fontSize: "14px",
-          color: grey[800],
+          color: palette.grey[800],
         }}
         onClick={() => navigate("/signup")}
       >

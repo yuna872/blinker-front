@@ -1,5 +1,5 @@
 import { Stack, Typography } from "@mui/material";
-import { grey } from "@mui/material/colors";
+import { palette } from "@styles/palette";
 
 export const TITLE_HEIGHT = 55;
 
@@ -12,11 +12,11 @@ const Title = ({ title, children }) => {
         alignItems: "center",
         flexDirection: "row",
         justifyContent: "space-between",
-        borderBottom: `1px solid ${grey[300]}`,
+        borderBottom: `1px solid ${palette.grey[100]}`,
         flexShrink: "0",
       }}
     >
-      <Typography sx={{ fontSize: "16px", fontWeight: 600, color: grey[900] }}>
+      <Typography sx={{ fontSize: "16px", fontWeight: 600, color: palette.grey[900] }}>
         {title}
       </Typography>
       <Stack

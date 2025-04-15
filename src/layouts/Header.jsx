@@ -2,11 +2,11 @@ import { Stack, Typography } from "@mui/material";
 import React from "react";
 import { theme } from "@styles/theme";
 import { useLocation, useNavigate } from "react-router-dom";
-import { grey } from "@mui/material/colors";
 import { getCookies, removeCookies } from "@apis/auth/cookie";
 import { useDispatch } from "react-redux";
 import { resetSelectedSensor } from "@store/selectedSensorSlice";
 import { resetSelectedUser } from "@store/selectedUserSlice";
+import { palette } from "@styles/palette";
 export const GNB_HEIGHT = 50;
 
 const Header = ({ isAdmin }) => {
@@ -62,7 +62,7 @@ const Header = ({ isAdmin }) => {
                 sx={{
                   cursor: "pointer",
                   fontWeight: pathname === link.to ? 600 : 400,
-                  color: pathname === link.to ? "white" : grey[400],
+                  color: pathname === link.to ? "white" : palette.grey[400],
                 }}
               >
                 {link.label}

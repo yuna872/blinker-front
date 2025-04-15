@@ -9,17 +9,17 @@ export const palette = {
     contrastText: "#fff",
   },
   grey: {
-    main: "#607D8B", // 500
-    50: "#ECEFF1",
-    100: "#CFD8DC",
-    200: "#B0BEC5",
-    300: "#90A4AE",
-    400: "#78909C",
-    500: "#607D8B",
-    600: "#546E7A",
-    700: "#455A64",
-    800: "#37474F",
-    900: "#263238",
+    main: "#757575", // 500
+    50: "#FAFAFA",
+    100: "#F5F5F5",
+    200: "#EEEEEE",
+    300: "#E0E0E0",
+    400: "#BDBDBD",
+    500: "#9E9E9E",
+    600: "#757575",
+    700: "#616161",
+    800: "#424242",
+    900: "#212121",
   },
   red: {
     main: "#F05252", // 500
@@ -43,7 +43,7 @@ export const palette = {
     contrastText: "#6002ee",
   },
   action: {
-    hover: "#ECEFF1",
+    hover: "#F5F5F5",
     selected: "#efe5fd",
   },
   status: {
