@@ -159,7 +159,7 @@ const StatusHistoryTabPanel = () => {
                   <TableCell>358 채널 신호</TableCell>
                 </TableRow>
               </TableHead>
-              {logs.length ? (
+              {logs?.length ? (
                 <TableBody>
                   {logs?.map((log) => {
                     return (
