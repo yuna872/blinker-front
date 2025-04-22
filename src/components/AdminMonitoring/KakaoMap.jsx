@@ -21,10 +21,10 @@ import greenMarker from "@assets/images/marker-green.png";
 import greyMarker from "@assets/images/marker-grey.png";
 import redMarker from "@assets/images/marker-red.png";
 import yellowMarker from "@assets/images/marker-yellow.png";
-import InfoWindow from "@components/Monitoring/InfoWindow";
 import AddressSearchBar from "@components/Monitoring/AddressSearchBar";
 import Title from "@components/Title";
 import Legend from "@components/Monitoring/Legend";
+import InfoWindow from "./InfoWindow";
 
 const AdminKakaoMap = ({ sensors }) => {
   const [isActive, setIsActive] = useState(false);

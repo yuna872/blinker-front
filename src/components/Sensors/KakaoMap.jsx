@@ -24,9 +24,9 @@ import yellowMarker from "@assets/images/marker-yellow.png";
 import AddressSearchBar from "@components/Monitoring/AddressSearchBar";
 import Title from "@components/Title";
 import Legend from "@components/Monitoring/Legend";
-import InfoWindow from "@components/Monitoring/InfoWindow";
 import { usePatchSensorLocation } from "@apis/sensor/usePatchSensorLocation";
 import { showToast } from "@utils/toast";
+import InfoWindow from "@components/AdminMonitoring/InfoWindow";
 
 const SensorsKakaoMap = ({ sensors }) => {
   const dispatch = useDispatch();

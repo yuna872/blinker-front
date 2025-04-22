@@ -17,9 +17,10 @@ const InfoWindow = ({
 }) => {
   const appUserId = getCookies("appUserId");
   const selectedSensor = useSelector((state) => state.selectedSensor);
+  const selectedUser = useSelector((state) => state.selectedUser);
   const { data: sensor } = useGetSensorDetail(
     selectedSensor.sensorId,
-    appUserId // 일반 관리자의 경우 로그인한 유저
+    selectedUser.appUserId
   );
   const [memo, setMemo] = useState(sensor?.memo);
   const { mutateAsync: patchSensorMemo } = usePatchSensorMemo(
