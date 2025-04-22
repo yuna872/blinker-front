@@ -1,13 +1,13 @@
 import { Stack } from "@mui/material";
-import UserTable from "@components/AdminMonitoring/UserTable";
+import UserTable from "@pages/Admin/Monitoring/components/UserTable";
 import { GNB_HEIGHT } from "@layouts/Header";
-import SensorDrawer from "@components/AdminMonitoring/SensorDrawer";
-import FailureInfo from "@components/AdminMonitoring/FaultInfo";
+import SensorDrawer from "@pages/Admin/Monitoring/components/SensorDrawer";
+import FailureInfo from "@pages/Admin/Monitoring/components/FaultInfo";
 import { useGetUsers } from "@apis/auth/useGetUsers";
 import { useGetUserSensorGroups } from "@apis/sensor/useGetUserSensorGroups";
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import AdminKakaoMap from "@components/AdminMonitoring/KakaoMap";
+import AdminKakaoMap from "@pages/Admin/Monitoring/components/KakaoMap";
 
 const AdminMonitoring = () => {
   const selectedUser = useSelector((state) => state.selectedUser);

@@ -1,13 +1,13 @@
 import { Stack } from "@mui/material";
-import UserTable from "@components/AdminMonitoring/UserTable";
+import UserTable from "@pages/Admin/Monitoring/components/UserTable";
 
 import { GNB_HEIGHT } from "@layouts/Header";
-import SensorDrawer from "@components/Sensors/SensorDrawer";
+import SensorDrawer from "@pages/Admin/Sensors/components/SensorDrawer";
 import { useState } from "react";
 import { useGetUsers } from "@apis/auth/useGetUsers";
 import { useGetUserSensorGroups } from "@apis/sensor/useGetUserSensorGroups";
 import { useSelector } from "react-redux";
-import SensorsKakaoMap from "@components/Sensors/KakaoMap";
+import SensorsKakaoMap from "@pages/Admin/Sensors/components/KakaoMap";
 
 const Sensors = () => {
   const [selectedSensor, setSelectedSensor] = useState();

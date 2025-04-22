@@ -2,12 +2,11 @@ import React from "react";
 import { GNB_HEIGHT } from "@layouts/Header";
 import { Stack } from "@mui/material";
 
-import SensorList from "@components/Monitoring/SensorList";
-
 import { useGetSensorGroups } from "@apis/sensor/useGetSensorGroups";
 
-import KakaoMap from "@components/Monitoring/KakaoMap";
 import Loading from "@components/Loading";
+import SensorList from "./components/SensorList";
+import KakaoMap from "./components/KakaoMap";
 
 const Monitoring = () => {
   const { data: sensorGroups, isLoading, refetch } = useGetSensorGroups();

@@ -1,9 +1,9 @@
 import { Stack } from "@mui/material";
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
-import SensorInfo from "@components/Sensors/SensorInfo";
-import SensorList from "@components/Sensors/SensorList";
-import { USERTABLE_WIDTH } from "@components/AdminMonitoring/UserTable";
+import SensorInfo from "@pages/Admin/Sensors/components/SensorInfo";
+import SensorList from "@pages/Admin/Sensors/components/SensorList";
+import { USERTABLE_WIDTH } from "@pages/Admin/Monitoring/components/UserTable";
 import { palette } from "@styles/palette";
 
 const SensorDrawer = ({ selectedSensor }) => {

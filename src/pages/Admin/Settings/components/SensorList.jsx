@@ -2,7 +2,7 @@ import { useGetUserSensorGroups } from "@apis/sensor/useGetUserSensorGroups";
 import {
   TableHeaderStyle,
   TableRowStyle,
-} from "@components/Sensors/SensorList";
+} from "@pages/Admin/Sensors/components/SensorList";
 import Title from "@components/Title";
 import { Star } from "@mui/icons-material";
 import { Stack } from "@mui/material";
@@ -103,7 +103,9 @@ const SensorList = () => {
                           }}
                         >
                           {!sensor.groupPositionNumber && (
-                            <Star sx={{ width: "15px", color: palette.grey[700] }} />
+                            <Star
+                              sx={{ width: "15px", color: palette.grey[700] }}
+                            />
                           )}
                           {sensor.address}
                         </Stack>

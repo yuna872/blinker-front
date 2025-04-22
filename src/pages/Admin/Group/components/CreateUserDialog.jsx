@@ -1,11 +1,11 @@
 import { ErrorMessage } from "@hookform/error-message";
 import { useForm } from "react-hook-form";
-import TextFieldErrorMessage from "./TextFieldErrorMessage";
 import { useSignup } from "@apis/auth/useSignup";
 import { showToast } from "@utils/toast";
 import { useQueryClient } from "@tanstack/react-query";
 import { Select } from "@components/Select";
 import { theme } from "@styles/theme";
+import TextFieldErrorMessage from "./TextFieldErrorMessage";
 
 const { TextField } = require("@components/TextField");
 const {
@@ -84,7 +84,9 @@ const CreateUserDialog = ({ open, handleClose }) => {
               errors={errors}
               name="userId"
               render={({ message }) => (
-                <Typography sx={{ fontSize: "11px", color: theme.palette.error.main }}>
+                <Typography
+                  sx={{ fontSize: "11px", color: theme.palette.error.main }}
+                >
                   {message}
                 </Typography>
               )}

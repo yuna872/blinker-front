@@ -1,8 +1,8 @@
 import { Stack } from "@mui/material";
-import UserTable from "@components/AdminMonitoring/UserTable";
-import SensorList from "@components/Settings/SensorList";
+import UserTable from "@pages/Admin/Monitoring/components/UserTable";
+import SensorList from "@pages/Admin/Settings/components/SensorList";
 import { GNB_HEIGHT } from "@layouts/Header";
-import SensorDetails from "@components/Settings/SensorDetails";
+import SensorDetails from "@pages/Admin/Settings/components/SensorDetails";
 import { useGetUsers } from "@apis/auth/useGetUsers";
 
 const Settings = () => {

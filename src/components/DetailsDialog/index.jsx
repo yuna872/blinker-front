@@ -15,7 +15,7 @@ import SettingsTabPanel from "./SettingsTabPanel";
 import StatusHistoryTabPanel from "./StatusHistoryTabPanel";
 import { useSelector } from "react-redux";
 
-const SensorDetailsDialog = ({ open, handleClose}) => {
+const SensorDetailsDialog = ({ open, handleClose }) => {
   const selectedSensor = useSelector((state) => state.selectedSensor);
 
   const [tabValue, setTabValue] = useState("FAULT_INFO");
@@ -23,7 +23,7 @@ const SensorDetailsDialog = ({ open, handleClose}) => {
     setTabValue(newValue);
   };
 
-  if(!selectedSensor) return null
+  if (!selectedSensor) return null;
   return (
     <Dialog onClose={handleClose} open={open} maxWidth="lg" fullWidth>
       <Stack sx={{ backgroundColor: theme.palette.primary.main }}>

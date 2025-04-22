@@ -1,6 +1,6 @@
 import { Button, Stack, Typography } from "@mui/material";
-import SignalSettingsForm from "@components/Settings/SignalSettingsForm";
-import DefaultSettings from "@components/Settings/DefaultSettings";
+import SignalSettingsForm from "@pages/Admin/Settings/components/SignalSettingsForm";
+import DefaultSettings from "@pages/Admin/Settings/components/DefaultSettings";
 import Title from "@components/Title";
 import { TextField } from "@components/TextField";
 import { useSelector } from "react-redux";
@@ -151,10 +151,6 @@ const SensorDetails = () => {
               overflowY: "auto",
             }}
           >
-            {/* SSID 설정 */}
-            {/* {selectedSensor && selectedSensor?.groupPositionNumber === 0 && (
-              <SSIDSettingsForm />
-            )} */}
             {/* 신호기 설정 */}
             <SignalSettingsForm />
             {/* 기본 설정 */}

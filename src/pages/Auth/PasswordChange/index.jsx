@@ -1,6 +1,6 @@
 import { removeCookies } from "@apis/auth/cookie";
 import { useChangePassword } from "@apis/auth/useChangePassword";
-import TextFieldErrorMessage from "@components/Group/TextFieldErrorMessage";
+import TextFieldErrorMessage from "@pages/Admin/Group/components/TextFieldErrorMessage";
 import { TextField } from "@components/TextField";
 import { showToast } from "@utils/toast";
 import { useForm } from "react-hook-form";
