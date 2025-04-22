@@ -4,8 +4,6 @@ import { setMapPosition } from "@store/mapPositionSlice";
 import { setSelectedSensorState } from "@store/selectedSensorSlice";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Title from "../Title";
-import AddressSearchBar from "./AddressSearchBar";
 import {
   Map,
   MapMarker,
@@ -20,8 +18,10 @@ import greenMarker from "@assets/images/marker-green.png";
 import greyMarker from "@assets/images/marker-grey.png";
 import redMarker from "@assets/images/marker-red.png";
 import yellowMarker from "@assets/images/marker-yellow.png";
-import InfoWindow from "@components/Monitoring/InfoWindow";
-import Legend from "./Legend";
+import Title from "@components/Title";
+import AddressSearchBar from "@components/AddressSearchBar";
+import Legend from "@components/Legend";
+import InfoWindow from "./InfoWindow";
 
 const KakaoMap = ({ sensors }) => {
   const [isActive, setIsActive] = useState(false);
@@ -166,9 +166,7 @@ const KakaoMap = ({ sensors }) => {
                         }}
                         onClick={() => handleClickMarker(sensor)}
                       >
-                        {selected && (
-                          <InfoWindow/>
-                        )}
+                        {selected && <InfoWindow />}
                       </MapMarker>
                     );
                   })}

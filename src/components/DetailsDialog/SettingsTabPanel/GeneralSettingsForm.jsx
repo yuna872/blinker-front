@@ -1,7 +1,7 @@
 import {
   FormControlLabelStyle,
   RadioGroupStyle,
-} from "@components/Settings/DefaultSettings";
+} from "@pages/Admin/Settings/components/DefaultSettings";
 import {
   FormControlLabel,
   Radio,
@@ -32,7 +32,9 @@ const GeneralSettingsForm = () => {
   const { control } = useFormContext();
 
   return (
-    <Stack sx={{ border: `1px solid ${palette.grey[300]}`, height: "fit-content" }}>
+    <Stack
+      sx={{ border: `1px solid ${palette.grey[300]}`, height: "fit-content" }}
+    >
       <FormTitle title="기본 설정" />
       <Stack
         sx={{
@@ -87,7 +89,7 @@ const GeneralSettingsForm = () => {
             </RadioGroup>
           )}
         />
-          <Controller
+        <Controller
           name="deviceSettings.Crossroad"
           control={control}
           render={({ field }) => (

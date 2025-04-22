@@ -78,7 +78,7 @@ const Header = ({ isAdmin }) => {
             fontWeight: 600,
           }}
         >
-          Osan 스마트 음향 신호기 모니터링
+          스마트 음향 신호기 모니터링
         </Typography>
       )}
       {accessToken && (

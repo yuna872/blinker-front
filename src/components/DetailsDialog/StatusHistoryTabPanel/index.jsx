@@ -24,15 +24,18 @@ import noData from "@assets/svgs/noData.svg";
 
 const StatusHistoryTabPanel = () => {
   const sensorId = useSelector((state) => state.selectedSensor?.sensorId);
-  const [year, setYear] = useState(null);
-  const [month, setMonth] = useState(null);
-  const [day, setDay] = useState(null);
 
-  const { handleSubmit, control, watch } = useForm({
+  const today = dayjs();
+
+  const [year, setYear] = useState(today.format("YYYY"));
+  const [month, setMonth] = useState(today.format("MM"));
+  const [day, setDay] = useState(today.format("DD"));
+
+  const { handleSubmit, control, setValue } = useForm({
     defaultValues: {
-      year: null,
-      month: null,
-      day: null,
+      year: today,
+      month: today,
+      day: today,
     },
   });
 
@@ -56,9 +59,10 @@ const StatusHistoryTabPanel = () => {
         return;
       }
     }
-    setYear(dayjs(year).get("year"));
-    setMonth(dayjs(month).get("month") + 1);
-    setDay(dayjs(day).get("date"));
+
+    setYear(year?.format("YYYY"));
+    setMonth(month?.format("MM"));
+    setDay(day?.format("DD"));
   };
 
   const { data: logs, isLoading } = useGetSensorLogs(
@@ -85,7 +89,17 @@ const StatusHistoryTabPanel = () => {
               name="year"
               control={control}
               render={({ field }) => (
-                <DatePicker views={["year"]} slotProps={slotProps} {...field} />
+                <DatePicker
+                  views={["year"]}
+                  slotProps={slotProps}
+                  {...field}
+                  onChange={(newYear) => {
+                    field.onChange(newYear);
+                    setValue("month", null);
+                    setValue("day", null);
+                  }}
+                  maxDate={today}
+                />
               )}
             />
             <Controller
@@ -96,6 +110,10 @@ const StatusHistoryTabPanel = () => {
                   views={["month"]}
                   slotProps={slotProps}
                   {...field}
+                  onChange={(newMonth) => {
+                    field.onChange(newMonth);
+                    setValue("day", null);
+                  }}
                 />
               )}
             />
@@ -109,16 +127,6 @@ const StatusHistoryTabPanel = () => {
                     ...slotProps,
                     calendarHeader: { sx: { display: "visible" } },
                   }}
-                  minDate={dayjs(
-                    `${dayjs(watch("year")).format("YYYY")}-${dayjs(
-                      watch("month")
-                    ).format("MM")}-01`
-                  )}
-                  maxDate={dayjs(
-                    `${dayjs(watch("year")).format("YYYY")}-${dayjs(
-                      watch("month")
-                    ).format("MM")}-01`
-                  ).endOf("month")}
                   {...field}
                 />
               )}
@@ -132,12 +140,7 @@ const StatusHistoryTabPanel = () => {
           {isLoading ? (
             <Loading />
           ) : (
-            <Table
-              stickyHeader
-              sx={{
-                height: "100%",
-              }}
-            >
+            <Table stickyHeader>
               <TableHead>
                 <TableRow
                   sx={{
@@ -159,7 +162,7 @@ const StatusHistoryTabPanel = () => {
                   <TableCell>358 채널 신호</TableCell>
                 </TableRow>
               </TableHead>
-              {logs.length ? (
+              {logs?.length ? (
                 <TableBody>
                   {logs?.map((log) => {
                     return (

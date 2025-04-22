@@ -1,13 +1,13 @@
 import { Stack, IconButton } from "@mui/material";
 import { ArrowForward, ArrowBack } from "@mui/icons-material";
-import UserTable from "@components/Group/UserTable";
+import UserTable from "@pages/Admin/Group/components/UserTable";
 import { GNB_HEIGHT } from "@layouts/Header";
-import UserInfo from "@components/Group/UserInfo";
-import SensorList from "@components/Group/SensorList";
-import UnregisteredSensorList from "@components/Group/UnregisteredSensorList";
+import UserInfo from "@pages/Admin/Group/components/UserInfo";
+import SensorList from "@pages/Admin/Group/components/SensorList";
+import UnregisteredSensorList from "@pages/Admin/Group/components/UnregisteredSensorList";
 import { theme } from "@styles/theme";
 import { useState } from "react";
-import CreateUserDialog from "@components/Group/CreateUserDialog";
+import CreateUserDialog from "@pages/Admin/Group/components/CreateUserDialog";
 import { useGetUsers } from "@apis/auth/useGetUsers";
 import { usePostSensorGroupToUser } from "@apis/app-user/usePostSensorGroupToUser";
 import { useDeleteSensorGroupFromUser } from "@apis/app-user/useDeleteSensorGroupFromUser";

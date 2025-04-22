@@ -1,9 +1,9 @@
 import { useDeleteUser } from "@apis/auth/useDeleteUser";
-import { USERTABLE_WIDTH } from "@components/AdminMonitoring/UserTable";
+import { USERTABLE_WIDTH } from "@pages/Admin/Monitoring/components/UserTable";
 import {
   TableHeaderStyle,
   TableRowStyle,
-} from "@components/Sensors/SensorList";
+} from "@pages/Admin/Sensors/components/SensorList";
 import Title from "@components/Title";
 import { useDialog } from "@hooks/useDialog";
 import {

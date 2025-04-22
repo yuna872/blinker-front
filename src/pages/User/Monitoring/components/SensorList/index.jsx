@@ -4,12 +4,12 @@ import dayjs from "dayjs";
 import Title from "@components/Title";
 import { theme } from "@styles/theme";
 import { useState } from "react";
-import SensorDetailsDialog from "../SensorDetailsDialog";
 import Legend from "./Legend";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedSensorState } from "@store/selectedSensorSlice";
 import { setMapPosition } from "@store/mapPositionSlice";
 import { palette } from "@styles/palette";
+import SensorDetailsDialog from "@components/DetailsDialog";
 
 const TableHeaderStyle = {
   backgroundColor: palette.grey[50],
@@ -70,6 +70,7 @@ const SensorList = ({ sensorGroups, refetch }) => {
   const handleClickRefresh = () => {
     refetch();
   };
+
 
   return (
     <Stack

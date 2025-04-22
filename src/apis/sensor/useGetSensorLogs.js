@@ -4,9 +4,9 @@ import { axiosInstance } from "../axiosInstance";
 const getSensorLogs = async (sensorId, year, month, day) => {
   const params = {};
 
-  if (!isNaN(year)) params.year = year;
-  if (!isNaN(month)) params.month = month;
-  if (!isNaN(day)) params.day = day;
+  if (year) params.year = year;
+  if (month) params.month = month;
+  if (day) params.day = day;
 
   const { data } = await axiosInstance.get(`/sensor/${sensorId}/logs`, {
     params,

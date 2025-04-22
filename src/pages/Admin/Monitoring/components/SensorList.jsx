@@ -1,4 +1,4 @@
-import SensorDetailsDialog from "@components/Monitoring/SensorDetailsDialog";
+import SensorDetailsDialog from "@components/DetailsDialog";
 import Title from "@components/Title";
 import { Star, Traffic } from "@mui/icons-material";
 import { Stack, ToggleButton, ToggleButtonGroup } from "@mui/material";

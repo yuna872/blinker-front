@@ -2,7 +2,7 @@ import { useGetUnregisteredSensorGroups } from "@apis/sensor/useGetUnregisteredS
 import {
   TableHeaderStyle,
   TableRowStyle,
-} from "@components/Sensors/SensorList";
+} from "@pages/Admin/Sensors/components/SensorList";
 import Title from "@components/Title";
 import {
   Stack,

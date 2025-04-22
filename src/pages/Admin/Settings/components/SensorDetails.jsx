@@ -1,15 +1,17 @@
-import { Button, Stack } from "@mui/material";
-import GeneralSettingsForm from "./GeneralSettingsForm";
-import SensorSettingsForm from "./SensorSettingsForm";
-import SoundSettingsForm from "./SoundSettingsForm";
-import { FormProvider, useForm } from "react-hook-form";
+import { Button, Stack, Typography } from "@mui/material";
+import SignalSettingsForm from "@pages/Admin/Settings/components/SignalSettingsForm";
+import DefaultSettings from "@pages/Admin/Settings/components/DefaultSettings";
+import Title from "@components/Title";
+import { TextField } from "@components/TextField";
 import { useSelector } from "react-redux";
+import { FormProvider, useForm } from "react-hook-form";
 import { DEVICE_SETTINGS } from "constants";
 import { useEffect } from "react";
 import { usePutSensor } from "@apis/sensor/usePutSensor";
 import { showToast } from "@utils/toast";
+import { palette } from "@styles/palette";
 
-const SettingsTabPanel = () => {
+const SensorDetails = () => {
   const selectedSensor = useSelector((state) => state.selectedSensor);
 
   const methods = useForm({
@@ -106,29 +108,58 @@ const SettingsTabPanel = () => {
       <Stack
         component="form"
         onSubmit={methods.handleSubmit(onSubmit)}
-        sx={{
-          gap: "20px",
-          height: "100%",
-          overflow: "hidden",
-        }}
+        sx={{ flex: "1" }}
       >
-        <Stack
-          sx={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            overflow: "auto",
-          }}
-        >
-          <GeneralSettingsForm />
-          <SensorSettingsForm />
-          <SoundSettingsForm />
+        <Title title="센서 상세 정보" />
+        <Stack sx={{ overflow: "hidden" }}>
+          <Stack
+            sx={{
+              padding: "15px",
+              gap: "15px",
+              backgroundColor: palette.grey[100],
+              "& > .MuiStack-root": {
+                flexDirection: "row",
+                gap: "10px",
+                alignItems: "center",
+                "& > p": {
+                  fontSize: "14px",
+                },
+              },
+            }}
+          >
+            <Stack>
+              <Typography sx={{ width: "50px" }}>ID</Typography>
+              <Typography>{selectedSensor?.sensorGroupId}</Typography>
+            </Stack>
+            <Stack>
+              <Typography sx={{ width: "50px" }}>주소</Typography>
+              <TextField
+                fullWidth
+                slotProps={{
+                  input: {
+                    readOnly: true,
+                  },
+                }}
+                value={selectedSensor?.address || ""}
+              />
+            </Stack>
+          </Stack>
+          <Stack
+            sx={{
+              gap: "15px",
+              flex: "1",
+              overflowY: "auto",
+            }}
+          >
+            {/* 신호기 설정 */}
+            <SignalSettingsForm />
+            {/* 기본 설정 */}
+            <DefaultSettings />
+          </Stack>
         </Stack>
-        <Stack
-          sx={{ flexDirection: "row", justifyContent: "center", gap: "20px" }}
-        >
-          <Button variant="contained">G 명령</Button>
-          <Button type="submit" variant="contained">
-            설정 저장하기
+        <Stack sx={{ backgroundColor: "white", padding: "15px" }}>
+          <Button variant="outlined" type="submit" disabled={!selectedSensor}>
+            저장
           </Button>
         </Stack>
       </Stack>
@@ -136,4 +167,4 @@ const SettingsTabPanel = () => {
   );
 };
 
-export default SettingsTabPanel;
+export default SensorDetails;
