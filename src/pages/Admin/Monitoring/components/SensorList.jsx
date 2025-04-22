@@ -72,8 +72,6 @@ const SensorList = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
     setOnlyFaulty(false);
   };
 
-  console.log(selectedSensor)
-
   return (
     <Stack sx={{ height: "100%" }}>
       <Title title="센서 목록" />
