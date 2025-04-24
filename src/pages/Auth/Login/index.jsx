@@ -27,7 +27,6 @@ const Login = () => {
     await login(formData).then((data) => {
       if (data.code === "SUCCESS") {
         const user = data.response;
-        console.log(user)
         if (user.roles[0] === "ADMIN") navigate("/admin/monitoring");
         else if (user.roles[0] === "USER") navigate("/monitoring");
       } else {
