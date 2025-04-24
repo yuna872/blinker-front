@@ -21,6 +21,7 @@ import { showToast } from "@utils/toast";
 import { palette } from "@styles/palette";
 
 import noData from "@assets/svgs/noData.svg";
+import { CMD } from "constants";
 
 const StatusHistoryTabPanel = () => {
   const sensorId = useSelector((state) => state.selectedSensor?.sensorId);
@@ -152,10 +153,10 @@ const StatusHistoryTabPanel = () => {
                   }}
                 >
                   <TableCell>발생 시각</TableCell>
+                  <TableCell>cmd</TableCell>
                   <TableCell>버튼 횟수</TableCell>
                   <TableCell>위치안내 횟수</TableCell>
                   <TableCell>신호안내 횟수</TableCell>
-                  <TableCell>리모컨 수신</TableCell>
                   <TableCell>버튼 작동</TableCell>
                   <TableCell>전원 상태</TableCell>
                   <TableCell>235 채널 신호</TableCell>
@@ -170,10 +171,10 @@ const StatusHistoryTabPanel = () => {
                         <TableCell>
                           {dayjs(log.createdAt).format("YYYY-MM-DD HH:mm:ss")}
                         </TableCell>
-                        <TableCell>0</TableCell>
-                        <TableCell>0</TableCell>
-                        <TableCell>0</TableCell>
-                        <TableCell>0</TableCell>
+                        <TableCell>{CMD[log.cmd]}</TableCell>
+                        <TableCell>{log.buttonCount}</TableCell>
+                        <TableCell>{log.positionGuideCount}</TableCell>
+                        <TableCell>{log.signalGuideCount}</TableCell>
                         <TableCell>
                           {log.faultInformation["User Button Fault"]
                             ? "오류"
