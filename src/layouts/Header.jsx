@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { resetSelectedSensor } from "@store/selectedSensorSlice";
 import { resetSelectedUser } from "@store/selectedUserSlice";
 import { palette } from "@styles/palette";
+import { AccountCircle } from "@mui/icons-material";
 export const GNB_HEIGHT = 50;
 
 const Header = ({ isAdmin }) => {
@@ -14,6 +15,7 @@ const Header = ({ isAdmin }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const accessToken = getCookies("accessToken");
+  const userId = getCookies("userId");
 
   const links = [
     { to: "/admin/monitoring", label: "모니터링" },
@@ -86,6 +88,7 @@ const Header = ({ isAdmin }) => {
           sx={{
             flexDirection: "row",
             gap: "15px",
+            alignItems: "center",
             "& .MuiTypography-root": {
               cursor: "pointer",
               fontSize: "14px",
@@ -95,6 +98,18 @@ const Header = ({ isAdmin }) => {
             },
           }}
         >
+          <Stack
+            sx={{ flexDirection: "row", alignItems: "center", gap: "5px" }}
+          >
+            <AccountCircle
+              sx={{
+                width: "20px",
+                height: "20px",
+                color: palette.common.white,
+              }}
+            />
+            <Typography>{userId} 님</Typography>
+          </Stack>
           <Typography onClick={() => navigate("/password-change")}>
             비밀번호 변경
           </Typography>
