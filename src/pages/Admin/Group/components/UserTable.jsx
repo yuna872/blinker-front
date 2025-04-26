@@ -42,9 +42,13 @@ const UserTable = ({ handleOpenCreateUserDialog, users }) => {
             await deleteUser(selectedUser?.appUserId).then((data) => {
               if (data.code === "SUCCESS") {
                 showToast.success("삭제 되었습니다.");
+              } else {
+                showToast.error(data.message);
               }
             });
-          } catch (error) {}
+          } catch (error) {
+            console.error(error);
+          }
         },
       },
       secondaryAction: {
