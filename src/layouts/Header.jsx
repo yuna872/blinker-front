@@ -28,6 +28,7 @@ const Header = ({ isAdmin }) => {
     removeCookies("accessToken");
     removeCookies("role");
     removeCookies("appUserId");
+    removeCookies("userId");
     navigate("/login");
 
     // 리덕스 초기화
