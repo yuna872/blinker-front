@@ -1,24 +1,15 @@
-import { useDeleteUser } from "@apis/auth/useDeleteUser";
-import { USERTABLE_WIDTH } from "@pages/Admin/Monitoring/components/UserTable";
+import { useDeleteUser } from '@apis/auth/useDeleteUser';
+import { USERTABLE_WIDTH } from '@pages/Admin/Monitoring/components/UserTable';
 import {
   TableHeaderStyle,
   TableRowStyle,
-} from "@pages/Admin/Sensors/components/SensorList";
-import Title from "@components/Title";
-import { useDialog } from "@hooks/useDialog";
-import {
-  Button,
-  Stack,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-} from "@mui/material";
-import { setSelectedUser } from "@store/selectedUserSlice";
-import { palette } from "@styles/palette";
-import { showToast } from "@utils/toast";
-import { useDispatch, useSelector } from "react-redux";
+} from '@pages/Admin/Sensors/components/SensorList';
+import { useDialog } from '@hooks/useDialog';
+
+import { setSelectedUser } from '@store/selectedUserSlice';
+import { palette } from '@styles/palette';
+import { showToast } from '@utils/toast';
+import { useDispatch, useSelector } from 'react-redux';
 
 const UserTable = ({ handleOpenCreateUserDialog, users }) => {
   const dispatch = useDispatch();
@@ -32,16 +23,16 @@ const UserTable = ({ handleOpenCreateUserDialog, users }) => {
 
   const handleClickDeleteUser = () => {
     openDialog({
-      title: "유저 삭제",
+      title: '유저 삭제',
       description: `${selectedUser?.userId} 해당 유저를 삭제하면 복구할 수 없습니다. 계속 진행하시겠습니까?`,
-      variant: "alert",
+      variant: 'alert',
       primaryAction: {
-        name: "삭제",
+        name: '삭제',
         onClick: async () => {
           try {
             await deleteUser(selectedUser?.appUserId).then((data) => {
-              if (data.code === "SUCCESS") {
-                showToast.success("삭제 되었습니다.");
+              if (data.code === 'SUCCESS') {
+                showToast.success('삭제 되었습니다.');
               } else {
                 showToast.error(data.message);
               }
@@ -52,7 +43,7 @@ const UserTable = ({ handleOpenCreateUserDialog, users }) => {
         },
       },
       secondaryAction: {
-        name: "취소",
+        name: '취소',
         onClick: () => {},
       },
     });
@@ -61,28 +52,28 @@ const UserTable = ({ handleOpenCreateUserDialog, users }) => {
   return (
     <Stack
       sx={{
-        flexDirection: "column",
-        justifyContent: "space-between",
+        flexDirection: 'column',
+        justifyContent: 'space-between',
         borderRight: `1px solid ${palette.grey[200]}`,
         width: `${USERTABLE_WIDTH}px`,
       }}
     >
       <Stack
         sx={{
-          gap: "10px",
-          zIndex: "3",
-          backgroundColor: "white",
+          gap: '10px',
+          zIndex: '3',
+          backgroundColor: 'white',
           maxWidth: `${USERTABLE_WIDTH}px`,
           width: `${USERTABLE_WIDTH}px`,
-          flex: "1",
-          overflow: "hidden",
+          flex: '1',
+          overflow: 'hidden',
         }}
       >
-        <Title title="사용자 목록" />
+        <Title title='사용자 목록' />
         <Stack
           sx={{
-            padding: "0 10px",
-            overflowY: "auto",
+            padding: '0 10px',
+            overflowY: 'auto',
           }}
         >
           <Table stickyHeader>
@@ -115,18 +106,18 @@ const UserTable = ({ handleOpenCreateUserDialog, users }) => {
       </Stack>
       <Stack
         sx={{
-          flexDirection: "row",
-          justifyContent: "flex-end",
-          gap: "10px",
-          padding: "10px",
+          flexDirection: 'row',
+          justifyContent: 'flex-end',
+          gap: '10px',
+          padding: '10px',
           borderTop: `1px solid ${palette.grey[100]}`,
         }}
       >
-        <Button variant="contained" onClick={handleOpenCreateUserDialog}>
+        <Button variant='contained' onClick={handleOpenCreateUserDialog}>
           유저 생성
         </Button>
         <Button
-          variant="outlined"
+          variant='outlined'
           onClick={handleClickDeleteUser}
           disabled={!selectedUser}
         >

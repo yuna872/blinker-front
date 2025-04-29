@@ -1,12 +1,8 @@
-import React from "react";
-import { Button, Stack, Typography } from "@mui/material";
-import { TextField } from "@components/TextField";
-import { useLogin } from "@apis/auth/useLogin";
-import { useForm } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
-import { useNavigate } from "react-router-dom";
-import { theme } from "@styles/theme";
-import { palette } from "@styles/palette";
+import { useLogin } from '@apis/auth/useLogin';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { theme } from '@styles/theme';
+import { palette } from '@styles/palette';
 
 const Login = () => {
   const {
@@ -16,8 +12,8 @@ const Login = () => {
     reset,
   } = useForm({
     defaultValues: {
-      userId: "",
-      password: "",
+      userId: '',
+      password: '',
     },
   });
   const { mutateAsync: login } = useLogin();
@@ -25,10 +21,10 @@ const Login = () => {
 
   const onSubmit = async (formData) => {
     await login(formData).then((data) => {
-      if (data.code === "SUCCESS") {
+      if (data.code === 'SUCCESS') {
         const user = data.response;
-        if (user.roles[0] === "ADMIN") navigate("/admin/monitoring");
-        else if (user.roles[0] === "USER") navigate("/monitoring");
+        if (user.roles[0] === 'ADMIN') navigate('/admin/monitoring');
+        else if (user.roles[0] === 'USER') navigate('/monitoring');
       } else {
         alert(data?.message);
         reset();
@@ -39,46 +35,46 @@ const Login = () => {
   return (
     <Stack
       sx={{
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-        backgroundColor: "#f9f9f9",
-        gap: "30px",
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+        backgroundColor: '#f9f9f9',
+        gap: '30px',
       }}
     >
       <Stack
-        component="form"
+        component='form'
         onSubmit={handleSubmit(onSubmit)}
         sx={{
-          width: "300px",
-          padding: "20px",
-          borderRadius: "8px",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-          alignItems: "center",
-          gap: "20px",
-          backgroundColor: "#fff",
+          width: '300px',
+          padding: '20px',
+          borderRadius: '8px',
+          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+          alignItems: 'center',
+          gap: '20px',
+          backgroundColor: '#fff',
         }}
       >
-        <Typography sx={{ fontSize: "24px", fontWeight: 600 }}>
+        <Typography sx={{ fontSize: '24px', fontWeight: 600 }}>
           로그인
         </Typography>
-        <Stack sx={{ gap: "10px", width: "100%" }}>
+        <Stack sx={{ gap: '10px', width: '100%' }}>
           <Stack>
             <Typography>아이디</Typography>
             <TextField
-              type="text"
-              name="userId"
-              {...register("userId", {
-                required: "아이디를 입력해주세요.",
+              type='text'
+              name='userId'
+              {...register('userId', {
+                required: '아이디를 입력해주세요.',
               })}
               error={!!errors.userId}
             />
             <ErrorMessage
               errors={errors}
-              name="userId"
+              name='userId'
               render={({ message }) => (
                 <Typography
-                  sx={{ fontSize: "11px", color: theme.palette.error.main }}
+                  sx={{ fontSize: '11px', color: theme.palette.error.main }}
                 >
                   {message}
                 </Typography>
@@ -88,38 +84,38 @@ const Login = () => {
           <Stack>
             <Typography>비밀번호</Typography>
             <TextField
-              type="password"
-              name="password"
-              {...register("password", {
-                required: "비밀번호를 입력해주세요.",
+              type='password'
+              name='password'
+              {...register('password', {
+                required: '비밀번호를 입력해주세요.',
               })}
               error={!!errors.password}
             />
           </Stack>
           <ErrorMessage
             errors={errors}
-            name="password"
+            name='password'
             render={({ message }) => (
               <Typography
-                sx={{ fontSize: "11px", color: theme.palette.error.main }}
+                sx={{ fontSize: '11px', color: theme.palette.error.main }}
               >
                 {message}
               </Typography>
             )}
           />
         </Stack>
-        <Button type="submit" variant="contained" sx={{ width: "100%" }}>
+        <Button type='submit' variant='contained' sx={{ width: '100%' }}>
           로그인
         </Button>
       </Stack>
       <Typography
         sx={{
-          cursor: "pointer",
-          textDecoration: "underline",
-          fontSize: "14px",
+          cursor: 'pointer',
+          textDecoration: 'underline',
+          fontSize: '14px',
           color: palette.grey[800],
         }}
-        onClick={() => navigate("/signup")}
+        onClick={() => navigate('/signup')}
       >
         회원가입
       </Typography>

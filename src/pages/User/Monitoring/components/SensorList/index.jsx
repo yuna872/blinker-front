@@ -1,44 +1,39 @@
-import { IconButton, Stack } from "@mui/material";
-import { Refresh, Star, Traffic } from "@mui/icons-material";
-import dayjs from "dayjs";
-import Title from "@components/Title";
-import { theme } from "@styles/theme";
-import { useState } from "react";
-import Legend from "./Legend";
-import { useDispatch, useSelector } from "react-redux";
-import { setSelectedSensorState } from "@store/selectedSensorSlice";
-import { setMapPosition } from "@store/mapPositionSlice";
-import { palette } from "@styles/palette";
-import SensorDetailsDialog from "@components/DetailsDialog";
+import dayjs from 'dayjs';
+import { theme } from '@styles/theme';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSelectedSensorState } from '@store/selectedSensorSlice';
+import { setMapPosition } from '@store/mapPositionSlice';
+import { palette } from '@styles/palette';
 
 const TableHeaderStyle = {
   backgroundColor: palette.grey[50],
   fontWeight: 600,
-  whiteSpace: "nowrap",
-  flexDirection: "row",
-  padding: "16px",
+  whiteSpace: 'nowrap',
+  flexDirection: 'row',
+  padding: '16px',
   borderBottom: `1px solid ${palette.grey[200]}`,
-  "& > .MuiStack-root": {
-    justifyContent: "center",
+  '& > .MuiStack-root': {
+    justifyContent: 'center',
     marginTop: 0,
-    fontSize: "14px",
-    paddingLeft: "5px",
+    fontSize: '14px',
+    paddingLeft: '5px',
   },
 };
 
 const TableRowStyle = {
-  cursor: "pointer",
-  "&:hover": {
+  cursor: 'pointer',
+  '&:hover': {
     backgroundColor: theme.palette.action.hover,
   },
-  flexDirection: "row",
-  padding: "16px",
-  alignItems: "center",
+  flexDirection: 'row',
+  padding: '16px',
+  alignItems: 'center',
   borderBottom: `1px solid ${palette.grey[200]}`,
-  backgroundColor: "white",
-  "& > .MuiStack-root": {
+  backgroundColor: 'white',
+  '& > .MuiStack-root': {
     marginTop: 0,
-    fontSize: "14px",
+    fontSize: '14px',
   },
 };
 
@@ -71,37 +66,36 @@ const SensorList = ({ sensorGroups, refetch }) => {
     refetch();
   };
 
-
   return (
     <Stack
       sx={{
         border: `1px solid ${palette.grey[300]}`,
-        overflow: "hidden",
-        maxWidth: "600px",
+        overflow: 'hidden',
+        maxWidth: '600px',
       }}
     >
-      <Title title="신호기 목록">
-        <Stack sx={{ flexDirection: "row", gap: "5px" }}>
+      <Title title='신호기 목록'>
+        <Stack sx={{ flexDirection: 'row', gap: '5px' }}>
           <Legend />
-          <IconButton color="primary" onClick={handleClickRefresh}>
+          <IconButton color='primary' onClick={handleClickRefresh}>
             <Refresh />
           </IconButton>
         </Stack>
       </Title>
       <Stack
         sx={{
-          margin: "10px",
+          margin: '10px',
           border: `1px solid ${palette.grey[200]}`,
         }}
       >
         {/* Header */}
         <Stack sx={TableHeaderStyle}>
-          <Stack sx={{ width: "30px", maxWidth: "30px" }}>id</Stack>
-          <Stack sx={{ width: "220px", maxWidth: "220px" }}>주소</Stack>
-          <Stack sx={{ width: "40px", maxWidth: "40px" }}></Stack>
-          <Stack sx={{ width: "40px", maxWidth: "40px" }}></Stack>
-          <Stack sx={{ width: "40px", maxWidth: "40px" }}></Stack>
-          <Stack sx={{ width: "180px", maxWidth: "180px" }}>수정일</Stack>
+          <Stack sx={{ width: '30px', maxWidth: '30px' }}>id</Stack>
+          <Stack sx={{ width: '220px', maxWidth: '220px' }}>주소</Stack>
+          <Stack sx={{ width: '40px', maxWidth: '40px' }}></Stack>
+          <Stack sx={{ width: '40px', maxWidth: '40px' }}></Stack>
+          <Stack sx={{ width: '40px', maxWidth: '40px' }}></Stack>
+          <Stack sx={{ width: '180px', maxWidth: '180px' }}>수정일</Stack>
           <Stack>상태</Stack>
         </Stack>
         {/* Body */}
@@ -116,18 +110,18 @@ const SensorList = ({ sensorGroups, refetch }) => {
                 <Stack
                   sx={{
                     ...TableRowStyle,
-                    "&:hover": {
-                      backgroundColor: "none",
+                    '&:hover': {
+                      backgroundColor: 'none',
                     },
                   }}
                 >
-                  <Stack sx={{ width: "30px", maxWidth: "30px" }}>
+                  <Stack sx={{ width: '30px', maxWidth: '30px' }}>
                     {group.order}
                   </Stack>
-                  <Stack sx={{ width: "220px", maxWidth: "220px" }}>
+                  <Stack sx={{ width: '220px', maxWidth: '220px' }}>
                     {group.sensorGroupId}
                   </Stack>
-                  <Stack>{`(SSID) ${group.ssid ?? "-"}`}</Stack>
+                  <Stack>{`(SSID) ${group.ssid ?? '-'}`}</Stack>
                 </Stack>
                 {group.sensors.map((sensor) => {
                   const selected = sensor.sensorId === selectedSensor?.sensorId;
@@ -137,53 +131,53 @@ const SensorList = ({ sensorGroups, refetch }) => {
                       key={sensor.sensorId}
                       sx={{
                         ...TableRowStyle,
-                        marginLeft: "15px",
+                        marginLeft: '15px',
                         backgroundColor: selected
                           ? theme.palette.action.selected
-                          : "white",
+                          : 'white',
                       }}
                       onClick={() => handleClickSensor(sensor)}
                     >
-                      <Stack sx={{ width: "30px", maxWidth: "30px" }}>
+                      <Stack sx={{ width: '30px', maxWidth: '30px' }}>
                         {group.order}-{sensor.groupPositionNumber}
                       </Stack>
                       <Stack
                         sx={{
-                          width: "220px",
-                          maxWidth: "220px",
-                          flexDirection: "row",
-                          alignItems: "center",
-                          gap: "5px",
+                          width: '220px',
+                          maxWidth: '220px',
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          gap: '5px',
                         }}
                       >
                         {!sensor.groupPositionNumber && (
                           <Star
-                            sx={{ width: "15px", color: palette.grey[700] }}
+                            sx={{ width: '15px', color: palette.grey[700] }}
                           />
                         )}
                         {sensor.address}
                       </Stack>
-                      <Stack sx={{ width: "40px", maxWidth: "40px" }}>
-                        <Circle color="#91ff35">{sensor.buttonCount}</Circle>
+                      <Stack sx={{ width: '40px', maxWidth: '40px' }}>
+                        <Circle color='#91ff35'>{sensor.buttonCount}</Circle>
                       </Stack>
-                      <Stack sx={{ width: "40px", maxWidth: "40px" }}>
-                        <Circle color="#33eaff">
+                      <Stack sx={{ width: '40px', maxWidth: '40px' }}>
+                        <Circle color='#33eaff'>
                           {sensor.positionGuideCount}
                         </Circle>
                       </Stack>
-                      <Stack sx={{ width: "40px", maxWidth: "40px" }}>
-                        <Circle color="#ffee33">
+                      <Stack sx={{ width: '40px', maxWidth: '40px' }}>
+                        <Circle color='#ffee33'>
                           {sensor.signalGuideCount}
                         </Circle>
                       </Stack>
-                      <Stack sx={{ width: "180px", maxWidth: "180px" }}>
-                        {dayjs(sensor.updatedAt).format("YYYY-MM-DD HH:mm:ss")}
+                      <Stack sx={{ width: '180px', maxWidth: '180px' }}>
+                        {dayjs(sensor.updatedAt).format('YYYY-MM-DD HH:mm:ss')}
                       </Stack>
-                      <Stack sx={{ width: "fit-content" }}>
+                      <Stack sx={{ width: 'fit-content' }}>
                         <Traffic
                           sx={{
                             color: sensor.needUpdate
-                              ? theme.palette.status["업데이트 필요"]
+                              ? theme.palette.status['업데이트 필요']
                               : `${theme.palette.status[sensor.status]}`,
                           }}
                           onClick={handleOpenDetailsDialog}
@@ -210,12 +204,12 @@ const Circle = ({ color, children }) => {
   return (
     <Stack
       sx={{
-        width: "25px",
-        height: "25px",
-        borderRadius: "100%",
+        width: '25px',
+        height: '25px',
+        borderRadius: '100%',
         backgroundColor: `${color}`,
-        justifyContent: "center",
-        alignItems: "center",
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
       {children}

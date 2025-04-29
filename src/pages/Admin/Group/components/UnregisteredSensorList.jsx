@@ -1,20 +1,12 @@
-import { useGetUnregisteredSensorGroups } from "@apis/sensor/useGetUnregisteredSensorGroups.";
+import { useGetUnregisteredSensorGroups } from '@apis/sensor/useGetUnregisteredSensorGroups.';
 import {
   TableHeaderStyle,
   TableRowStyle,
-} from "@pages/Admin/Sensors/components/SensorList";
-import Title from "@components/Title";
-import {
-  Stack,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-} from "@mui/material";
-import { resetSelectedSensor } from "@store/selectedSensorSlice";
-import { palette } from "@styles/palette";
-import { useDispatch } from "react-redux";
+} from '@pages/Admin/Sensors/components/SensorList';
+
+import { resetSelectedSensor } from '@store/selectedSensorSlice';
+import { palette } from '@styles/palette';
+import { useDispatch } from 'react-redux';
 
 const UnregisteredSensorList = ({
   unregisteredSensor,
@@ -32,22 +24,22 @@ const UnregisteredSensorList = ({
     <Stack
       sx={{
         borderLeft: `1px solid ${palette.grey[200]}`,
-        overflow: "hidden",
-        flex: "1",
+        overflow: 'hidden',
+        flex: '1',
       }}
     >
-      <Title title="미등록 센서 목록" />
+      <Title title='미등록 센서 목록' />
       <Stack
         sx={{
-          padding: "10px",
-          flex: "1",
-          overflowY: "auto",
+          padding: '10px',
+          flex: '1',
+          overflowY: 'auto',
         }}
       >
         <Table>
           <TableHead>
             <TableRow sx={TableHeaderStyle}>
-              <TableCell sx={{ width: "230px", maxWidth: "230px" }}>
+              <TableCell sx={{ width: '230px', maxWidth: '230px' }}>
                 ID
               </TableCell>
               <TableCell>주소</TableCell>
@@ -64,7 +56,7 @@ const UnregisteredSensorList = ({
                   onClick={() => handleClickUnregisteredSenor(sensor)}
                   selected={selected}
                 >
-                  <TableCell sx={{ width: "230px", maxWidth: "230px" }}>
+                  <TableCell sx={{ width: '230px', maxWidth: '230px' }}>
                     {sensor.sensorGroupId}
                   </TableCell>
                   <TableCell>{sensor?.address}</TableCell>

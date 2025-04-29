@@ -1,6 +1,6 @@
-const { ErrorMessage } = require("@hookform/error-message");
-const { Typography } = require("@mui/material");
-const { theme } = require("@styles/theme");
+const { ErrorMessage } = require('@hookform/error-message');
+const { Typography } = require('@mui/material');
+const { theme } = require('@styles/theme');
 
 const TextFieldErrorMessage = ({ errors = {}, name }) => {
   if (!errors || !name) return null;
@@ -10,7 +10,7 @@ const TextFieldErrorMessage = ({ errors = {}, name }) => {
       errors={errors}
       name={name}
       render={({ message }) => (
-        <Typography sx={{ fontSize: "11px", color: theme.palette.error.main }}>
+        <Typography sx={{ fontSize: '11px', color: theme.palette.error.main }}>
           {message}
         </Typography>
       )}

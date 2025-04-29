@@ -1,27 +1,19 @@
 import {
   TableHeaderStyle,
   TableRowStyle,
-} from "@pages/Admin/Sensors/components/SensorList";
-import Title from "@components/Title";
-import {
-  Stack,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-} from "@mui/material";
-import { palette } from "@styles/palette";
-import { FAULTS } from "constants";
-import { useSelector } from "react-redux";
+} from '@pages/Admin/Sensors/components/SensorList';
+
+import { palette } from '@styles/palette';
+import { FAULTS } from 'constants';
+import { useSelector } from 'react-redux';
 
 const FaultInfo = () => {
   const selectedSensor = useSelector((state) => state.selectedSensor);
 
   return (
     <Stack sx={{ borderRight: `1px solid ${palette.grey[50]}` }}>
-      <Title title="장애 정보" />
-      <Stack sx={{ padding: "10px" }}>
+      <Title title='장애 정보' />
+      <Stack sx={{ padding: '10px' }}>
         <Table>
           <TableHead>
             <TableRow sx={TableHeaderStyle}>
@@ -37,14 +29,14 @@ const FaultInfo = () => {
                   key={key}
                   sx={{
                     ...TableRowStyle,
-                    "& > .MuiTableCell-root": {
-                      padding: "8px 16px",
+                    '& > .MuiTableCell-root': {
+                      padding: '8px 16px',
                     },
                   }}
                 >
                   <TableCell>{FAULTS[key]}</TableCell>
                   <TableCell>
-                    {faulty === null ? "" : faulty ? "오류" : "정상"}
+                    {faulty === null ? '' : faulty ? '오류' : '정상'}
                   </TableCell>
                 </TableRow>
               );

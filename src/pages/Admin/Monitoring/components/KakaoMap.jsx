@@ -1,30 +1,16 @@
-import { GNB_HEIGHT } from "@layouts/Header";
-import { Button, IconButton, Stack, Typography } from "@mui/material";
-import { setMapPosition } from "@store/mapPositionSlice";
+import { GNB_HEIGHT } from '@layouts/Header';
+import { setMapPosition } from '@store/mapPositionSlice';
 import {
   resetSelectedSensor,
   setSelectedSensorState,
-} from "@store/selectedSensorSlice";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  Map,
-  MapMarker,
-  MapTypeId,
-  MarkerClusterer,
-  Roadview,
-  ZoomControl,
-} from "react-kakao-maps-sdk";
-import { ChevronRight, Close } from "@mui/icons-material";
+} from '@store/selectedSensorSlice';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import greenMarker from "@assets/images/marker-green.png";
-import greyMarker from "@assets/images/marker-grey.png";
-import redMarker from "@assets/images/marker-red.png";
-import yellowMarker from "@assets/images/marker-yellow.png";
-import Title from "@components/Title";
-import InfoWindow from "./InfoWindow";
-import AddressSearchBar from "@components/AddressSearchBar";
-import Legend from "@components/Legend";
+import greenMarker from '@assets/images/marker-green.png';
+import greyMarker from '@assets/images/marker-grey.png';
+import redMarker from '@assets/images/marker-red.png';
+import yellowMarker from '@assets/images/marker-yellow.png';
 
 const AdminKakaoMap = ({ sensors }) => {
   const [isActive, setIsActive] = useState(false);
@@ -54,12 +40,12 @@ const AdminKakaoMap = ({ sensors }) => {
   return (
     <Stack
       sx={{
-        flex: "1",
-        position: "relative",
+        flex: '1',
+        position: 'relative',
         maxHeight: `calc(100vh - ${GNB_HEIGHT}px)`,
       }}
     >
-      <Title title="지도보기">
+      <Title title='지도보기'>
         <AddressSearchBar map={map} />
       </Title>
       {isVisible ? (
@@ -69,7 +55,7 @@ const AdminKakaoMap = ({ sensors }) => {
             radius: 50,
           }}
           style={{
-            width: "100%",
+            width: '100%',
             height: `calc(100vh - ${GNB_HEIGHT}px)`,
           }}
         />
@@ -79,7 +65,7 @@ const AdminKakaoMap = ({ sensors }) => {
             center={mapPosition}
             level={6}
             style={{
-              width: "100%",
+              width: '100%',
               height: `calc(100vh - ${GNB_HEIGHT}px)`,
             }}
             isPanto={true}
@@ -112,7 +98,7 @@ const AdminKakaoMap = ({ sensors }) => {
                     );
                   }}
                   image={{
-                    src: "https://t1.daumcdn.net/localimg/localimages/07/2018/pc/roadview_minimap_wk_2018.png",
+                    src: 'https://t1.daumcdn.net/localimg/localimages/07/2018/pc/roadview_minimap_wk_2018.png',
                     size: { width: 26, height: 46 },
                     options: {
                       spriteSize: { width: 1666, height: 168 },
@@ -122,17 +108,17 @@ const AdminKakaoMap = ({ sensors }) => {
                   }}
                 >
                   <Stack
-                    flexDirection="row"
-                    sx={{ width: "152px", cursor: "pointer" }}
-                    justifyContent="space-between"
-                    alignItems="center"
+                    flexDirection='row'
+                    sx={{ width: '152px', cursor: 'pointer' }}
+                    justifyContent='space-between'
+                    alignItems='center'
                   >
                     <Stack
-                      flexDirection="row"
+                      flexDirection='row'
                       sx={{
-                        paddingLeft: "5px",
-                        ":hover": {
-                          borderBottom: "1px solid black",
+                        paddingLeft: '5px',
+                        ':hover': {
+                          borderBottom: '1px solid black',
                         },
                       }}
                       onClick={() => {
@@ -144,7 +130,7 @@ const AdminKakaoMap = ({ sensors }) => {
                     </Stack>
                     <IconButton
                       onClick={handleClickCloseInfoWindow}
-                      size="small"
+                      size='small'
                     >
                       <Close />
                     </IconButton>
@@ -166,11 +152,11 @@ const AdminKakaoMap = ({ sensors }) => {
                       image={{
                         src: sensor.needUpdate
                           ? yellowMarker
-                          : sensor.status === "정상"
-                          ? greenMarker
-                          : sensor.status === "오류"
-                          ? redMarker
-                          : greyMarker,
+                          : sensor.status === '정상'
+                            ? greenMarker
+                            : sensor.status === '오류'
+                              ? redMarker
+                              : greyMarker,
                         size: {
                           width: selected ? 35 : 30,
                           height: selected ? 35 : 30,
@@ -194,16 +180,16 @@ const AdminKakaoMap = ({ sensors }) => {
             if (!isActive) setIsActive(true);
             if (isVisible) setIsVisible(false);
           }}
-          variant="contained"
-          color="secondary"
+          variant='contained'
+          color='secondary'
           sx={{
-            position: "absolute",
-            top: "65px",
-            right: isVisible ? "10px" : "50px",
+            position: 'absolute',
+            top: '65px',
+            right: isVisible ? '10px' : '50px',
             zIndex: 2,
           }}
         >
-          {isActive ? "지도 보기" : "로드뷰 보기"}
+          {isActive ? '지도 보기' : '로드뷰 보기'}
         </Button>
       )}
     </Stack>

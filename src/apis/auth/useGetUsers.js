@@ -1,5 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
-import { axiosInstance } from "../axiosInstance";
+import { useQuery } from '@tanstack/react-query';
+import { axiosInstance } from '../axiosInstance';
 
 const getUsers = async () => {
   const { data } = await axiosInstance.get(`/auth/users`);
@@ -8,7 +8,7 @@ const getUsers = async () => {
 
 export const useGetUsers = () => {
   return useQuery({
-    queryKey: ["auth", "users"],
+    queryKey: ['auth', 'users'],
     queryFn: getUsers,
   });
 };

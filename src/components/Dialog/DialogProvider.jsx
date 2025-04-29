@@ -1,24 +1,21 @@
-import React from "react";
-
-import Dialog from "./Dialog";
-import { DialogContext } from "./DialogContext";
+import React from 'react';
 
 export const DialogProvider = ({ children }) => {
   const [isOpenDialog, setIsOpenDialog] = React.useState(false);
   const [dialogProps, setDialogProps] = React.useState({
-    title: "title",
-    description: "description",
-    variant: "confirm",
+    title: 'title',
+    description: 'description',
+    variant: 'confirm',
     primaryAction: {
-      name: "primary",
+      name: 'primary',
       onClick: () => {
-        console.log("primary action!");
+        console.log('primary action!');
       },
     },
     secondaryAction: {
-      name: "secondary",
+      name: 'secondary',
       onClick: () => {
-        console.log("secondary action!");
+        console.log('secondary action!');
       },
     },
   });

@@ -1,10 +1,6 @@
-import { Stack } from "@mui/material";
-import SensorInfo from "@pages/Admin/Monitoring/components/SensorInfo";
-import SensorList from "@pages/Admin/Monitoring/components/SensorList";
-import { USERTABLE_WIDTH } from "@pages/Admin/Monitoring/components/UserTable";
-import { useState } from "react";
-import { ChevronLeft, ChevronRight } from "@mui/icons-material";
-import { palette } from "@styles/palette";
+import { USERTABLE_WIDTH } from '@pages/Admin/Monitoring/components/UserTable';
+import { useState } from 'react';
+import { palette } from '@styles/palette';
 
 const SensorDrawer = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
   const [isOpen, setIsOpen] = useState(true);
@@ -16,16 +12,16 @@ const SensorDrawer = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
   return (
     <Stack
       sx={{
-        position: "absolute",
+        position: 'absolute',
         left: isOpen ? `${USERTABLE_WIDTH}px` : `${USERTABLE_WIDTH - 450}px`, // 상태에 따라 left 변경
-        width: "450px",
-        height: "100%",
-        backgroundColor: "white",
-        zIndex: "3",
-        transition: "left 0.3s ease",
+        width: '450px',
+        height: '100%',
+        backgroundColor: 'white',
+        zIndex: '3',
+        transition: 'left 0.3s ease',
       }}
     >
-      <Stack sx={{ width: "100%", height: "100%", position: "relative" }}>
+      <Stack sx={{ width: '100%', height: '100%', position: 'relative' }}>
         <SensorInfo />
         <SensorList
           sensorGroups={sensorGroups}
@@ -34,20 +30,20 @@ const SensorDrawer = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
         />
         <Stack
           sx={{
-            position: "absolute",
-            right: "-40px",
-            top: "50%",
-            transform: "translateY(-50%)",
-            backgroundColor: "white",
-            height: "60px",
-            borderRadius: "0 10px 10px 0",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "40px",
-            "& > svg": {
+            position: 'absolute',
+            right: '-40px',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            backgroundColor: 'white',
+            height: '60px',
+            borderRadius: '0 10px 10px 0',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '40px',
+            '& > svg': {
               color: palette.grey[600],
-              width: "32px",
-              height: "32px",
+              width: '32px',
+              height: '32px',
             },
           }}
           onClick={toggleOpenDrawer}

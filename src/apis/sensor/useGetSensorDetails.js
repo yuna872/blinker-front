@@ -1,5 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
-import { axiosInstance } from "../axiosInstance";
+import { useQuery } from '@tanstack/react-query';
+import { axiosInstance } from '../axiosInstance';
 
 const getSensorDetail = async (sensorId, appUserId) => {
   const { data } = await axiosInstance.get(
@@ -10,7 +10,7 @@ const getSensorDetail = async (sensorId, appUserId) => {
 
 export const useGetSensorDetail = (sensorId, appUserId) => {
   return useQuery({
-    queryKey: ["sensor", "detail", sensorId, appUserId],
+    queryKey: ['sensor', 'detail', sensorId, appUserId],
     queryFn: () => getSensorDetail(sensorId, appUserId),
   });
 };

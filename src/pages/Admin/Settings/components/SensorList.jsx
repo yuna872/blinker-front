@@ -1,15 +1,12 @@
-import { useGetUserSensorGroups } from "@apis/sensor/useGetUserSensorGroups";
+import { useGetUserSensorGroups } from '@apis/sensor/useGetUserSensorGroups';
 import {
   TableHeaderStyle,
   TableRowStyle,
-} from "@pages/Admin/Sensors/components/SensorList";
-import Title from "@components/Title";
-import { Star } from "@mui/icons-material";
-import { Stack } from "@mui/material";
-import { setSelectedSensorState } from "@store/selectedSensorSlice";
-import { palette } from "@styles/palette";
-import { theme } from "@styles/theme";
-import { useDispatch, useSelector } from "react-redux";
+} from '@pages/Admin/Sensors/components/SensorList';
+import { setSelectedSensorState } from '@store/selectedSensorSlice';
+import { palette } from '@styles/palette';
+import { theme } from '@styles/theme';
+import { useDispatch, useSelector } from 'react-redux';
 
 const SensorList = () => {
   const dispatch = useDispatch();
@@ -29,29 +26,29 @@ const SensorList = () => {
     <Stack
       sx={{
         borderRight: `1px solid ${palette.grey[200]}`,
-        height: "100%",
-        overflow: "hidden",
+        height: '100%',
+        overflow: 'hidden',
       }}
     >
-      <Title title="센서 목록" />
+      <Title title='센서 목록' />
       <Stack
         sx={{
-          margin: "10px",
+          margin: '10px',
           border: `1px solid ${palette.grey[200]}`,
-          overflow: "auto",
+          overflow: 'auto',
         }}
       >
         {/* Header */}
         <Stack sx={TableHeaderStyle}>
-          <Stack sx={{ width: "40px", maxWidth: "40px" }}>ID</Stack>
-          <Stack sx={{ width: "280px", maxWidth: "280px" }}>주소</Stack>
+          <Stack sx={{ width: '40px', maxWidth: '40px' }}>ID</Stack>
+          <Stack sx={{ width: '280px', maxWidth: '280px' }}>주소</Stack>
         </Stack>
         {/* Body */}
         {sensorGroups && (
           <Stack
             sx={{
               backgroundColor: palette.grey[300],
-              overflowY: "auto",
+              overflowY: 'auto',
             }}
           >
             {sensorGroups?.map((group) => {
@@ -60,18 +57,18 @@ const SensorList = () => {
                   <Stack
                     sx={{
                       ...TableRowStyle,
-                      "&:hover": {
-                        backgroundColor: "none",
+                      '&:hover': {
+                        backgroundColor: 'none',
                       },
                     }}
                   >
-                    <Stack sx={{ width: "30px", maxWidth: "30px" }}>
+                    <Stack sx={{ width: '30px', maxWidth: '30px' }}>
                       {group.order}
                     </Stack>
-                    <Stack sx={{ width: "210px", maxWidth: "210px" }}>
+                    <Stack sx={{ width: '210px', maxWidth: '210px' }}>
                       {group.sensorGroupId}
                     </Stack>
-                    <Stack>{`(SSID) ${group.ssid ?? "-"}`}</Stack>
+                    <Stack>{`(SSID) ${group.ssid ?? '-'}`}</Stack>
                   </Stack>
                   {group.sensors.map((sensor) => {
                     const selected =
@@ -82,29 +79,29 @@ const SensorList = () => {
                         key={sensor.sensorId}
                         sx={{
                           ...TableRowStyle,
-                          marginLeft: "15px",
+                          marginLeft: '15px',
                           backgroundColor: selected
                             ? theme.palette.action.selected
-                            : "white",
-                          flexDirection: "row",
+                            : 'white',
+                          flexDirection: 'row',
                         }}
                         onClick={() => handleClickSensor(sensor)}
                       >
-                        <Stack sx={{ width: "40px", maxWidth: "40px" }}>
+                        <Stack sx={{ width: '40px', maxWidth: '40px' }}>
                           {group.order}-{sensor.groupPositionNumber}
                         </Stack>
                         <Stack
                           sx={{
-                            width: "280px",
-                            maxWidth: "280px",
-                            flexDirection: "row",
-                            alignItems: "center",
-                            gap: "5px",
+                            width: '280px',
+                            maxWidth: '280px',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            gap: '5px',
                           }}
                         >
                           {!sensor.groupPositionNumber && (
                             <Star
-                              sx={{ width: "15px", color: palette.grey[700] }}
+                              sx={{ width: '15px', color: palette.grey[700] }}
                             />
                           )}
                           {sensor.address}

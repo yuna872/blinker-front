@@ -1,26 +1,23 @@
-import { usePutUser } from "@apis/auth/usePutUser";
-import { TextField } from "@components/TextField";
-import Title from "@components/Title";
-import { Button, Stack, Typography } from "@mui/material";
-import { setSelectedUser } from "@store/selectedUserSlice";
-import { palette } from "@styles/palette";
-import { showToast } from "@utils/toast";
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { usePutUser } from '@apis/auth/usePutUser';
+import { setSelectedUser } from '@store/selectedUserSlice';
+import { palette } from '@styles/palette';
+import { showToast } from '@utils/toast';
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 
 const UserInfo = () => {
   const fieldStyle = {
-    flexDirection: "row",
-    gap: "10px",
-    alignItems: "center",
-    padding: "0 15px",
+    flexDirection: 'row',
+    gap: '10px',
+    alignItems: 'center',
+    padding: '0 15px',
   };
 
   const labelStyle = {
-    minWidth: "70px",
-    width: "70px",
-    fontSize: "14px",
+    minWidth: '70px',
+    width: '70px',
+    fontSize: '14px',
   };
 
   const selectedUser = useSelector((state) => state.selectedUser);
@@ -28,8 +25,8 @@ const UserInfo = () => {
 
   const { handleSubmit, register, reset } = useForm({
     defaultValues: {
-      userId: "",
-      username: "",
+      userId: '',
+      username: '',
     },
   });
 
@@ -48,10 +45,10 @@ const UserInfo = () => {
       const { appUserId } = selectedUser;
       try {
         await putUser({ appUserId, formData }).then((data) => {
-          if (data.code === "SUCCESS") {
-            showToast.success("수정 되었습니다.");
+          if (data.code === 'SUCCESS') {
+            showToast.success('수정 되었습니다.');
             dispatch(setSelectedUser({ appUserId, ...formData }));
-          } else if (data.code === "DIALOGUE") {
+          } else if (data.code === 'DIALOGUE') {
             showToast.error(data?.message);
           }
         });
@@ -66,21 +63,21 @@ const UserInfo = () => {
       sx={{
         borderRight: `1px solid ${palette.grey[200]}`,
       }}
-      component="form"
+      component='form'
       onSubmit={handleSubmit(onSubmit)}
     >
-      <Title title="사용자 정보" />
-      <Stack sx={{ gap: "10px", padding: "10px" }}>
+      <Title title='사용자 정보' />
+      <Stack sx={{ gap: '10px', padding: '10px' }}>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>ID</Typography>
-          <TextField fullWidth {...register("userId")} />
+          <TextField fullWidth {...register('userId')} />
         </Stack>
         <Stack sx={fieldStyle}>
           <Typography sx={labelStyle}>이름</Typography>
-          <TextField fullWidth {...register("username")} />
+          <TextField fullWidth {...register('username')} />
         </Stack>
       </Stack>
-      <Button variant="outlined" sx={{ margin: "15px" }} type="submit">
+      <Button variant='outlined' sx={{ margin: '15px' }} type='submit'>
         저장
       </Button>
     </Stack>

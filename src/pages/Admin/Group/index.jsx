@@ -1,18 +1,11 @@
-import { Stack, IconButton } from "@mui/material";
-import { ArrowForward, ArrowBack } from "@mui/icons-material";
-import UserTable from "@pages/Admin/Group/components/UserTable";
-import { GNB_HEIGHT } from "@layouts/Header";
-import UserInfo from "@pages/Admin/Group/components/UserInfo";
-import SensorList from "@pages/Admin/Group/components/SensorList";
-import UnregisteredSensorList from "@pages/Admin/Group/components/UnregisteredSensorList";
-import { theme } from "@styles/theme";
-import { useState } from "react";
-import CreateUserDialog from "@pages/Admin/Group/components/CreateUserDialog";
-import { useGetUsers } from "@apis/auth/useGetUsers";
-import { usePostSensorGroupToUser } from "@apis/app-user/usePostSensorGroupToUser";
-import { useDeleteSensorGroupFromUser } from "@apis/app-user/useDeleteSensorGroupFromUser";
-import { showToast } from "@utils/toast";
-import { useSelector } from "react-redux";
+import { GNB_HEIGHT } from '@layouts/Header';
+import { theme } from '@styles/theme';
+import { useState } from 'react';
+import { useGetUsers } from '@apis/auth/useGetUsers';
+import { usePostSensorGroupToUser } from '@apis/app-user/usePostSensorGroupToUser';
+import { useDeleteSensorGroupFromUser } from '@apis/app-user/useDeleteSensorGroupFromUser';
+import { showToast } from '@utils/toast';
+import { useSelector } from 'react-redux';
 
 const Group = () => {
   const [openCreateUserDialog, setOpenCreateUserDialog] = useState(false);
@@ -30,17 +23,17 @@ const Group = () => {
     useDeleteSensorGroupFromUser();
 
   const handleClickArrowForward = async () => {
-    if (!selectedUser) showToast.error("유저를 선택해주세요.");
+    if (!selectedUser) showToast.error('유저를 선택해주세요.');
     else if (!selectedSensor)
-      showToast.error("등록을 해제할 센서를 선택해주세요.");
+      showToast.error('등록을 해제할 센서를 선택해주세요.');
     else {
       try {
         await deleteSensorGroupFromUser({
           appUserId: selectedUser.appUserId,
           sensorGroupId: selectedSensor.sensorGroupId,
         }).then((data) => {
-          if (data.code === "SUCCESS") {
-            showToast.success("등록 해제되었습니다.");
+          if (data.code === 'SUCCESS') {
+            showToast.success('등록 해제되었습니다.');
           }
         });
       } catch (error) {
@@ -50,17 +43,17 @@ const Group = () => {
   };
 
   const handleClickArrowBack = async () => {
-    if (!selectedUser) showToast.error("유저를 선택해주세요.");
+    if (!selectedUser) showToast.error('유저를 선택해주세요.');
     else if (!unregisteredSensor)
-      showToast.error("등록할 센서를 선택해주세요.");
+      showToast.error('등록할 센서를 선택해주세요.');
     else {
       try {
         await postSensorGroupToUser({
           appUserId: selectedUser.appUserId,
           sensorGroupId: unregisteredSensor.sensorGroupId,
         }).then((data) => {
-          if (data.code === "SUCCESS") {
-            showToast.success("등록되었습니다.");
+          if (data.code === 'SUCCESS') {
+            showToast.success('등록되었습니다.');
           }
         });
       } catch (error) {
@@ -71,7 +64,7 @@ const Group = () => {
 
   return (
     <Stack
-      sx={{ flexDirection: "row", height: `calc(100vh - ${GNB_HEIGHT}px)` }}
+      sx={{ flexDirection: 'row', height: `calc(100vh - ${GNB_HEIGHT}px)` }}
     >
       <UserTable
         users={users}
@@ -83,21 +76,21 @@ const Group = () => {
       </Stack>
       <Stack
         sx={{
-          alignItems: "center",
-          gap: "15px",
-          padding: "10px",
-          justifyContent: "center",
+          alignItems: 'center',
+          gap: '15px',
+          padding: '10px',
+          justifyContent: 'center',
         }}
       >
         <IconButton
-          color="primary"
+          color='primary'
           onClick={handleClickArrowForward}
           sx={{ backgroundColor: theme.palette.secondary.main }}
         >
           <ArrowForward />
         </IconButton>
         <IconButton
-          color="primary"
+          color='primary'
           onClick={handleClickArrowBack}
           sx={{ backgroundColor: theme.palette.secondary.main }}
         >

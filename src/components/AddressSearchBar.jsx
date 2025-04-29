@@ -1,12 +1,9 @@
-import { TextField } from "@components/TextField";
-import { Search } from "@mui/icons-material";
-import { InputAdornment } from "@mui/material";
-import { setMapPosition } from "@store/mapPositionSlice";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { setMapPosition } from '@store/mapPositionSlice';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 const AddressSearchBar = ({ map }) => {
-  const [address, setAddress] = useState("");
+  const [address, setAddress] = useState('');
   const [marker, setMarker] = useState(null);
   const dispatch = useDispatch();
 
@@ -58,11 +55,11 @@ const AddressSearchBar = ({ map }) => {
         input: {
           startAdornment: (
             <InputAdornment
-              position="start"
-              sx={{ cursor: "pointer" }}
+              position='start'
+              sx={{ cursor: 'pointer' }}
               onClick={handleSubmitAddress}
             >
-              <Search sx={{ width: "18px", height: "18px" }} />
+              <Search sx={{ width: '18px', height: '18px' }} />
             </InputAdornment>
           ),
         },

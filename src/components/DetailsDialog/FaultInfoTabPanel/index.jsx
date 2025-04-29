@@ -1,12 +1,5 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-} from "@mui/material";
-import { FAULTS } from "constants";
-import { useSelector } from "react-redux";
+import { FAULTS } from 'constants';
+import { useSelector } from 'react-redux';
 
 const FaultInfoTabPanel = () => {
   const faultInformation = useSelector(
@@ -26,7 +19,7 @@ const FaultInfoTabPanel = () => {
           return (
             <TableRow key={key}>
               <TableCell>{FAULTS[key]}</TableCell>
-              <TableCell>{value ? "오류" : "정상"}</TableCell>
+              <TableCell>{value ? '오류' : '정상'}</TableCell>
             </TableRow>
           );
         })}

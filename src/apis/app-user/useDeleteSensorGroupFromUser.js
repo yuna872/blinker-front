@@ -1,5 +1,5 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { axiosInstance } from "../axiosInstance";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { axiosInstance } from '../axiosInstance';
 
 const deleteSensorGroupFromUser = async ({ appUserId, sensorGroupId }) => {
   const response = await axiosInstance.delete(
@@ -13,7 +13,7 @@ export const useDeleteSensorGroupFromUser = () => {
   return useMutation({
     mutationFn: deleteSensorGroupFromUser,
     onSuccess: (data) => {
-      queryClient.invalidateQueries(["sensor", "groups", "unregistered"]);
+      queryClient.invalidateQueries(['sensor', 'groups', 'unregistered']);
     },
   });
 };

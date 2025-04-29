@@ -1,13 +1,8 @@
-import { Stack } from "@mui/material";
-import UserTable from "@pages/Admin/Monitoring/components/UserTable";
-
-import { GNB_HEIGHT } from "@layouts/Header";
-import SensorDrawer from "@pages/Admin/Sensors/components/SensorDrawer";
-import { useState } from "react";
-import { useGetUsers } from "@apis/auth/useGetUsers";
-import { useGetUserSensorGroups } from "@apis/sensor/useGetUserSensorGroups";
-import { useSelector } from "react-redux";
-import SensorsKakaoMap from "@pages/Admin/Sensors/components/KakaoMap";
+import { GNB_HEIGHT } from '@layouts/Header';
+import { useState } from 'react';
+import { useGetUsers } from '@apis/auth/useGetUsers';
+import { useGetUserSensorGroups } from '@apis/sensor/useGetUserSensorGroups';
+import { useSelector } from 'react-redux';
 
 const Sensors = () => {
   const [selectedSensor, setSelectedSensor] = useState();
@@ -23,16 +18,16 @@ const Sensors = () => {
   return (
     <Stack
       sx={{
-        flexDirection: "row",
-        position: "relative",
-        overflow: "hidden",
+        flexDirection: 'row',
+        position: 'relative',
+        overflow: 'hidden',
         height: `calc(100vh - ${GNB_HEIGHT}px)`,
       }}
     >
       <Stack
         sx={{
-          zIndex: "4",
-          backgroundColor: "white",
+          zIndex: '4',
+          backgroundColor: 'white',
         }}
       >
         <UserTable users={users} />

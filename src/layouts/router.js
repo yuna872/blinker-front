@@ -1,19 +1,9 @@
-import { createBrowserRouter } from "react-router-dom";
-import Login from "@pages/Auth/Login";
-import Signup from "@pages/Auth/Signup";
-import Monitoring from "@pages/User/Monitoring";
-import AdminMonitoring from "@pages/Admin/Monitoring";
-import Sensors from "@pages/Admin/Sensors";
-import Settings from "@pages/Admin/Settings";
-import Group from "@pages/Admin/Group";
-import PasswordChange from "@pages/Auth/PasswordChange";
-import Layouts from "./Layouts";
-import RedirectByRole from "./RedirectByRole";
+import { createBrowserRouter } from 'react-router-dom';
 
 const router = createBrowserRouter(
   [
     {
-      path: "/",
+      path: '/',
       element: <Layouts />,
       children: [
         {
@@ -21,39 +11,39 @@ const router = createBrowserRouter(
           element: <RedirectByRole />,
         },
         {
-          path: "login",
+          path: 'login',
           element: <Login />,
         },
         {
-          path: "signup",
+          path: 'signup',
           element: <Signup />,
         },
         {
-          path: "password-change",
+          path: 'password-change',
           element: <PasswordChange />,
         },
         {
-          path: "monitoring",
+          path: 'monitoring',
           element: <Monitoring />,
         },
         {
-          path: "admin",
+          path: 'admin',
           children: [
             {
-              path: "monitoring",
+              path: 'monitoring',
               element: <AdminMonitoring />,
             },
             {
-              path: "sensors",
+              path: 'sensors',
               element: <Sensors />,
             },
 
             {
-              path: "settings",
+              path: 'settings',
               element: <Settings />,
             },
             {
-              path: "group",
+              path: 'group',
               element: <Group />,
             },
           ],

@@ -1,5 +1,5 @@
-import { createTheme } from "@mui/material/styles";
-import { palette } from "./palette";
+import { createTheme } from '@mui/material/styles';
+import { palette } from './palette';
 
 export const theme = createTheme({
   palette: palette,
@@ -7,8 +7,8 @@ export const theme = createTheme({
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          "&.Mui-error .MuiOutlinedInput-notchedOutline": {
-            borderColor: "#FF3C3C",
+          '&.Mui-error .MuiOutlinedInput-notchedOutline': {
+            borderColor: '#FF3C3C',
           },
         },
       },
@@ -16,7 +16,7 @@ export const theme = createTheme({
     MuiTableRow: {
       styleOverrides: {
         root: {
-          "&:hover": {
+          '&:hover': {
             backgroundColor: palette.action.hover,
           },
         },
@@ -25,11 +25,11 @@ export const theme = createTheme({
     MuiTableCell: {
       defaultProps: {},
       styleOverrides: {
-        root: { color: palette.grey[900], fontSize: "14px" },
+        root: { color: palette.grey[900], fontSize: '14px' },
         head: {
           backgroundColor: palette.grey[50],
-          fontWeight: "600",
-          padding: "14px",
+          fontWeight: '600',
+          padding: '14px',
         },
         body: {
           borderBottom: `1px solid ${palette.grey[100]}`,
@@ -39,20 +39,20 @@ export const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: "5px",
-          fontSize: "14px",
+          borderRadius: '5px',
+          fontSize: '14px',
         },
       },
       variants: [
         {
-          props: { variant: "red" },
+          props: { variant: 'red' },
           style: {
             backgroundColor: palette.red.main,
             color: palette.common.white,
           },
         },
         {
-          props: { variant: "grey" },
+          props: { variant: 'grey' },
           style: {
             backgroundColor: palette.grey[50],
             border: `1px solid ${palette.grey[100]}`,
@@ -60,12 +60,12 @@ export const theme = createTheme({
           },
         },
         {
-          props: { size: "xSmall" },
+          props: { size: 'xSmall' },
           style: {
-            padding: "0 16px",
-            height: "38px",
-            fontSize: "14px",
-            width: "fit-content",
+            padding: '0 16px',
+            height: '38px',
+            fontSize: '14px',
+            width: 'fit-content',
           },
         },
       ],

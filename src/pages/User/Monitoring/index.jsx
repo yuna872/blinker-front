@@ -1,12 +1,6 @@
-import React from "react";
-import { GNB_HEIGHT } from "@layouts/Header";
-import { Stack } from "@mui/material";
+import { GNB_HEIGHT } from '@layouts/Header';
 
-import { useGetSensorGroups } from "@apis/sensor/useGetSensorGroups";
-
-import Loading from "@components/Loading";
-import SensorList from "./components/SensorList";
-import KakaoMap from "./components/KakaoMap";
+import { useGetSensorGroups } from '@apis/sensor/useGetSensorGroups';
 
 const Monitoring = () => {
   const { data: sensorGroups, isLoading, refetch } = useGetSensorGroups();
@@ -16,7 +10,7 @@ const Monitoring = () => {
 
   return (
     <Stack
-      sx={{ flexDirection: "row", height: `calc(100vh - ${GNB_HEIGHT}px)` }}
+      sx={{ flexDirection: 'row', height: `calc(100vh - ${GNB_HEIGHT}px)` }}
     >
       {/* 신호기 목록 */}
       <SensorList sensorGroups={sensorGroups} refetch={refetch} />

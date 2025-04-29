@@ -1,22 +1,17 @@
-import { Button, Stack, Typography } from "@mui/material";
-import SignalSettingsForm from "@pages/Admin/Settings/components/SignalSettingsForm";
-import DefaultSettings from "@pages/Admin/Settings/components/DefaultSettings";
-import Title from "@components/Title";
-import { TextField } from "@components/TextField";
-import { useSelector } from "react-redux";
-import { FormProvider, useForm } from "react-hook-form";
-import { DEVICE_SETTINGS } from "constants";
-import { useEffect } from "react";
-import { usePutSensor } from "@apis/sensor/usePutSensor";
-import { showToast } from "@utils/toast";
-import { palette } from "@styles/palette";
+import { useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
+import { DEVICE_SETTINGS } from 'constants';
+import { useEffect } from 'react';
+import { usePutSensor } from '@apis/sensor/usePutSensor';
+import { showToast } from '@utils/toast';
+import { palette } from '@styles/palette';
 
 const SensorDetails = () => {
   const selectedSensor = useSelector((state) => state.selectedSensor);
 
   const methods = useForm({
     defaultValues: {
-      deviceNumber: "",
+      deviceNumber: '',
       deviceId: 0,
       positionSignalStrength: 0,
       positionSignalThreshold: 0,
@@ -37,7 +32,7 @@ const SensorDetails = () => {
       communicationInterval: 0,
       swVersion: 0,
       hwVersion: 0,
-      groupKey: "",
+      groupKey: '',
       sensorCount: 0,
       groupPositionNumber: 0,
       deviceSettings: Object.fromEntries(
@@ -91,9 +86,9 @@ const SensorDetails = () => {
       const { sensorGroupId } = selectedSensor;
       try {
         await putSensor({ sensorGroupId, formData }).then((data) => {
-          if (data.code === "SUCCESS") {
+          if (data.code === 'SUCCESS') {
             showToast.success(
-              "설정이 완료되었습니다. 반영되기까지는 시간이 소요될 수 있습니다."
+              '설정이 완료되었습니다. 반영되기까지는 시간이 소요될 수 있습니다.'
             );
           }
         });
@@ -106,33 +101,33 @@ const SensorDetails = () => {
   return (
     <FormProvider {...methods}>
       <Stack
-        component="form"
+        component='form'
         onSubmit={methods.handleSubmit(onSubmit)}
-        sx={{ flex: "1" }}
+        sx={{ flex: '1' }}
       >
-        <Title title="센서 상세 정보" />
-        <Stack sx={{ overflow: "hidden" }}>
+        <Title title='센서 상세 정보' />
+        <Stack sx={{ overflow: 'hidden' }}>
           <Stack
             sx={{
-              padding: "15px",
-              gap: "15px",
+              padding: '15px',
+              gap: '15px',
               backgroundColor: palette.grey[100],
-              "& > .MuiStack-root": {
-                flexDirection: "row",
-                gap: "10px",
-                alignItems: "center",
-                "& > p": {
-                  fontSize: "14px",
+              '& > .MuiStack-root': {
+                flexDirection: 'row',
+                gap: '10px',
+                alignItems: 'center',
+                '& > p': {
+                  fontSize: '14px',
                 },
               },
             }}
           >
             <Stack>
-              <Typography sx={{ width: "50px" }}>ID</Typography>
+              <Typography sx={{ width: '50px' }}>ID</Typography>
               <Typography>{selectedSensor?.sensorGroupId}</Typography>
             </Stack>
             <Stack>
-              <Typography sx={{ width: "50px" }}>주소</Typography>
+              <Typography sx={{ width: '50px' }}>주소</Typography>
               <TextField
                 fullWidth
                 slotProps={{
@@ -140,15 +135,15 @@ const SensorDetails = () => {
                     readOnly: true,
                   },
                 }}
-                value={selectedSensor?.address || ""}
+                value={selectedSensor?.address || ''}
               />
             </Stack>
           </Stack>
           <Stack
             sx={{
-              gap: "15px",
-              flex: "1",
-              overflowY: "auto",
+              gap: '15px',
+              flex: '1',
+              overflowY: 'auto',
             }}
           >
             {/* 신호기 설정 */}
@@ -157,8 +152,8 @@ const SensorDetails = () => {
             <DefaultSettings />
           </Stack>
         </Stack>
-        <Stack sx={{ backgroundColor: "white", padding: "15px" }}>
-          <Button variant="outlined" type="submit" disabled={!selectedSensor}>
+        <Stack sx={{ backgroundColor: 'white', padding: '15px' }}>
+          <Button variant='outlined' type='submit' disabled={!selectedSensor}>
             저장
           </Button>
         </Stack>

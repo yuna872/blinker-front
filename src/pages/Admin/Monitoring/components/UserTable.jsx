@@ -1,20 +1,12 @@
 import {
   TableHeaderStyle,
   TableRowStyle,
-} from "@pages/Admin/Sensors/components/SensorList";
-import Title from "@components/Title";
-import {
-  Stack,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-} from "@mui/material";
-import { setSelectedSensorState } from "@store/selectedSensorSlice";
-import { setSelectedUser } from "@store/selectedUserSlice";
-import { palette } from "@styles/palette";
-import { useDispatch, useSelector } from "react-redux";
+} from '@pages/Admin/Sensors/components/SensorList';
+
+import { setSelectedSensorState } from '@store/selectedSensorSlice';
+import { setSelectedUser } from '@store/selectedUserSlice';
+import { palette } from '@styles/palette';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const USERTABLE_WIDTH = 300;
 
@@ -33,14 +25,14 @@ const UserTable = ({ users }) => {
         maxWidth: `${USERTABLE_WIDTH}px`,
         width: `${USERTABLE_WIDTH}px`,
         borderRight: `1px solid ${palette.grey[50]}`,
-        overflow: "hidden",
+        overflow: 'hidden',
       }}
     >
-      <Title title="사용자 목록" />
+      <Title title='사용자 목록' />
       <Stack
         sx={{
-          padding: "10px",
-          overflow: "auto",
+          padding: '10px',
+          overflow: 'auto',
         }}
       >
         <Table>

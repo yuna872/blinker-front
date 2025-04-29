@@ -1,9 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = { lat: 37.2803, lng: 127.0181 };
 
 export const mapPositionSlice = createSlice({
-  name: "mapPosition",
+  name: 'mapPosition',
   initialState,
   reducers: {
     setMapPosition: (_, action) => {

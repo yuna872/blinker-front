@@ -1,5 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
-import { axiosInstance } from "../axiosInstance";
+import { useQuery } from '@tanstack/react-query';
+import { axiosInstance } from '../axiosInstance';
 
 const getUserSensorGroups = async (appUserId, onlyFaulty = false) => {
   const { data } = await axiosInstance.get(
@@ -10,7 +10,7 @@ const getUserSensorGroups = async (appUserId, onlyFaulty = false) => {
 
 export const useGetUserSensorGroups = (appUserId, onlyFaulty) => {
   return useQuery({
-    queryKey: ["user", "sensor", "groups", `${appUserId}`, `${onlyFaulty}`],
+    queryKey: ['user', 'sensor', 'groups', `${appUserId}`, `${onlyFaulty}`],
     queryFn: () => getUserSensorGroups(appUserId, onlyFaulty),
     enabled: !!appUserId,
   });

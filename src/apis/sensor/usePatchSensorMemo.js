@@ -1,5 +1,5 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { axiosInstance } from "../axiosInstance";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { axiosInstance } from '../axiosInstance';
 
 const patchSensorMemo = async ({ sensorId, appUserId, memo }) => {
   const response = await axiosInstance.patch(
@@ -16,7 +16,7 @@ export const usePatchSensorMemo = (sensorId, appUserId) => {
   return useMutation({
     mutationFn: patchSensorMemo,
     onSuccess: () => {
-      queryClient.invalidateQueries(["sensor", "detail", sensorId, appUserId]);
+      queryClient.invalidateQueries(['sensor', 'detail', sensorId, appUserId]);
     },
   });
 };

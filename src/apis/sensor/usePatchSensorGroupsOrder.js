@@ -1,5 +1,5 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { axiosInstance } from "../axiosInstance";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { axiosInstance } from '../axiosInstance';
 
 const patchSensorGroupsOrder = async ({ sensorGroupIds }) => {
   const response = await axiosInstance.patch(`/sensor/groups/order`, {
@@ -13,7 +13,7 @@ export const usePatchSensorGroupsOrder = () => {
   return useMutation({
     mutationFn: patchSensorGroupsOrder,
     onSuccess: () => {
-      queryClient.invalidateQueries(["sensor", "groups"]);
+      queryClient.invalidateQueries(['sensor', 'groups']);
     },
   });
 };

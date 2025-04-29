@@ -1,5 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
-import { axiosInstance } from "../axiosInstance";
+import { useQuery } from '@tanstack/react-query';
+import { axiosInstance } from '../axiosInstance';
 
 const getSensorLogs = async (sensorId, year, month, day) => {
   const params = {};
@@ -16,7 +16,7 @@ const getSensorLogs = async (sensorId, year, month, day) => {
 
 export const useGetSensorLogs = (sensorId, year, month, day) => {
   return useQuery({
-    queryKey: ["sensor", "logs", sensorId, year, month, day],
+    queryKey: ['sensor', 'logs', sensorId, year, month, day],
     queryFn: () => getSensorLogs(sensorId, year, month, day),
   });
 };

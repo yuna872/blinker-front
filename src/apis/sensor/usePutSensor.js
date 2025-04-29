@@ -1,5 +1,5 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { axiosInstance } from "../axiosInstance";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { axiosInstance } from '../axiosInstance';
 
 const putSensor = async ({ sensorGroupId, formData }) => {
   const response = await axiosInstance.put(
@@ -14,7 +14,7 @@ export const usePutSensor = () => {
   return useMutation({
     mutationFn: putSensor,
     onSuccess: () => {
-      queryClient.invalidateQueries(["sensor", "groups"]);
+      queryClient.invalidateQueries(['sensor', 'groups']);
     },
   });
 };

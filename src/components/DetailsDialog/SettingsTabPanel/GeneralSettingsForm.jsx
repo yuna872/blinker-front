@@ -1,24 +1,18 @@
 import {
   FormControlLabelStyle,
   RadioGroupStyle,
-} from "@pages/Admin/Settings/components/DefaultSettings";
-import {
-  FormControlLabel,
-  Radio,
-  RadioGroup,
-  Stack,
-  Typography,
-} from "@mui/material";
-import { palette } from "@styles/palette";
-import { theme } from "@styles/theme";
-import { Controller, useFormContext } from "react-hook-form";
+} from '@pages/Admin/Settings/components/DefaultSettings';
+
+import { palette } from '@styles/palette';
+import { theme } from '@styles/theme';
+import { useFormContext } from 'react-hook-form';
 
 export const FormTitle = ({ title }) => {
   return (
     <Typography
       sx={{
-        padding: "10px",
-        fontSize: "14px",
+        padding: '10px',
+        fontSize: '14px',
         fontWeight: 600,
         color: palette.grey[900],
       }}
@@ -33,143 +27,143 @@ const GeneralSettingsForm = () => {
 
   return (
     <Stack
-      sx={{ border: `1px solid ${palette.grey[300]}`, height: "fit-content" }}
+      sx={{ border: `1px solid ${palette.grey[300]}`, height: 'fit-content' }}
     >
-      <FormTitle title="기본 설정" />
+      <FormTitle title='기본 설정' />
       <Stack
         sx={{
-          "& .MuiFormGroup-root": {
-            "& .MuiFormControlLabel-root": {
-              marginLeft: "0",
-              paddingY: "5px",
+          '& .MuiFormGroup-root': {
+            '& .MuiFormControlLabel-root': {
+              marginLeft: '0',
+              paddingY: '5px',
             },
-            "&:nth-of-type(odd)": {
+            '&:nth-of-type(odd)': {
               backgroundColor: theme.palette.action.hover,
             },
           },
         }}
       >
         <Controller
-          name="deviceSettings.Gender"
+          name='deviceSettings.Gender'
           control={control}
           render={({ field }) => (
             <RadioGroup {...field} sx={RadioGroupStyle}>
               <FormControlLabel
-                value="Female"
-                control={<Radio size="small" />}
-                label="여자"
+                value='Female'
+                control={<Radio size='small' />}
+                label='여자'
                 sx={FormControlLabelStyle}
               />
               <FormControlLabel
-                value="Male"
-                control={<Radio size="small" />}
-                label="남자"
+                value='Male'
+                control={<Radio size='small' />}
+                label='남자'
                 sx={FormControlLabelStyle}
               />
             </RadioGroup>
           )}
         />
         <Controller
-          name="deviceSettings.Sound"
+          name='deviceSettings.Sound'
           control={control}
           render={({ field }) => (
             <RadioGroup {...field} sx={RadioGroupStyle}>
               <FormControlLabel
-                value="Bird"
-                control={<Radio size="small" />}
-                label="새"
+                value='Bird'
+                control={<Radio size='small' />}
+                label='새'
                 sx={FormControlLabelStyle}
               />
               <FormControlLabel
-                value="Cricket"
-                control={<Radio size="small" />}
-                label="귀뚜라미"
+                value='Cricket'
+                control={<Radio size='small' />}
+                label='귀뚜라미'
                 sx={FormControlLabelStyle}
               />
             </RadioGroup>
           )}
         />
         <Controller
-          name="deviceSettings.Crossroad"
+          name='deviceSettings.Crossroad'
           control={control}
           render={({ field }) => (
             <RadioGroup {...field} sx={RadioGroupStyle}>
               <FormControlLabel
-                value="Intersection"
-                control={<Radio size="small" />}
-                label="교차로"
+                value='Intersection'
+                control={<Radio size='small' />}
+                label='교차로'
                 sx={FormControlLabelStyle}
               />
               <FormControlLabel
-                value="Single Road"
-                control={<Radio size="small" />}
-                label="단일로"
+                value='Single Road'
+                control={<Radio size='small' />}
+                label='단일로'
                 sx={FormControlLabelStyle}
               />
             </RadioGroup>
           )}
         />
         <Controller
-          name="deviceSettings.Proximity"
+          name='deviceSettings.Proximity'
           control={control}
           render={({ field }) => (
             <RadioGroup {...field} sx={RadioGroupStyle}>
               <FormControlLabel
-                value="Single Proximity"
-                control={<Radio size="small" />}
-                label="동일지주"
+                value='Single Proximity'
+                control={<Radio size='small' />}
+                label='동일지주'
                 sx={FormControlLabelStyle}
               />
               <FormControlLabel
-                value="Close Proximity"
-                control={<Radio size="small" />}
-                label="근접지주"
+                value='Close Proximity'
+                control={<Radio size='small' />}
+                label='근접지주'
                 sx={FormControlLabelStyle}
               />
               <FormControlLabel
-                value="General Proximity"
-                control={<Radio size="small" />}
-                label="일반지주"
+                value='General Proximity'
+                control={<Radio size='small' />}
+                label='일반지주'
                 sx={FormControlLabelStyle}
               />
             </RadioGroup>
           )}
         />
         <Controller
-          name="deviceSettings.Configuration"
+          name='deviceSettings.Configuration'
           control={control}
           render={({ field }) => (
             <RadioGroup {...field} sx={RadioGroupStyle}>
               <FormControlLabel
-                value="Configured"
-                control={<Radio size="small" />}
-                label="설정"
+                value='Configured'
+                control={<Radio size='small' />}
+                label='설정'
                 sx={FormControlLabelStyle}
               />
               <FormControlLabel
-                value="Not Configured"
-                control={<Radio size="small" />}
-                label="미설정"
+                value='Not Configured'
+                control={<Radio size='small' />}
+                label='미설정'
                 sx={FormControlLabelStyle}
               />
             </RadioGroup>
           )}
         />
         <Controller
-          name="deviceSettings.Priority"
+          name='deviceSettings.Priority'
           control={control}
           render={({ field }) => (
             <RadioGroup {...field} sx={RadioGroupStyle}>
               <FormControlLabel
-                value="Female Priority Broadcast"
-                control={<Radio size="small" />}
-                label="여자 우선 방송"
+                value='Female Priority Broadcast'
+                control={<Radio size='small' />}
+                label='여자 우선 방송'
                 sx={FormControlLabelStyle}
               />
               <FormControlLabel
-                value="Male Priority Broadcast"
-                control={<Radio size="small" />}
-                label="남자 우선 방송"
+                value='Male Priority Broadcast'
+                control={<Radio size='small' />}
+                label='남자 우선 방송'
                 sx={FormControlLabelStyle}
               />
             </RadioGroup>

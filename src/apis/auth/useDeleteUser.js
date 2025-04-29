@@ -1,5 +1,5 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { axiosInstance } from "../axiosInstance";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { axiosInstance } from '../axiosInstance';
 
 const deleteUser = async (appUserId) => {
   const response = await axiosInstance.delete(`/auth/user/${appUserId}`);
@@ -11,7 +11,7 @@ export const useDeleteUser = () => {
   return useMutation({
     mutationFn: deleteUser,
     onSuccess: (data) => {
-      queryClient.invalidateQueries(["auth", "users"]);
+      queryClient.invalidateQueries(['auth', 'users']);
     },
   });
 };

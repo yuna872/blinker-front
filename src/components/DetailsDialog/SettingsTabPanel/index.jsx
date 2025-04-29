@@ -1,20 +1,16 @@
-import { Button, Stack } from "@mui/material";
-import GeneralSettingsForm from "./GeneralSettingsForm";
-import SensorSettingsForm from "./SensorSettingsForm";
-import SoundSettingsForm from "./SoundSettingsForm";
-import { FormProvider, useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
-import { DEVICE_SETTINGS } from "constants";
-import { useEffect } from "react";
-import { usePutSensor } from "@apis/sensor/usePutSensor";
-import { showToast } from "@utils/toast";
+import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
+import { DEVICE_SETTINGS } from 'constants';
+import { useEffect } from 'react';
+import { usePutSensor } from '@apis/sensor/usePutSensor';
+import { showToast } from '@utils/toast';
 
 const SettingsTabPanel = () => {
   const selectedSensor = useSelector((state) => state.selectedSensor);
 
   const methods = useForm({
     defaultValues: {
-      deviceNumber: "",
+      deviceNumber: '',
       deviceId: 0,
       positionSignalStrength: 0,
       positionSignalThreshold: 0,
@@ -35,7 +31,7 @@ const SettingsTabPanel = () => {
       communicationInterval: 0,
       swVersion: 0,
       hwVersion: 0,
-      groupKey: "",
+      groupKey: '',
       sensorCount: 0,
       groupPositionNumber: 0,
       deviceSettings: Object.fromEntries(
@@ -89,9 +85,9 @@ const SettingsTabPanel = () => {
       const { sensorGroupId } = selectedSensor;
       try {
         await putSensor({ sensorGroupId, formData }).then((data) => {
-          if (data.code === "SUCCESS") {
+          if (data.code === 'SUCCESS') {
             showToast.success(
-              "설정이 완료되었습니다. 반영되기까지는 시간이 소요될 수 있습니다."
+              '설정이 완료되었습니다. 반영되기까지는 시간이 소요될 수 있습니다.'
             );
           }
         });
@@ -104,19 +100,19 @@ const SettingsTabPanel = () => {
   return (
     <FormProvider {...methods}>
       <Stack
-        component="form"
+        component='form'
         onSubmit={methods.handleSubmit(onSubmit)}
         sx={{
-          gap: "20px",
-          height: "100%",
-          overflow: "hidden",
+          gap: '20px',
+          height: '100%',
+          overflow: 'hidden',
         }}
       >
         <Stack
           sx={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            overflow: "auto",
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            overflow: 'auto',
           }}
         >
           <GeneralSettingsForm />
@@ -124,9 +120,9 @@ const SettingsTabPanel = () => {
           <SoundSettingsForm />
         </Stack>
         <Stack
-          sx={{ flexDirection: "row", justifyContent: "center", gap: "20px" }}
+          sx={{ flexDirection: 'row', justifyContent: 'center', gap: '20px' }}
         >
-          <Button type="submit" variant="contained">
+          <Button type='submit' variant='contained'>
             설정 저장하기
           </Button>
         </Stack>
