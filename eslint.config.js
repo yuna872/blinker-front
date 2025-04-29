@@ -1,58 +1,49 @@
+import * as tanstackQuery from '@tanstack/eslint-plugin-query';
+import prettierPlugin from 'eslint-plugin-prettier';
 import reactHooks from 'eslint-plugin-react-hooks';
-import reactRefresh from 'eslint-plugin-react-refresh';
-import prettier from 'eslint-plugin-prettier';
-import react from 'eslint-plugin-react';
-import jsxA11y from 'eslint-plugin-jsx-a11y';
-import importPlugin from 'eslint-plugin-import';
+import unusedImports from 'eslint-plugin-unused-imports';
+import globals from 'globals';
 
 export default {
-  ignores: ['dist'],
   files: ['**/*.{js,jsx}'],
+  ignores: ['dist', 'craco.config.js', '.eslintrc.json'],
   languageOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
-    globals: {
-      React: 'readonly',
-    },
     parserOptions: {
-      ecmaVersion: 'latest',
-      sourceType: 'module',
       ecmaFeatures: {
         jsx: true,
       },
     },
-  },
-  settings: {
-    react: {
-      version: '18',
-      runtime: 'automatic',
-    },
-    'import/resolver': {
-      node: {
-        extensions: ['.js', '.jsx', '.css'],
-      },
-    },
+    globals: globals.browser,
   },
   plugins: {
     'react-hooks': reactHooks,
-    'react-refresh': reactRefresh,
-    prettier: prettier,
-    react: react,
-    'jsx-a11y': jsxA11y,
-    import: importPlugin,
+    prettier: prettierPlugin,
+    'unused-imports': unusedImports,
+    '@tanstack/query': tanstackQuery,
   },
   rules: {
-    ...reactHooks.configs.recommended.rules,
-    'react/react-in-jsx-scope': 'off',
-    'prettier/prettier': 'error',
-    'arrow-body-style': 'off',
-    'prefer-arrow-callback': 'off',
-    'react/jsx-no-target-blank': 'off',
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
+    'react-hooks/rules-of-hooks': 'error',
+    // React Refresh 권장 규칙
+
+    // Prettier 규칙
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'lf',
+        singleQuote: true,
+        semi: true,
+      },
     ],
-    'no-unused-vars': 'warn',
-    eqeqeq: ['error', 'always'],
+
+    // Unused imports 관련 규칙
+    'unused-imports/no-unused-imports': 'error',
+    'no-multiple-empty-lines': 'error',
+  },
+  settings: {
+    react: {
+      version: 'detect',
+    },
   },
 };
