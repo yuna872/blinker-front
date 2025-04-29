@@ -34,7 +34,8 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "lint": "eslint 'src/**/*.{js,jsx}' --max-warnings=0"
+    "lint": "eslint 'src/**/*.{js,jsx}' --max-warnings=0",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -67,6 +68,7 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
+    "husky": "^9.1.7",
     "prettier": "^3.5.3",
     "webpack": "^5.97.1",
     "webpack-cli": "^6.0.1"
