@@ -13,7 +13,7 @@ export default {
     ecmaVersion: 'latest',
     sourceType: 'module',
     globals: {
-      React: 'readonly', 
+      React: 'readonly',
     },
     parserOptions: {
       ecmaVersion: 'latest',
@@ -55,14 +55,6 @@ export default {
       { allowConstantExport: true },
     ],
     'no-unused-vars': 'off',
-    '@typescript-eslint/no-unused-vars': [
-      'warn',
-      {
-        varsIgnorePattern: '^_',
-        argsIgnorePattern: '^_',
-        ignoreRestSiblings: true,
-      },
-    ],
     eqeqeq: ['error', 'always'],
   },
 };
