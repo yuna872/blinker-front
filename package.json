@@ -38,12 +38,9 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "**/*.{js,jsx}": "eslint"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
+    "**/*.{js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
     ]
   },
   "browserslist": {
