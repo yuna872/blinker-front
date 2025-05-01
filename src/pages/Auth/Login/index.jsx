@@ -7,6 +7,7 @@ import { ErrorMessage } from "@hookform/error-message";
 import { useNavigate } from "react-router-dom";
 import { theme } from "@styles/theme";
 import { palette } from "@styles/palette";
+import { showToast } from "@utils/toast";
 
 const Login = () => {
   const {
@@ -30,7 +31,7 @@ const Login = () => {
         if (user.roles[0] === "ADMIN") navigate("/admin/monitoring");
         else if (user.roles[0] === "USER") navigate("/monitoring");
       } else {
-        alert(data?.message);
+        showToast.error(data?.message);
         reset();
       }
     });
