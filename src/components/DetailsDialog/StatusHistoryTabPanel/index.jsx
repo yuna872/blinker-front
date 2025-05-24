@@ -177,22 +177,22 @@ const StatusHistoryTabPanel = () => {
                         <TableCell>{log.signalGuideCount}</TableCell>
                         <TableCell>
                           {log.faultInformation["User Button Fault"]
-                            ? "오류"
+                            ? "점검"
                             : "정상"}
                         </TableCell>
                         <TableCell>
                           {log.faultInformation["Signal Light Residual Fault"]
-                            ? "오류"
+                            ? "점검"
                             : "정상"}
                         </TableCell>
                         <TableCell>
                           {log.faultInformation["235.3MHz Receiver Fault"]
-                            ? "오류"
+                            ? "점검"
                             : "정상"}
                         </TableCell>
                         <TableCell>
                           {log.faultInformation["358.5MHz Receiver Fault"]
-                            ? "오류"
+                            ? "점검"
                             : "정상"}
                         </TableCell>
                       </TableRow>
