@@ -1,7 +1,7 @@
 import { GNB_HEIGHT } from "@layouts/Header";
 import { Button, IconButton, Stack, Typography } from "@mui/material";
 import { setMapPosition } from "@store/mapPositionSlice";
-import { setSelectedSensorState } from "@store/selectedSensorSlice";
+import { resetSelectedSensor, setSelectedSensorState } from "@store/selectedSensorSlice";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -81,6 +81,16 @@ const KakaoMap = ({ sensors }) => {
             }}
             isPanto={true}
             onCreate={setMap}
+            onClick={(_, mouseEvent) => {
+              const latlng = mouseEvent.latLng;
+              dispatch(resetSelectedSensor());
+              dispatch(
+                setMapPosition({
+                  lat: latlng.getLat(),
+                  lng: latlng.getLng(),
+                })
+              );
+            }}
           >
             <ZoomControl />
             {/* 동동이 */}
@@ -155,13 +165,13 @@ const KakaoMap = ({ sensors }) => {
                           src: sensor.needUpdate
                             ? yellowMarker
                             : sensor.status === "정상"
-                            ? greenMarker
-                            : sensor.status === "오류"
-                            ? redMarker
-                            : greyMarker,
+                              ? greenMarker
+                              : sensor.status === "오류"
+                                ? redMarker
+                                : greyMarker,
                           size: {
-                            width: selected ? 35 : 30,
-                            height: selected ? 35 : 30,
+                            width: selected ? 40 : 30,
+                            height: selected ? 40 : 30,
                           },
                         }}
                         onClick={() => handleClickMarker(sensor)}

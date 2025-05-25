@@ -44,7 +44,7 @@ const FaultInfo = () => {
                 >
                   <TableCell>{FAULTS[key]}</TableCell>
                   <TableCell>
-                    {faulty === null ? "" : faulty ? "오류" : "정상"}
+                    {faulty === null ? "" : faulty ? "점검" : "정상"}
                   </TableCell>
                 </TableRow>
               );

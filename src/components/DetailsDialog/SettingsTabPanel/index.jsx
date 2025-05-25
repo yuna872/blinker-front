@@ -8,6 +8,8 @@ import { DEVICE_SETTINGS } from "constants";
 import { useEffect } from "react";
 import { usePutSensor } from "@apis/sensor/usePutSensor";
 import { showToast } from "@utils/toast";
+import { usePutSensorLog } from "@apis/sensor/usePutSensorLog";
+import { usePostSensorLog } from "@apis/sensor/usePostSensorLog";
 
 const SettingsTabPanel = () => {
   const selectedSensor = useSelector((state) => state.selectedSensor);
@@ -101,6 +103,36 @@ const SettingsTabPanel = () => {
     }
   };
 
+  const { mutateAsync: postSensorLog } = usePostSensorLog();
+  const handleClickPostLog = async () => {
+    if (!selectedSensor) return;
+    const { sensorGroupId } = selectedSensor;
+    try {
+      await postSensorLog({ sensorGroupId }).then((data) => {
+        if (data.code === "SUCCESS") {
+          showToast.success("처리되었습니다.");
+        }
+      });
+    } catch (error) {
+      showToast.error(error?.response?.data?.message);
+    }
+  };
+
+  const { mutateAsync: putSensorLog } = usePutSensorLog();
+  const handleClickGCommand = async () => {
+    if (!selectedSensor) return;
+    const { sensorGroupId } = selectedSensor;
+    try {
+      await putSensorLog({ sensorGroupId }).then((data) => {
+        if (data.code === "SUCCESS") {
+          showToast.success("처리되었습니다.");
+        }
+      });
+    } catch (error) {
+      showToast.error(error?.response?.data?.message);
+    }
+  };
+
   return (
     <FormProvider {...methods}>
       <Stack
@@ -126,6 +158,12 @@ const SettingsTabPanel = () => {
         <Stack
           sx={{ flexDirection: "row", justifyContent: "center", gap: "20px" }}
         >
+          <Button variant="contained" onClick={handleClickPostLog}>
+            로그 수집
+          </Button>
+          <Button variant="contained" onClick={handleClickGCommand}>
+            G명령
+          </Button>
           <Button type="submit" variant="contained">
             설정 저장하기
           </Button>

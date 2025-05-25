@@ -172,8 +172,8 @@ const AdminKakaoMap = ({ sensors }) => {
                           ? redMarker
                           : greyMarker,
                         size: {
-                          width: selected ? 35 : 30,
-                          height: selected ? 35 : 30,
+                          width: selected ? 40 : 30,
+                          height: selected ? 40 : 30,
                         },
                       }}
                       onClick={() => handleClickMarker(sensor)}

@@ -26,7 +26,7 @@ const FaultInfoTabPanel = () => {
           return (
             <TableRow key={key}>
               <TableCell>{FAULTS[key]}</TableCell>
-              <TableCell>{value ? "오류" : "정상"}</TableCell>
+              <TableCell>{value ? "점검" : "정상"}</TableCell>
             </TableRow>
           );
         })}

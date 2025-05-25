@@ -1,7 +1,7 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { theme } from "@styles/theme";
 
-export const STATUS = ["정상", "오류", "업데이트 필요", "미접속"];
+export const STATUS = ["정상", "점검", "업데이트 필요", "미접속"];
 
 const Legend = () => {
   return (
