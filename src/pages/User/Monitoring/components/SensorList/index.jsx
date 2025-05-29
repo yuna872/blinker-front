@@ -71,7 +71,6 @@ const SensorList = ({ sensorGroups, refetch }) => {
     refetch();
   };
 
-
   return (
     <Stack
       sx={{
@@ -92,6 +91,7 @@ const SensorList = ({ sensorGroups, refetch }) => {
         sx={{
           margin: "10px",
           border: `1px solid ${palette.grey[200]}`,
+          overflow: "hidden",
         }}
       >
         {/* Header */}
@@ -108,6 +108,7 @@ const SensorList = ({ sensorGroups, refetch }) => {
         <Stack
           sx={{
             backgroundColor: palette.grey[300],
+            overflow: "auto",
           }}
         >
           {sensorGroups?.map((group) => {

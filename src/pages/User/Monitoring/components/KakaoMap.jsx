@@ -170,8 +170,8 @@ const KakaoMap = ({ sensors }) => {
                                 ? redMarker
                                 : greyMarker,
                           size: {
-                            width: selected ? 40 : 30,
-                            height: selected ? 40 : 30,
+                            width: selected ? 50 : 30,
+                            height: selected ? 50 : 30,
                           },
                         }}
                         onClick={() => handleClickMarker(sensor)}

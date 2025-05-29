@@ -167,13 +167,13 @@ const AdminKakaoMap = ({ sensors }) => {
                         src: sensor.needUpdate
                           ? yellowMarker
                           : sensor.status === "정상"
-                          ? greenMarker
-                          : sensor.status === "오류"
-                          ? redMarker
-                          : greyMarker,
+                            ? greenMarker
+                            : sensor.status === "오류"
+                              ? redMarker
+                              : greyMarker,
                         size: {
-                          width: selected ? 40 : 30,
-                          height: selected ? 40 : 30,
+                          width: selected ? 70 : 40,
+                          height: selected ? 70 : 40,
                         },
                       }}
                       onClick={() => handleClickMarker(sensor)}

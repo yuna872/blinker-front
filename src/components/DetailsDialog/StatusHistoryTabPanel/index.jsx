@@ -73,6 +73,8 @@ const StatusHistoryTabPanel = () => {
     day
   );
 
+  console.log(logs)
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ko">
       <Stack sx={{ height: "100%" }}>
