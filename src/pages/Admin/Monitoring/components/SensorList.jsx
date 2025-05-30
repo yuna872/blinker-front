@@ -1,11 +1,19 @@
+import { useRefreshSensorGroup } from "@apis/sensor/useRefreshSensorGroup";
 import SensorDetailsDialog from "@components/DetailsDialog";
 import Title from "@components/Title";
-import { Star, Traffic } from "@mui/icons-material";
-import { Stack, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { useDialog } from "@hooks/useDialog";
+import { Cached, Star, Traffic } from "@mui/icons-material";
+import {
+  IconButton,
+  Stack,
+  ToggleButton,
+  ToggleButtonGroup,
+} from "@mui/material";
 import { setMapPosition } from "@store/mapPositionSlice";
 import { setSelectedSensorState } from "@store/selectedSensorSlice";
 import { palette } from "@styles/palette";
 import { theme } from "@styles/theme";
+import { showToast } from "@utils/toast";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -42,6 +50,7 @@ const TableRowStyle = {
 
 const SensorList = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
   const dispatch = useDispatch();
+  const { openDialog } = useDialog();
   const selectedSensor = useSelector((state) => state.selectedSensor);
 
   const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
@@ -70,6 +79,29 @@ const SensorList = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
       );
     }
     setOnlyFaulty(false);
+  };
+
+  const { mutateAsync : refreshSensorGroup } = useRefreshSensorGroup();
+  const handleClickRefreshSensorGroup = (id) => {
+    openDialog({
+      title: "센서 그룹 초기화",
+      description: `수행 시 센서 목록을 초기화 하며 기존 목록은 복구되지 않습니다.`,
+      variant: "alert",
+      primaryAction: {
+        name: "확인",
+        onClick: () => {
+          refreshSensorGroup(id).then((res) => {
+            showToast.success(
+              "초기화 되었습니다. 반영되기까지는 시간이 소요될 수 있습니다."
+            );
+          });
+        },
+      },
+      secondaryAction: {
+        name: "취소",
+        onClick: () => {},
+      },
+    });
   };
 
   return (
@@ -144,7 +176,21 @@ const SensorList = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
                       <Stack sx={{ width: "210px", maxWidth: "210px" }}>
                         {group.sensorGroupId}
                       </Stack>
-                      <Stack>{`(SSID) ${group.ssid ?? "-"}`}</Stack>
+                      <Stack
+                        flex={1}
+                        direction="row"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        {`(SSID) ${group.ssid ?? "-"}`}
+                        <IconButton
+                          onClick={() =>
+                            handleClickRefreshSensorGroup(group.sensorGroupId)
+                          }
+                        >
+                          <Cached />
+                        </IconButton>
+                      </Stack>
                     </Stack>
                     {group.sensors.map((sensor) => {
                       const selected =

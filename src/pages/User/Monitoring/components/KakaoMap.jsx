@@ -1,7 +1,10 @@
 import { GNB_HEIGHT } from "@layouts/Header";
 import { Button, IconButton, Stack, Typography } from "@mui/material";
 import { setMapPosition } from "@store/mapPositionSlice";
-import { resetSelectedSensor, setSelectedSensorState } from "@store/selectedSensorSlice";
+import {
+  resetSelectedSensor,
+  setSelectedSensorState,
+} from "@store/selectedSensorSlice";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -15,7 +18,6 @@ import {
 import { ChevronRight, Close } from "@mui/icons-material";
 
 import greenMarker from "@assets/images/marker-green.png";
-import greyMarker from "@assets/images/marker-grey.png";
 import redMarker from "@assets/images/marker-red.png";
 import yellowMarker from "@assets/images/marker-yellow.png";
 import Title from "@components/Title";
@@ -166,9 +168,7 @@ const KakaoMap = ({ sensors }) => {
                             ? yellowMarker
                             : sensor.status === "정상"
                               ? greenMarker
-                              : sensor.status === "오류"
-                                ? redMarker
-                                : greyMarker,
+                              : redMarker,
                           size: {
                             width: selected ? 70 : 40,
                             height: selected ? 70 : 40,

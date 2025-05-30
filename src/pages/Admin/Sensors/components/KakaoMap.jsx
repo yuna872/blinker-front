@@ -18,7 +18,6 @@ import {
 import { ChevronRight, Close } from "@mui/icons-material";
 
 import greenMarker from "@assets/images/marker-green.png";
-import greyMarker from "@assets/images/marker-grey.png";
 import redMarker from "@assets/images/marker-red.png";
 import yellowMarker from "@assets/images/marker-yellow.png";
 import Title from "@components/Title";
@@ -230,10 +229,8 @@ const SensorsKakaoMap = ({ sensors }) => {
                       src: selectedSensor.needUpdate
                         ? yellowMarker
                         : selectedSensor.status === "정상"
-                        ? greenMarker
-                        : selectedSensor.status === "오류"
-                        ? redMarker
-                        : greyMarker,
+                          ? greenMarker
+                          : redMarker,
                       size: {
                         width: 35,
                         height: 35,
