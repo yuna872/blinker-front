@@ -3,7 +3,7 @@ import { Refresh, Star, Traffic } from "@mui/icons-material";
 import dayjs from "dayjs";
 import Title from "@components/Title";
 import { theme } from "@styles/theme";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Legend from "./Legend";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedSensorState } from "@store/selectedSensorSlice";
@@ -44,6 +44,7 @@ const TableRowStyle = {
 
 const SensorList = ({ sensorGroups, refetch }) => {
   const dispatch = useDispatch();
+  const sensorRefs = useRef({});
   const selectedSensor = useSelector((state) => state.selectedSensor);
   const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
 
@@ -70,6 +71,15 @@ const SensorList = ({ sensorGroups, refetch }) => {
   const handleClickRefresh = () => {
     refetch();
   };
+
+  useEffect(() => {
+    if (selectedSensor && sensorRefs.current[selectedSensor.sensorId]) {
+      sensorRefs.current[selectedSensor.sensorId].scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  }, [selectedSensor]);
 
   return (
     <Stack
@@ -136,6 +146,9 @@ const SensorList = ({ sensorGroups, refetch }) => {
                     <Stack
                       spacing={1}
                       key={sensor.sensorId}
+                      ref={(el) => {
+                        if (el) sensorRefs.current[sensor.sensorId] = el;
+                      }}
                       sx={{
                         ...TableRowStyle,
                         marginLeft: "15px",

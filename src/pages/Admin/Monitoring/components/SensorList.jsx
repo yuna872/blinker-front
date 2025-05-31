@@ -14,7 +14,7 @@ import { setSelectedSensorState } from "@store/selectedSensorSlice";
 import { palette } from "@styles/palette";
 import { theme } from "@styles/theme";
 import { showToast } from "@utils/toast";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const TableHeaderStyle = {
@@ -50,6 +50,8 @@ const TableRowStyle = {
 
 const SensorList = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
   const dispatch = useDispatch();
+  const sensorRefs = useRef({});
+
   const { openDialog } = useDialog();
   const selectedSensor = useSelector((state) => state.selectedSensor);
 
@@ -81,7 +83,7 @@ const SensorList = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
     setOnlyFaulty(false);
   };
 
-  const { mutateAsync : refreshSensorGroup } = useRefreshSensorGroup();
+  const { mutateAsync: refreshSensorGroup } = useRefreshSensorGroup();
   const handleClickRefreshSensorGroup = (id) => {
     openDialog({
       title: "센서 그룹 초기화",
@@ -103,6 +105,15 @@ const SensorList = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
       },
     });
   };
+
+  useEffect(() => {
+    if (selectedSensor && sensorRefs.current[selectedSensor.sensorId]) {
+      sensorRefs.current[selectedSensor.sensorId].scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  }, [selectedSensor]);
 
   return (
     <Stack sx={{ height: "100%" }}>
@@ -199,6 +210,9 @@ const SensorList = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
                         <Stack
                           spacing={1}
                           key={sensor.sensorId}
+                          ref={(el) => {
+                            if (el) sensorRefs.current[sensor.sensorId] = el;
+                          }}
                           sx={{
                             ...TableRowStyle,
                             marginLeft: "15px",
