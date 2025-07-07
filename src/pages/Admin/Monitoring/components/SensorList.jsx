@@ -1,9 +1,12 @@
+import { usePostSensorLog } from "@apis/sensor/usePostSensorLog";
+import { usePutSensorLog } from "@apis/sensor/usePutSensorLog";
 import { useRefreshSensorGroup } from "@apis/sensor/useRefreshSensorGroup";
 import SensorDetailsDialog from "@components/DetailsDialog";
 import Title from "@components/Title";
 import { useDialog } from "@hooks/useDialog";
 import { Cached, Star, Traffic } from "@mui/icons-material";
 import {
+  Button,
   IconButton,
   Stack,
   ToggleButton,
@@ -106,6 +109,32 @@ const SensorList = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
     });
   };
 
+  const { mutateAsync: postSensorLog } = usePostSensorLog();
+  const handleClickPostLog = async (sensorGroupId) => {
+    try {
+      await postSensorLog({ sensorGroupId }).then((data) => {
+        if (data.code === "SUCCESS") {
+          showToast.success("처리되었습니다.");
+        }
+      });
+    } catch (error) {
+      showToast.error(error?.response?.data?.message);
+    }
+  };
+
+  const { mutateAsync: putSensorLog } = usePutSensorLog();
+  const handleClickGCommand = async (sensorGroupId) => {
+    try {
+      await putSensorLog({ sensorGroupId }).then((data) => {
+        if (data.code === "SUCCESS") {
+          showToast.success("처리되었습니다.");
+        }
+      });
+    } catch (error) {
+      showToast.error(error?.response?.data?.message);
+    }
+  };
+
   useEffect(() => {
     if (selectedSensor && sensorRefs.current[selectedSensor.sensorId]) {
       sensorRefs.current[selectedSensor.sensorId].scrollIntoView({
@@ -193,7 +222,22 @@ const SensorList = ({ onlyFaulty, setOnlyFaulty, sensorGroups }) => {
                         justifyContent="space-between"
                         alignItems="center"
                       >
-                        {`(SSID) ${group.ssid ?? "-"}`}
+                        <Button
+                          onClick={() =>
+                            handleClickGCommand(group.sensorGroupId)
+                          }
+                          size="small"
+                        >
+                          G
+                        </Button>
+                        <Button
+                          onClick={() =>
+                            handleClickPostLog(group.sensorGroupId)
+                          }
+                          size="small"
+                        >
+                          로그수집
+                        </Button>
                         <IconButton
                           onClick={() =>
                             handleClickRefreshSensorGroup(group.sensorGroupId)

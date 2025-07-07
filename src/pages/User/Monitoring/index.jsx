@@ -12,7 +12,12 @@ const Monitoring = () => {
   const { data: sensorGroups, isLoading, refetch } = useGetSensorGroups();
 
   if (isLoading) return <Loading />;
-  const sensors = sensorGroups.flatMap((v) => v.sensors);
+  const sensors = sensorGroups.flatMap((group) =>
+    group.sensors.map((sensor) => ({
+      ...sensor,
+      groupOrder: group.order, // 또는 원하는 이름
+    }))
+  );
 
   return (
     <Stack

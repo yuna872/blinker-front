@@ -1,4 +1,4 @@
-import { IconButton, Stack } from "@mui/material";
+import { Button, IconButton, Stack } from "@mui/material";
 import { Refresh, Star, Traffic } from "@mui/icons-material";
 import dayjs from "dayjs";
 import Title from "@components/Title";
@@ -10,6 +10,9 @@ import { setSelectedSensorState } from "@store/selectedSensorSlice";
 import { setMapPosition } from "@store/mapPositionSlice";
 import { palette } from "@styles/palette";
 import SensorDetailsDialog from "@components/DetailsDialog";
+import { showToast } from "@utils/toast";
+import { usePostSensorLog } from "@apis/sensor/usePostSensorLog";
+import { usePutSensorLog } from "@apis/sensor/usePutSensorLog";
 
 const TableHeaderStyle = {
   backgroundColor: palette.grey[50],
@@ -70,6 +73,32 @@ const SensorList = ({ sensorGroups, refetch }) => {
 
   const handleClickRefresh = () => {
     refetch();
+  };
+
+  const { mutateAsync: postSensorLog } = usePostSensorLog();
+  const handleClickPostLog = async (sensorGroupId) => {
+    try {
+      await postSensorLog({ sensorGroupId }).then((data) => {
+        if (data.code === "SUCCESS") {
+          showToast.success("처리되었습니다.");
+        }
+      });
+    } catch (error) {
+      showToast.error(error?.response?.data?.message);
+    }
+  };
+
+  const { mutateAsync: putSensorLog } = usePutSensorLog();
+  const handleClickGCommand = async (sensorGroupId) => {
+    try {
+      await putSensorLog({ sensorGroupId }).then((data) => {
+        if (data.code === "SUCCESS") {
+          showToast.success("처리되었습니다.");
+        }
+      });
+    } catch (error) {
+      showToast.error(error?.response?.data?.message);
+    }
   };
 
   useEffect(() => {
@@ -138,7 +167,24 @@ const SensorList = ({ sensorGroups, refetch }) => {
                   <Stack sx={{ width: "220px", maxWidth: "220px" }}>
                     {group.sensorGroupId}
                   </Stack>
-                  <Stack>{`(SSID) ${group.ssid ?? "-"}`}</Stack>
+                  <Stack
+                    flexDirection={"row"}
+                    justifyContent={"flex-end"}
+                    flex={1}
+                  >
+                    <Button
+                      onClick={() => handleClickGCommand(group.sensorGroupId)}
+                      size="small"
+                    >
+                      G명령
+                    </Button>
+                    <Button
+                      onClick={() => handleClickPostLog(group.sensorGroupId)}
+                      size="small"
+                    >
+                      로그수집
+                    </Button>
+                  </Stack>
                 </Stack>
                 {group.sensors.map((sensor) => {
                   const selected = sensor.sensorId === selectedSensor?.sensorId;

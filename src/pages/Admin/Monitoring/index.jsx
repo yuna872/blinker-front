@@ -19,7 +19,12 @@ const AdminMonitoring = () => {
     onlyFaulty ?? false
   );
 
-  const sensors = sensorGroups?.flatMap((v) => v.sensors);
+  const sensors = sensorGroups?.flatMap((group) =>
+    group.sensors.map((sensor) => ({
+      ...sensor,
+      groupOrder: group.order, // order 값 추가
+    }))
+  );
 
   return (
     <Stack

@@ -8,6 +8,7 @@ import {
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  CustomOverlayMap,
   Map,
   MapMarker,
   MapTypeId,
@@ -157,27 +158,47 @@ const AdminKakaoMap = ({ sensors }) => {
                   const selected =
                     sensor?.sensorId === selectedSensor?.sensorId;
                   return (
-                    <MapMarker
-                      key={`${sensor.latitude}-${sensor.longitude}-${sensor.sensorId}`}
-                      position={{
-                        lat: sensor.latitude,
-                        lng: sensor.longitude,
-                      }}
-                      image={{
-                        src: sensor.needUpdate
-                          ? yellowMarker
-                          : sensor.status === "정상"
-                            ? greenMarker
-                            : redMarker,
-                        size: {
-                          width: selected ? 70 : 40,
-                          height: selected ? 70 : 40,
-                        },
-                      }}
-                      onClick={() => handleClickMarker(sensor)}
-                    >
-                      {selected && <InfoWindow />}
-                    </MapMarker>
+                    <>
+                      <MapMarker
+                        key={`${sensor.latitude}-${sensor.longitude}-${sensor.sensorId}`}
+                        position={{
+                          lat: sensor.latitude,
+                          lng: sensor.longitude,
+                        }}
+                        image={{
+                          src: sensor.needUpdate
+                            ? yellowMarker
+                            : sensor.status === "정상"
+                              ? greenMarker
+                              : redMarker,
+                          size: {
+                            width: selected ? 70 : 40,
+                            height: selected ? 70 : 40,
+                          },
+                        }}
+                        onClick={() => handleClickMarker(sensor)}
+                      >
+                        {selected && <InfoWindow />}
+                      </MapMarker>
+                      <CustomOverlayMap
+                        position={{
+                          lat: sensor.latitude,
+                          lng: sensor.longitude,
+                        }}
+                        xAnchor={0.5} // 좌우 기준 가운데 정렬
+                        yAnchor={1.8} // 위아래 기준 가운데 정렬 (기본은 1)
+                      >
+                        <div
+                          style={{
+                            fontSize: "15px",
+                            fontWeight: "bold",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          {`${sensor.groupOrder}-${sensor.groupPositionNumber}`}
+                        </div>
+                      </CustomOverlayMap>
+                    </>
                   );
                 })}
               </MarkerClusterer>
